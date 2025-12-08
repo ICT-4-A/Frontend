@@ -9,7 +9,8 @@ const MovieLog = () => {
     <div className="movieLog">
         <div id="carouselExampleInterval" className="carousel slide" data-bs-interval="1000">
         <div className="carousel-inner">
-            <h1>하이</h1>
+            <h1 style={{color:"white"}}>하이</h1>
+            <h2> 바이</h2>
             {/* 좌우 이미지 슬라이드 버튼  */}
             <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
               <span className="carousel-control-prev-icon" aria-hidden="true"></span>
