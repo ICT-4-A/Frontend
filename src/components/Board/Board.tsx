@@ -1,6 +1,7 @@
 // src/components/Board.tsx
 import React from "react";
 import "../Board/Board.css";
+import { Link } from "react-router-dom";
 
 const Board = () => {
   return (
@@ -22,7 +23,7 @@ const Board = () => {
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>주말에 보기 좋은 영화 추천 부탁드려요</td>
+                    <td><Link to="/BoardDetail.tsx">주말에 보기 좋은 영화 추천 부탁드려요</Link></td>
                     <td>test1</td>
                     <td>2025-10-18</td>
                     <td>0</td>
