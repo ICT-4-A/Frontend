@@ -20,6 +20,7 @@ const Board = () => {
             </thead>  
 
             <tbody>
+                <tr><td>Hi</td></tr>
                 <tr>
                     <th scope="row">1</th>
                     <td>주말에 보기 좋은 영화 추천 부탁드려요</td>
