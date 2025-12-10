@@ -1,0 +1,103 @@
+.detail-wrapper {
+  width: 70%;
+  margin: 40px auto;
+}
+
+.detail-box {
+  border-top: 2px solid #003366;
+  padding: 20px;
+}
+
+.detail-row {
+  display: flex;
+  padding: 12px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.detail-label {
+  width: 120px;
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-value {
+  flex: 1;
+}
+
+.detail-content-area {
+  padding: 20px 0;
+  border-bottom: 1px solid #eee;
+  line-height: 1.6;
+}
+
+.detail-buttons {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.btn-gray {
+  padding: 8px 14px;
+  background: #ddd;
+  border-radius: 4px;
+  color: #333;
+  text-decoration: none;
+}
+/* 댓글 입력 */
+.comment-write {
+  margin-top: 40px;
+  border-top: 2px solid #003366;
+  padding-top: 20px;
+}
+
+.comment-write textarea {
+  width: 100%;
+  height: 90px;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  resize: none;
+  font-size: 15px;
+}
+
+.comment-btn {
+  margin-top: 10px;
+  padding: 8px 18px;
+  background: #003366;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: right;
+}
+
+/* 댓글 목록 */
+.comment-list {
+  margin-top: 50px;
+}
+
+.comment-list h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.comment-item {
+  border-bottom: 1px solid #eee;
+  padding: 14px 0;
+}
+
+.comment-nick {
+  font-weight: bold;
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+
+.comment-content {
+  font-size: 15px;
+  margin-bottom: 6px;
+}
+
+.comment-date {
+  font-size: 13px;
+  color: #888;
+}

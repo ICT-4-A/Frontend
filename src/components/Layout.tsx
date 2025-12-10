@@ -37,7 +37,7 @@ const Layout: React.FC<LayoutProps> = ({children}) => {
             borderRadius: '0 0 8px 8px',
             textAlign:'center'
         }}>
-          <div> Hi ~ </div>
+          <div></div>
       </footer>
     </div>
   )

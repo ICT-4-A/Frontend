@@ -7,7 +7,10 @@ import Board from '../contents/Board/Board'
 import Mypage from '../contents/Mypage/MyPage'
 import { Route, Routes } from 'react-router-dom'
 import MovieLog from '../contents/MovieLog/MovieLog'
+
+import BoardDetail from '../contents/Board/BoardDetail'
 import MovieForm from '../contents/MovieLog/MovieForm'
+
 
 const AppRoutes: React.FC = () => {
 
@@ -19,7 +22,8 @@ const AppRoutes: React.FC = () => {
         {path : '/movielog', element:<MovieLog />},
         {path : '/movieform', element:<MovieForm />},
         {path : '/board', element:<Board />},
-        {path : '/mypage', element:<Mypage />}
+        {path : '/mypage', element:<Mypage />},
+        {path : '/board/detail', element:<BoardDetail  />},
 
     ]
 
