@@ -59,7 +59,7 @@ const Navbar: React.FC = () => {
 
             <li className="nav-item">
               <Link className="nav-link" to="/mypage">
-                마이페이지
+                마이
               </Link>
             </li>
           </ul>
