@@ -42,7 +42,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               로그인
             </Link>
             <Link to="/signup" style={{ color: 'black', fontSize: '13px' }}>
-              회원가입
+              회원
             </Link>
           </div>
         </div>
