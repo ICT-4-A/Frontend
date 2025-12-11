@@ -70,7 +70,7 @@ const Board = () => {
             {/* 일반 게시글 */}
             <tr>
               <th scope="row">8</th>
-              <td><Link to="/board/detail">재밌는 90년대 한국 영화 추천해주세요</Link></td>
+              <td>재밌는 90년대 한국 영화 추천해주세요</td>
               <td>무비러버</td>
               <td>2025-12-11</td>
               <td>2</td>
