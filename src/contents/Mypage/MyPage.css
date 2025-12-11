@@ -1,0 +1,162 @@
+/* 전체 레이아웃: 왼쪽 사이드바 + 오른쪽 컨텐츠 */
+.mypage-wrapper {
+    max-width: 1100px;
+    margin: 20px auto 60px;
+    display: flex;
+    gap: 24px;
+    font-family: "Pretendard", sans-serif;
+    color: #333;
+  }
+  
+  /* ===== 왼쪽 사이드바 ===== */
+  .mypage-sidebar {
+    width: 260px;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 24px 20px;
+  }
+  
+  .mypage-profile {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .mypage-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #f1f3f5;
+    margin: 0 auto 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .mypage-name {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  /* 사이드 메뉴 */
+  .mypage-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding: 8px 4px;
+    text-align: left;
+    font-size: 14px;
+    color: #495057;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  
+  .menu-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .menu-item.active {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    font-weight: 600;
+  }
+  
+  .menu-icon {
+    width: 20px;
+    text-align: center;
+  }
+  
+  /* ===== 오른쪽 메인 영역 ===== */
+  .mypage-main {
+    flex: 1;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    padding: 24px 28px 20px;
+  }
+  
+  .mypage-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+  
+  /* Bootstrap table과 조합 */
+  .mypage-table {
+    width: 100%;
+    border-top: 1px solid #dee2e6;
+  }
+  
+  .mypage-table thead th {
+    border-bottom: 1px solid #dee2e6;
+    font-size: 14px;
+    color: #6c757d;
+  }
+  
+  .mypage-table tbody td {
+    border-top: 1px solid #f1f3f5;
+    font-size: 14px;
+  }
+  
+  /* 각 행의 영화 정보 레이아웃 */
+  .mypage-movie-row {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+  }
+  
+  .mypage-poster {
+    width: 70px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  
+  /* 영화 텍스트 영역 */
+  .mypage-movie-info {
+    flex: 1;
+  }
+  
+  .mypage-movie-title {
+    font-weight: 600;
+    font-size: 15px;
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  
+  .mypage-movie-title .year {
+    font-size: 13px;
+    color: #868e96;
+  }
+  
+  /* 장르 배지 (부트스트랩 badge 느낌) */
+  .badge-btn {
+    border: none;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    font-size: 11px;
+  }
+  
+  /* 한 줄 설명 */
+  .mypage-movie-desc {
+    font-size: 13px;
+    color: #495057;
+  }
+  
