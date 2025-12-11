@@ -6,10 +6,11 @@ import DirecetorFilter from '../contents/Filter/DirectorFilter'
 import Board from '../contents/Board/Board'
 import Mypage from '../contents/Mypage/MyPage'
 import { Route, Routes } from 'react-router-dom'
-import MovieLog from '../contents/MovieLog/MovieLog'
+import MovieLog from '../contents/Movie/MovieMain'
 
 import BoardDetail from '../contents/Board/BoardDetail'
-import MovieForm from '../contents/MovieLog/MovieForm'
+import MovieForm from '../contents/Movie/MovieForm'
+import MovieDetail from '../contents/Movie/MovieDetail'
 
 
 const AppRoutes: React.FC = () => {
@@ -20,10 +21,12 @@ const AppRoutes: React.FC = () => {
         {path : '/actor', element:<ActorFilter />},
         {path : '/director', element:<DirecetorFilter />},
         {path : '/movielog', element:<MovieLog />},
+        {path : '/movielog/detail', element:<MovieDetail  />},
         {path : '/movieform', element:<MovieForm />},
         {path : '/board', element:<Board />},
         {path : '/mypage', element:<Mypage />},
         {path : '/board/detail', element:<BoardDetail  />},
+        
 
     ]
 
