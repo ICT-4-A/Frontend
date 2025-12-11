@@ -1,0 +1,60 @@
+.filter-container,
+.genre-container {
+  width: 60%;
+  margin: 30px auto;
+}
+
+/* 검색창 */
+.search-box {
+  position: relative;
+  width: 250px;
+  margin-left: auto; 
+  margin-bottom: 15px;
+}
+
+.search-box input,
+.search-box .form-control {
+  padding-left: 35px;
+}
+
+.search-box .search-icon {
+  position: absolute;
+  top: 50%; left: 10px;
+  width: 18px; height: 18px;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+/* 필터링 버튼 */
+.filter-buttons,
+.genre-buttons,
+.tag-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filter-btn,
+.genre-btn,
+.tag {
+  background: #f1f1f1;
+  border: none; border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.filter-btn:hover,
+.genre-btn:hover,
+.tag:hover {
+  background: #4a90e2;
+  color: white;
+}
+
+/* .filter-btn.active,
+.genre-btn.active,
+.tag.active {
+  background: #4a90e2;
+  color: white;
+} */
