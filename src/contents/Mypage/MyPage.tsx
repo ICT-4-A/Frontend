@@ -1,12 +1,250 @@
-// src/components/Mypage.tsx
-import React from "react";
+// src/components/MyPage/MyPage.tsx
+import React, { useState } from "react";
+import "./MyPage.css";
 
-const Mypage = () => {
+type MenuKey = "profile" | "movies" | "posts" | "inquiry" | "stats";
+
+const MyPage: React.FC = () => {
+  const [selectedMenu, setSelectedMenu] = useState<MenuKey>("movies");
+
   return (
-    <div>
-      <h3>마이페이지</h3>
+    <div className="mypage-wrapper">
+      {/* 왼쪽 사이드바 */}
+      <aside className="mypage-sidebar">
+        <div className="mypage-profile">
+          <div className="mypage-avatar">
+            <span>JS</span>
+          </div>
+          <div className="mypage-name">테스트1</div>
+        </div>
+
+        <nav className="mypage-menu">
+          <button
+            className={`menu-item ${
+              selectedMenu === "profile" ? "active" : ""
+            }`}
+            onClick={() => setSelectedMenu("profile")}
+          >
+            <span className="menu-icon">👤</span>
+            <span>회원정보 수정</span>
+          </button>
+
+          <button
+            className={`menu-item ${selectedMenu === "movies" ? "active" : ""}`}
+            onClick={() => setSelectedMenu("movies")}
+          >
+            <span className="menu-icon">🎬</span>
+            <span>작성한 영화 기록</span>
+          </button>
+
+          <button
+            className={`menu-item ${selectedMenu === "posts" ? "active" : ""}`}
+            onClick={() => setSelectedMenu("posts")}
+          >
+            <span className="menu-icon">📝</span>
+            <span>작성한 게시글</span>
+          </button>
+
+          <button
+            className={`menu-item ${
+              selectedMenu === "inquiry" ? "active" : ""
+            }`}
+            onClick={() => setSelectedMenu("inquiry")}
+          >
+            <span className="menu-icon">💬</span>
+            <span>관리자 문의</span>
+          </button>
+
+          <button
+            className={`menu-item ${selectedMenu === "stats" ? "active" : ""}`}
+            onClick={() => setSelectedMenu("stats")}
+          >
+            <span className="menu-icon">📊</span>
+            <span>장르 통계</span>
+          </button>
+        </nav>
+      </aside>
+
+      {/* 오른쪽 메인 영역: 선택된 메뉴에 따라 내용 변경 */}
+      <section className="mypage-main">
+        {selectedMenu === "profile" && <ProfileSection />}
+        {selectedMenu === "movies" && <MovieListSection />}
+        {selectedMenu === "posts" && <PostListSection />}
+        {selectedMenu === "inquiry" && <InquirySection />}
+        {selectedMenu === "stats" && <StatsSection />}
+      </section>
     </div>
   );
 };
 
-export default Mypage;
+export default MyPage;
+
+/* ====== 아래는 같은 파일 안에 서브 컴포넌트들 ====== */
+
+const ProfileSection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">마이페이지</h2>
+    {/* 간단한 placeholder */}
+    <p>회원정보 수정 폼 들어갈 자리입니다.</p>
+  </>
+);
+
+const MovieListSection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">마이페이지</h2>
+
+    <table className="table mypage-table align-middle">
+      <thead>
+        <tr>
+          <th style={{ width: "60px" }}>No</th>
+          <th>영화</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3</td>
+          <td>
+            <div className="mypage-movie-row">
+              <img
+                src="/images/poster2.jpg"
+                className="mypage-poster"
+                alt="위키드"
+              />
+              <div className="mypage-movie-info">
+                <div className="mypage-movie-title">
+                  위키드: 포 굿 <span className="year">2025</span>
+                  <button className="badge-btn">판타지</button>
+                </div>
+                <div className="mypage-movie-desc">
+                  시즌1보다 아쉽지만 그래도 재밌었어요
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>2</td>
+          <td>
+            <div className="mypage-movie-row">
+              <img
+                src="/images/poster3.jpg"
+                className="mypage-poster"
+                alt="주토피아 2"
+              />
+              <div className="mypage-movie-info">
+                <div className="mypage-movie-title">
+                  주토피아 2 <span className="year">2025</span>
+                  <button className="badge-btn">애니메이션</button>
+                </div>
+                <div className="mypage-movie-desc">
+                  남녀노소를 불문하고 즐길 수 있는 영화
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td>1</td>
+          <td>
+            <div className="mypage-movie-row">
+              <img
+                src="/images/poster1.jpg"
+                className="mypage-poster"
+                alt="겨울왕국 2"
+              />
+              <div className="mypage-movie-info">
+                <div className="mypage-movie-title">
+                  겨울왕국 2 <span className="year">2025</span>
+                  <button className="badge-btn">애니메이션</button>
+                </div>
+                <div className="mypage-movie-desc">
+                  노래도 좋고, 너무 재밌게 봤다
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </>
+);
+
+const PostListSection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">마이페이지</h2>
+
+    <table className="table mypage-table align-middle">
+      <thead>
+        <tr>
+          <th style={{ width: "60px" }}>No</th>
+          <th>제목</th>
+          <th style={{ width: "140px" }}>날짜</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3</td>
+          <td>코미디 장르 영화 추천해주세요</td>
+          <td>2025-11-29</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>인생 영화 하나만 추천해주세요</td>
+          <td>2025-11-23</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>주말에 가볍게 볼 영화 찾습니다, 추천 좀!</td>
+          <td>2025-11-19</td>
+        </tr>
+      </tbody>
+    </table>
+  </>
+);
+
+const InquirySection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">마이페이지</h2>
+
+    <table className="table mypage-table align-middle">
+      <thead>
+        <tr>
+          <th style={{ width: "60px" }}>No</th>
+          <th>제목</th>
+          <th style={{ width: "100px" }}>상태</th>
+          <th style={{ width: "140px" }}>등록일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>3</td>
+          <td>서비스 이용 중 오류가 발생했습니다</td>
+          <td className="text-success">답변 대기</td>
+          <td>2025-11-29</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>계정 또는 로그인 관련 문의</td>
+          <td className="text-success">답변 대기</td>
+          <td>2025-11-23</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>기타 시스템 사용 관련 문의</td>
+          <td className="text-danger">답변 완료</td>
+          <td>2025-11-19</td>
+        </tr>
+      </tbody>
+    </table>
+  </>
+);
+
+const StatsSection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">마이페이지</h2>
+    <div className="stats-placeholder">장르 통계 차트가 들어갈 자리입니다.</div>
+    <img src="/images/chart.png" alt="" />
+  </>
+);
