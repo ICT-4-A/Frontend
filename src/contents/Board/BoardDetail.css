@@ -37,9 +37,9 @@
 
 .btn-gray {
   padding: 8px 14px;
+  color: #333;
   background: #ddd;
   border-radius: 4px;
-  color: #333;
   text-decoration: none;
 }
 /* 댓글 입력 */
@@ -74,29 +74,24 @@
 .comment-list {
   margin-top: 50px;
 }
-
 .comment-list h3 {
   margin-bottom: 20px;
   font-size: 18px;
   font-weight: 600;
 }
-
 .comment-item {
   border-bottom: 1px solid #eee;
   padding: 14px 0;
 }
-
 .comment-nick {
   font-weight: bold;
   font-size: 14px;
   margin-bottom: 6px;
 }
-
 .comment-content {
   font-size: 15px;
   margin-bottom: 6px;
 }
-
 .comment-date {
   font-size: 13px;
   color: #888;

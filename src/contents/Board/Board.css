@@ -1,8 +1,88 @@
-table th, table td {
+.board-container {
+    width: 60%;
+    margin: 40px auto;
+}
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.board-actions {
+    display: flex;
+    gap: 10px;
+}
+.table-wrapper {
+    width: 100%;
+    position: relative;
+    margin-top: 20px;
+}
+.board-table {
+    width: 100%;
+    background: white;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+tr.hot-row > th,
+tr.hot-row > td {
+    background-color: #c4e2ff41 !important;
+}
+
+table th,
+table td {
     text-align: center;
     vertical-align: middle;
 }
-.table.board-table {
-    width: 55%;
-    margin: 0 auto;
+
+.hot-badge {
+    border: 1px solid #007bff ;
+    color: #007bff;
+    padding: 1px 6px;
+    border-radius: 20px;
+}
+
+.table a {
+    color: black;
+    text-decoration: none;
+}
+
+.pagination-wrapper {
+    margin-top: 20px;
+}
+
+/* 검색창 */
+.search-box {
+  position: relative;
+  width: 240px;
+}
+.search-box input {
+  padding-left: 35px;
+}
+.search-box .search-icon {
+  position: absolute;
+  top: 50%; left: 10px;
+  width: 18px; height: 18px;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+.write-btn-box {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.write-btn-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 10px;
+}
+
+.write-btn {
+    padding: 8px 15px;
+    font-weight: 500;
+}
+
+.pagination-box {
+    margin-top: 35px;
 }
