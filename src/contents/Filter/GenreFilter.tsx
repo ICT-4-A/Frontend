@@ -36,6 +36,7 @@ const GenreFilter = () => {
                 className="img-fluid rounded-start poster-img"
                 alt="포스터4"
               />
+              
             </div>
             <div className="col-md-9">
               <div className="card-body">
