@@ -1,6 +1,7 @@
 // src/components/MyPage/MyPage.tsx
 import React, { useState } from "react";
 import "./MyPage.css";
+import { Link } from "react-router-dom";
 
 type MenuKey = "profile" | "movies" | "posts" | "inquiry" | "stats";
 
@@ -112,7 +113,8 @@ const MovieListSection: React.FC = () => (
               />
               <div className="mypage-movie-info">
                 <div className="mypage-movie-title">
-                  위키드: 포 굿 <span className="year">2025</span>
+                  <Link to="/movielog/detail"> 위키드: 포 굿 </Link>
+                  <span className="year">2025</span>
                   <button className="badge-btn">판타지</button>
                 </div>
                 <div className="mypage-movie-desc">
@@ -186,7 +188,11 @@ const PostListSection: React.FC = () => (
       <tbody>
         <tr>
           <td>3</td>
-          <td>코미디 장르 영화 추천해주세요</td>
+          <td>
+            <Link to="/board/detail1">
+              주말에 보기 좋은 영화 추천 부탁드려요
+            </Link>
+          </td>
           <td>2025-11-29</td>
         </tr>
         <tr>
@@ -206,7 +212,14 @@ const PostListSection: React.FC = () => (
 
 const InquirySection: React.FC = () => (
   <>
-    <h2 className="mypage-title">마이페이지</h2>
+    <div className="mypage-main-header">
+      <h2 className="mypage-title">마이페이지</h2>
+
+      {/* 글쓰기 버튼 */}
+      <Link to="/mypage/toadminform">
+        <button className="mypage-write-btn">글쓰기</button>
+      </Link>
+    </div>
 
     <table className="table mypage-table align-middle">
       <thead>
@@ -220,20 +233,26 @@ const InquirySection: React.FC = () => (
       <tbody>
         <tr>
           <td>3</td>
-          <td>서비스 이용 중 오류가 발생했습니다</td>
-          <td className="text-success">답변 대기</td>
+
+          <td>
+            <Link to="/mypage/toadmindetail">
+              서비스 이용 중 오류가 발생했습니다
+            </Link>
+          </td>
+
+          <td className="text-success">답변 완료</td>
           <td>2025-11-29</td>
         </tr>
         <tr>
           <td>2</td>
           <td>계정 또는 로그인 관련 문의</td>
-          <td className="text-success">답변 대기</td>
+          <td className="text-danger">답변 대기</td>
           <td>2025-11-23</td>
         </tr>
         <tr>
           <td>1</td>
           <td>기타 시스템 사용 관련 문의</td>
-          <td className="text-danger">답변 완료</td>
+          <td className="text-success">답변 완료</td>
           <td>2025-11-19</td>
         </tr>
       </tbody>
@@ -244,7 +263,51 @@ const InquirySection: React.FC = () => (
 const StatsSection: React.FC = () => (
   <>
     <h2 className="mypage-title">마이페이지</h2>
-    <div className="stats-placeholder">장르 통계 차트가 들어갈 자리입니다.</div>
-    <img src="/images/chart.png" alt="" />
+
+    <div className="stats-card">
+      <p className="stats-desc">장르 통계 차트가 들어갈 자리입니다.</p>
+
+      <div className="stats-chart">
+        <div className="stats-bar">
+          <div
+            className="stats-bar-inner bg-primary"
+            style={{ height: "55px" }}
+          />
+          <span className="stats-label">액션</span>
+        </div>
+        <div className="stats-bar">
+          <div
+            className="stats-bar-inner bg-success"
+            style={{ height: "30px" }}
+          />
+          <span className="stats-label">코미디</span>
+        </div>
+        <div className="stats-bar">
+          <div className="stats-bar-inner bg-info" style={{ height: "75px" }} />
+          <span className="stats-label">로맨스</span>
+        </div>
+        <div className="stats-bar">
+          <div
+            className="stats-bar-inner bg-warning"
+            style={{ height: "45px" }}
+          />
+          <span className="stats-label">공포/스릴러</span>
+        </div>
+        <div className="stats-bar">
+          <div
+            className="stats-bar-inner bg-danger"
+            style={{ height: "90px" }}
+          />
+          <span className="stats-label">SF/판타지</span>
+        </div>
+        <div className="stats-bar">
+          <div
+            className="stats-bar-inner bg-secondary"
+            style={{ height: "50px" }}
+          />
+          <span className="stats-label">애니메이션</span>
+        </div>
+      </div>
+    </div>
   </>
 );
