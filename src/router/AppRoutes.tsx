@@ -14,6 +14,7 @@ import MovieDetail from '../contents/Movie/MovieDetail'
 import Board from '../contents/Board/Board'
 import BoardDetail1 from '../contents/Board/BoardDetail1'
 import BoardDetail2 from '../contents/Board/BoardDetail2'
+import BoardForm from '../contents/Board/BoardForm'
 
 
 
@@ -33,6 +34,7 @@ const AppRoutes: React.FC = () => {
         {path : '/mypage', element:<Mypage />},
         {path : '/board/detail1', element:<BoardDetail1  />},
         {path : '/board/detail2', element:<BoardDetail2  />},
+        {path : '/board/write', element:<BoardForm  />},
         {path : '/mypage', element:<Mypage />}
     ]
 
