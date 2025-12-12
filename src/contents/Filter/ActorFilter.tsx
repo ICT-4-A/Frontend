@@ -46,7 +46,9 @@ const ActorFilter = () => {
             <div className="col-md-9">
               <div className="card-body">
                 <div className="movie-title-row">
-                  <h5 className="card-title">소주전쟁 2025</h5>
+                  <h5 className="card-title">
+                    <a href="/movielog/detail4">소주전쟁 2025</a>
+                  </h5>
                   <button className="movieDetail-genreTag">코미디</button>
                 </div>
                 <p className="card-text">

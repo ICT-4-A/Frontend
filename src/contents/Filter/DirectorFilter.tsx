@@ -47,7 +47,9 @@ const DirectorFilter = () => {
             <div className="col-md-9">
               <div className="card-body">
                 <div className="movie-title-row">
-                  <h5 className="card-title">옥자 2017</h5>
+                  <h5 className="card-title">
+                    <a href="/movielog/detail3">옥자 2017</a>
+                  </h5>
                   <button className="movieDetail-genreTag">코미디</button>
                 </div>
                 <p className="card-text">
