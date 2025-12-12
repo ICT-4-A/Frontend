@@ -46,17 +46,42 @@
   box-shadow: none;
 }
 
-
-/* 페이지네이션: 가운데 정렬 */
-.pagination {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 0;
+/* 링크 방문 후 밑줄 제거, 색 변경 제거 */
+.a, a:link, a:visited {
+    color: black;
+    text-decoration-line: none;
 }
 
-.movieLog-pagination-wrapper {
+
+/* 페이지네이션 */
+.movieLog-pagination {
   display: flex;
-  justify-content: center;   /* 가운데 정렬 */
+  justify-content: center;
+  margin: 20px 0;
+}
+.movieLog-pagination-list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  gap: 4px;
+}
+.page-btn {
+  padding: 6px 12px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+  color: #495057;
+  font-size: 14px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.page-btn:hover {
+  background-color: #f1f3f5;
+}
+.page-btn.active {
+  background-color: #0d6efd;
+  color: #ffffff;
+  border-color: #0d6efd;
+  font-weight: 600;
 }
 
 /* 3번: 맨 아래 footer (페이지네이션 + +버튼) */
@@ -88,8 +113,6 @@
   transform: translateY(-50%);  /* 버튼 자체를 세로 가운데로 */
 }
 
-
-
 .fab-btn:hover {
   transform: scale(1.1);
   background-color: #1153ce;
@@ -102,26 +125,15 @@
   object-fit: cover; /* 비율 유지하면서 빈 공간 없이 잘라줌 */
 }
 
-.movieLog-search {
+.movieDetail-user-info{
+  margin: 10px 10px 10px 10px;
+}
+.movieDetail-genreTag{
+  margin-left: 10px;
+}
+/* 영화 기록 카드 영화제목, 연도, 장르 */
+.movie-title-row {
   display: flex;
-  justify-content: flex-end;
-  margin-bottom: 16px;
-}
-
-.movieLog-search-input {
-  width: 220px;
-  padding: 6px 10px;
-  border: 1px solid #d0d0d0;
-  border-radius: 20px 0 0 20px;
-  font-size: 14px;
-}
-
-.movieLog-search-btn {
-  padding: 6px 12px;
-  border: 1px solid #d0d0d0;
-  border-left: none;
-  border-radius: 0 20px 20px 0;
-  background-color: #ffffff;
-  cursor: pointer;
-  font-size: 14px;
+  align-items: center;
+  gap: 8px;
 }

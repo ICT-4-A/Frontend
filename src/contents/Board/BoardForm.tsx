@@ -36,7 +36,6 @@ const BoardForm = () => {
             </div>
             {/* 버튼 */}
             <div className="button-group">
-                <button className="btn btn-secondary temp-btn">임시 저장</button>
                 <button className="btn btn-primary submit-btn">등록하기</button>
                 <button className="btn btn-danger cancel-btn">취소</button>
             </div>
