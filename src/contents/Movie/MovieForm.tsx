@@ -25,8 +25,9 @@ const MovieForm = () => {
           <option>액션</option>
           <option>코미디</option>
           <option>로맨스</option>
-          <option>SF</option>
-          <option>공포</option>
+          <option>공포/스릴러</option>
+          <option>SF/판타지</option>
+          <option>애니메이션</option>
         </select>
 
         {/* 예시 태그 (정적 UI) */}
@@ -53,15 +54,22 @@ const MovieForm = () => {
       <label className="label">개봉일</label>
       <div className="row-flex">
         <select className="select-box">
-          <option>2025</option>
-          <option>2024</option>
           <option>2023</option>
+          <option>2024</option>
+          <option>2025</option>
         </select>
 
         <select className="select-box">
           <option>1월</option>
           <option>2월</option>
           <option>3월</option>
+          <option>4월</option>
+          <option>5월</option>
+          <option>6월</option>
+          <option>7월</option>
+          <option>8월</option>
+          <option>10월</option>
+          <option>11월</option>
           <option>12월</option>
         </select>
       </div>
@@ -74,9 +82,19 @@ const MovieForm = () => {
       <label className="label">감상평</label>
       <textarea className="textarea" placeholder="감상평을 입력하세요"></textarea>
 
+      {/* 별점 UI */}
+      <label className="label">별점</label>
+      <div className="star-rating">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+      </div>
+
       <label className="label">포스터 사진 첨부</label>
 
-      {/* 파일 input */}
+      {/* 포스터 사진 첨부 */}
       <input
         type="file"
         accept="image/*"
