@@ -7,7 +7,6 @@ import Mypage from "../contents/Mypage/MyPage";
 import { Route, Routes } from "react-router-dom";
 import MovieLog from "../contents/Movie/MovieMain";
 
-import BoardDetail from "../contents/Board/BoardDetail1";
 import MovieForm from "../contents/Movie/MovieForm";
 import MovieDetail from "../contents/Movie/MovieDetail";
 import MovieDetail2 from "../contents/Movie/MovieDetail2";
