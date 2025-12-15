@@ -85,8 +85,64 @@ export default MyPage;
 const ProfileSection: React.FC = () => (
   <>
     <h2 className="mypage-title">마이페이지</h2>
-    {/* 간단한 placeholder */}
-    <p>회원정보 수정 폼 들어갈 자리입니다.</p>
+
+    <div className="profile-card">
+      <p className="profile-desc">회원정보를 수정할 수 있는 페이지입니다.</p>
+
+      <form className="profile-form">
+        {/* 비밀번호 변경 */}
+        <div className="profile-field">
+          <label htmlFor="newPassword" className="profile-label">
+            바꿀 비밀번호
+          </label>
+          <input
+            type="password"
+            id="newPassword"
+            name="newPassword"
+            className="form-control profile-input"
+            placeholder="새 비밀번호를 입력해주세요."
+          />
+        </div>
+
+        {/* 비밀번호 확인 */}
+        <div className="profile-field">
+          <label htmlFor="newPasswordConfirm" className="profile-label">
+            비밀번호 확인
+          </label>
+          <input
+            type="password"
+            id="newPasswordConfirm"
+            name="newPasswordConfirm"
+            className="form-control profile-input"
+            placeholder="새 비밀번호를 한 번 더 입력해주세요."
+          />
+        </div>
+
+        {/* 선호 장르 변경 */}
+        <div className="profile-field">
+          <label htmlFor="favoriteGenreEdit" className="profile-label">
+            선호 영화 장르
+          </label>
+          <select
+            id="favoriteGenreEdit"
+            name="favoriteGenreEdit"
+            className="form-select profile-input"
+            defaultValue="액션"
+          >
+            <option value="액션">액션</option>
+            <option value="코미디">코미디</option>
+            <option value="로맨스">로맨스</option>
+            <option value="공포/스릴러">공포/스릴러</option>
+            <option value="SF/판타지">SF/판타지</option>
+            <option value="애니메이션">애니메이션</option>
+          </select>
+        </div>
+
+        <button type="submit" className="btn btn-primary profile-save-btn">
+          변경사항 저장
+        </button>
+      </form>
+    </div>
   </>
 );
 
@@ -265,8 +321,6 @@ const StatsSection: React.FC = () => (
     <h2 className="mypage-title">마이페이지</h2>
 
     <div className="stats-card">
-      <p className="stats-desc">장르 통계 차트가 들어갈 자리입니다.</p>
-
       <div className="stats-chart">
         <div className="stats-bar">
           <div
