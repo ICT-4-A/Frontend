@@ -8,17 +8,13 @@ const MovieLog = () => {
     <div className="movieLog-wrapper">
       <section className="movieLog-top">
         {/* 검색 폼 */}
-        <div className="movieLog-search">
-          <input
-            type="text"
-            className="movieLog-search-input"
-            placeholder="Search ..."
-          />
-          <button className="movieLog-search-btn" aria-label="검색">
-            🔍
-          </button>
+        <div className="filter-header-right">
+        <div className="search-box">
+          <img src="/icons/search.png" className="search-icon" alt="search" />
+          <input className="form-control" placeholder="Search..." />
         </div>
-      {/* 1. 상단 캐러셀 영역 */}
+      </div>
+        {/* 1. 상단 캐러셀 영역 */}
 
         <div
           id="carouselExampleInterval"
@@ -27,7 +23,6 @@ const MovieLog = () => {
           data-bs-interval="2000"
         >
           <div className="carousel-inner">
-
             <div className="carousel-item active">
               <img src="/images/poster1.jpg" alt="포스터1" />
             </div>
@@ -48,7 +43,10 @@ const MovieLog = () => {
             data-bs-target="#carouselExampleInterval"
             data-bs-slide="prev"
           >
-            <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-prev-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Previous</span>
           </button>
 
@@ -58,7 +56,10 @@ const MovieLog = () => {
             data-bs-target="#carouselExampleInterval"
             data-bs-slide="next"
           >
-            <span className="carousel-control-next-icon" aria-hidden="true"></span>
+            <span
+              className="carousel-control-next-icon"
+              aria-hidden="true"
+            ></span>
             <span className="visually-hidden">Next</span>
           </button>
         </div>
@@ -67,19 +68,32 @@ const MovieLog = () => {
       {/* 2. 하단 카드 리스트 영역 */}
       <section className="movieLog-list">
         {/* 카드 1 */}
-        <div className="card movieLog-card" >
+        <div className="card movieLog-card">
           <div className="row g-0">
             <div className="col-md-3">
               <img
                 src="/images/poster2.jpg"
                 className="img-fluid rounded-start poster-img"
                 alt="포스터2"
-                
               />
             </div>
             <div className="col-md-9">
               <div className="card-body">
-                <h5 className="card-title"><a href="/movielog/detail">위키드2: 포 굿 2025</a></h5>
+                <div className="movie-title-row">
+                  <h5 className="card-title">
+                    <a href="/movielog/detail">위키드2: 포 굿 2025</a>
+                  </h5>
+                  <button className="movieDetail-genreTag">판타지</button>
+                </div>
+                {/* 유저 프로필 */}
+                <div className="movieDetail-user">
+                  <div className="movieDetail-user-avatar">A</div>
+                  <div className="movieDetail-user-info">
+                    <div className="movieDetail-user-name">테스트1</div>
+                    <span className="movieDetail-tag">애니메이션</span>
+                  </div>
+                </div>
+
                 <p className="card-text">
                   최고의 명작! 시간 가는 줄 모르고 봤어요.
                 </p>
@@ -103,7 +117,20 @@ const MovieLog = () => {
             </div>
             <div className="col-md-9">
               <div className="card-body">
-                <h5 className="card-title">나우유씨미3</h5>
+                <div className="movie-title-row">
+                  <h5 className="card-title">나우유씨미3</h5>
+                  <button className="movieDetail-genreTag">판타지</button>
+                </div>
+
+                {/* 유저 프로필 */}
+                <div className="movieDetail-user">
+                  <div className="movieDetail-user-avatar">B</div>
+                  <div className="movieDetail-user-info">
+                    <div className="movieDetail-user-name">필름러버</div>
+                    <span className="movieDetail-tag">SF/판타지</span>
+                  </div>
+                </div>
+
                 <p className="card-text">
                   시즌1보다 아쉽지만 그래도 재밌었어요.
                 </p>
@@ -117,44 +144,32 @@ const MovieLog = () => {
       </section>
 
       <footer className="movieLog-footer">
-  {/* 왼쪽 빈 영역 */}
+        {/* 페이지네이션 */}
+        <nav aria-label="Page navigation example" className="movieLog-pagination-box">
+          <ul className="pagination justify-content-center">
+            <li className="page-item">
+              <a className="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li className="page-item"><a className="page-link" href="#">1</a></li>
+            <li className="page-item"><a className="page-link" href="#">2</a></li>
+            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
 
-
-  {/* 가운데 페이지네이션 */}
-
-    <nav aria-label="Page navigation" className="movieLog-pagination-wrapper">
-      <ul className="pagination">
-        <li className="page-item">
-          <button className="page-link" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
+        {/* 오른쪽 + 버튼 */}
+        <Link to="/movieform">
+          <button className="fab-btn" aria-label="영화 기록 작성">
+            +
           </button>
-        </li>
-        <li className="page-item active">
-          <button className="page-link">1</button>
-        </li>
-        <li className="page-item">
-          <button className="page-link">2</button>
-        </li>
-        <li className="page-item">
-          <button className="page-link">3</button>
-        </li>
-        <li className="page-item">
-          <button className="page-link" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </button>
-        </li>
-      </ul>
-    </nav>
-    
-
-  {/* 오른쪽 + 버튼 */}
-
-  <Link to="/movieform">
-    <button className="fab-btn" aria-label="영화 기록 작성">+</button>
-  </Link>
-
-</footer>
-
+        </Link>
+      </footer>
     </div>
   );
 };
