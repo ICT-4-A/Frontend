@@ -95,3 +95,22 @@
   font-size: 15px;
   cursor: pointer;
 }
+
+/* 별점 UI */
+.star-rating {
+  display: flex;
+  gap: 5px;
+  font-size: 26px;
+  cursor: pointer;
+  flex-direction: row; 
+  justify-content: flex-start; 
+}
+.star-rating span {
+  color: #dcdcdc;
+  transition: color 0.2s;
+}
+/* 별점 색칠 */
+.star-rating span:hover{
+  color: #ffc107;
+}
+
