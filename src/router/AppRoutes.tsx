@@ -14,6 +14,9 @@ import MovieDetail from '../contents/Movie/MovieDetail'
 import Board from '../contents/Board/Board'
 import BoardDetail1 from '../contents/Board/BoardDetail1'
 import BoardDetail2 from '../contents/Board/BoardDetail2'
+import Login from '../contents/Login/Login'
+import SignUp from '../contents/SignUp/SignUp'
+
 
 
 const AppRoutes: React.FC = () => {
@@ -22,7 +25,6 @@ const AppRoutes: React.FC = () => {
         {path : '/', element:<MovieLog />},
         {path : '/movielog', element:<MovieLog />},
         {path : '/movieform', element:<MovieForm />},
-
         {path : 'genre', element:<GenreFilter />},
         {path : '/actor', element:<ActorFilter />},
         {path : '/director', element:<DirecetorFilter />},
@@ -33,6 +35,8 @@ const AppRoutes: React.FC = () => {
         {path : '/mypage', element:<Mypage />},
         {path : '/board/detail1', element:<BoardDetail1  />},
         {path : '/board/detail2', element:<BoardDetail2  />},
+        {path : '/login', element:<Login />},
+        {path : '/signup', element:<SignUp />},
         
 
         {path : '/mypage', element:<Mypage />}
