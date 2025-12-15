@@ -1,0 +1,79 @@
+.login-wrapper {
+  max-width: 480px;
+  margin: 80px auto 100px;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+  color: #212529;
+}
+
+.login-title {
+  font-size: 40px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.login-form {
+  width: 100%;
+}
+
+.login-field {
+  margin-bottom: 22px;
+}
+
+.login-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+/* 인풋 공통 스타일 */
+.login-input {
+  background-color: #f8f9fa;
+  border-radius: 0;
+  border: 1px solid #dee2e6;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+/* 비밀번호 + 눈 아이콘 */
+.login-password-wrapper {
+  position: relative;
+}
+
+.login-password-wrapper .login-input {
+  padding-right: 40px;
+}
+
+.login-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #868e96;
+}
+
+/* 버튼 / 하단 텍스트 */
+.login-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+  font-size: 14px;
+  border-top: 1px solid #f1f3f5;
+  padding-top: 16px;
+}
+
+.login-link {
+  font-weight: 600;
+  color: #1c7ed6;
+  text-decoration: underline;
+}
