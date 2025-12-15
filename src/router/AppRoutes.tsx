@@ -20,25 +20,11 @@ import BoardDetail2 from "../contents/Board/BoardDetail2";
 import BoardForm from "../contents/Board/BoardForm";
 import ToAdminForm from "../contents/Mypage/ToAdminForm";
 import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
+import Login from "../contents/Login/Login";
+import SignUp from "../contents/SignUp/SignUp";
 
 const AppRoutes: React.FC = () => {
-  // const routeList = [
-  //   { path: "/", element: <MovieLog /> },
-  //   { path: "/movielog", element: <MovieLog /> },
-  //   { path: "/movieform", element: <MovieForm /> },
-  //   { path: "/genre", element: <GenreFilter /> },
-  //   { path: "/actor", element: <ActorFilter /> },
-  //   { path: "/director", element: <DirecetorFilter /> },
-  //   { path: "/movielog", element: <MovieLog /> },
-  //   { path: "/movielog/detail", element: <MovieDetail /> },
-  //   { path: "/movieform", element: <MovieForm /> },
-  //   { path: "/board", element: <Board /> },
-  //   { path: "/mypage", element: <Mypage /> },
-  //   { path: "/board/detail1", element: <BoardDetail1 /> },
-  //   { path: "/board/detail2", element: <BoardDetail2 /> },
-  //   { path: "/board/write", element: <BoardForm /> },
-  //   { path: "/mypage", element: <Mypage /> },
-  // ];
+
 
   const routeList = [
     { path: "/", element: <MovieLog /> },
@@ -61,6 +47,9 @@ const AppRoutes: React.FC = () => {
     { path: "/mypage", element: <Mypage /> },
     { path: "/mypage/toadminform", element: <ToAdminForm /> },
     { path: "/mypage/toadmindetail", element: <ToAdminDetail /> },
+
+    { path: "/login", element: <Login /> },
+    { path: "/signup", element: <SignUp /> },
   ];
 
   return (
