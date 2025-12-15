@@ -1,0 +1,91 @@
+.signup-wrapper {
+  max-width: 480px;
+  margin: 60px auto 80px;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui,
+    sans-serif;
+  color: #212529;
+}
+
+.signup-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.signup-form {
+  width: 100%;
+}
+
+.signup-field {
+  margin-bottom: 20px;
+}
+
+.signup-label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.signup-input {
+  background-color: #f8f9fa;
+  border-radius: 0;
+  border: 1px solid #dee2e6;
+  padding: 12px 14px;
+  font-size: 14px;
+}
+
+/* 비밀번호 + 아이콘 라인 */
+.signup-password-wrapper {
+  position: relative;
+}
+
+.signup-password-wrapper .signup-input {
+  padding-right: 40px;
+}
+
+.password-eye {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #868e96;
+}
+
+/* 안내 메시지 */
+.signup-msg {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+}
+
+.signup-msg.error {
+  color: #e03131;
+}
+
+.signup-msg.success {
+  color: #1c7ed6;
+}
+
+/* 버튼 / 하단 텍스트 */
+.signup-btn {
+  width: 100%;
+  padding: 12px 0;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.signup-footer {
+  text-align: center;
+  margin-top: 18px;
+  font-size: 14px;
+}
+
+.login-link {
+  font-weight: 600;
+  color: #1c7ed6;
+  text-decoration: underline;
+}
