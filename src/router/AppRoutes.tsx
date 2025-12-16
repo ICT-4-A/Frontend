@@ -1,7 +1,4 @@
 import React from "react";
-import GenreFilter from "../contents/Filter/GenreFilter";
-import ActorFilter from "../contents/Filter/ActorFilter";
-import DirecetorFilter from "../contents/Filter/DirectorFilter";
 
 import Mypage from "../contents/Mypage/MyPage";
 import { Route, Routes } from "react-router-dom";
@@ -22,6 +19,9 @@ import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
 import Login from "../contents/Login/Login";
 import SignUp from "../contents/SignUp/SignUp";
 import Diary from "../contents/Diary/Diary";
+import GenreSearch from "../contents/Search/GenreSearch";
+import DirectorSearch from "../contents/Search/DirectorSearch";
+import ActorSearch from "../contents/Search/ActorSearch";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -34,8 +34,10 @@ const AppRoutes: React.FC = () => {
     { path: "/movielog/detail4", element: <MovieDetail4 /> },
 
     { path: "/Diary", element: <Diary /> },
-    { path: "/actor", element: <ActorFilter /> },
-    { path: "/director", element: <DirecetorFilter /> },
+
+    { path: "/Search", element: <GenreSearch /> },
+    { path: "/Search/Director", element: <DirectorSearch /> },
+    { path: "/Search/Actor", element: <ActorSearch /> },
 
     { path: "/board", element: <Board /> },
     { path: "/board/detail1", element: <BoardDetail1 /> },

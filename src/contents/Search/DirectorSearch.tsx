@@ -1,20 +1,28 @@
-// src/contents/Filter/DirectorFilter.tsx
 import React from "react";
-import FilterTab from "./FilterTab";
-import "./Filter.css"
-
+import "./Search.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const directorList = [
-  "준추", "봉준호", "박찬욱", "제임스 카메론",
-  "리치 무어", "스티븐 스필버그", "크리스토퍼 놀란"
+  "준추",
+  "봉준호",
+  "박찬욱",
+  "제임스 카메론",
+  "리치 무어",
+  "스티븐 스필버그",
+  "크리스토퍼 놀란",
 ];
 
-const DirectorFilter = () => {
+const DirectorSearch: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 현재 URL 기준으로 어떤 탭이 활성인지 판별
+  const isGenre = location.pathname === "/Search";
+  const isDirector = location.pathname === "/Search/Director";
+  const isActor =
+    location.pathname === "/Search/Actor" || location.pathname === "/actor";
   return (
     <div className="filter-container">
-
-      <FilterTab active="director" />
-
       <div className="filter-header-right">
         <div className="search-box">
           <img src="/icons/search.png" className="search-icon" alt="search" />
@@ -22,10 +30,31 @@ const DirectorFilter = () => {
         </div>
       </div>
 
+      <div className="filter-tab-btn">
+        <button
+          className={`tab ${isGenre ? "active" : ""}`}
+          onClick={() => navigate("/Search")}
+        >
+          장르
+        </button>
+        <button
+          className={`tab ${isDirector ? "active" : ""}`}
+          onClick={() => navigate("/Search/Director")}
+        >
+          감독
+        </button>
+        <button
+          className={`tab ${isActor ? "active" : ""}`}
+          onClick={() => navigate("/Search/Actor")}
+        >
+          배우
+        </button>
+      </div>
+
       <div className="tag-scroll-box">
         <div className="tag-list">
           {directorList.map((t1) => (
-            <button key={t1} className={t1 === "봉준호" ? "tag active" : "tag"}>
+            <button key={t1} className={t1 === "준추" ? "tag active" : "tag"}>
               {t1}
             </button>
           ))}
@@ -79,9 +108,7 @@ const DirectorFilter = () => {
                   <h5 className="card-title">기생충 2019</h5>
                   <button className="movieDetail-genreTag">공포/스릴러</button>
                 </div>
-                <p className="card-text">
-                  재밌네요. 배우들이 연기를 잘해요
-                </p>
+                <p className="card-text">재밌네요. 배우들이 연기를 잘해요</p>
                 <p className="card-text">
                   <small className="text-muted">★ 3.0</small>
                 </p>
@@ -91,18 +118,33 @@ const DirectorFilter = () => {
         </div>
       </section>
 
-        <footer className="movieLog-footer">
+      <footer className="movieLog-footer">
         {/* 페이지네이션 */}
-        <nav aria-label="Page navigation example" className="movieLog-pagination-box">
+        <nav
+          aria-label="Page navigation example"
+          className="movieLog-pagination-box"
+        >
           <ul className="pagination justify-content-center">
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -111,9 +153,8 @@ const DirectorFilter = () => {
           </ul>
         </nav>
       </footer>
-
     </div>
   );
 };
 
-export default DirectorFilter;
+export default DirectorSearch;

@@ -1,19 +1,30 @@
-// src/contents/Filter/ActorFilter.tsx
 import React from "react";
-import FilterTab from "./FilterTab";
-import "./Filter.css"
-
+import { useLocation, useNavigate } from "react-router-dom";
+import "./Search.css";
 
 const actorList = [
-  "이제훈", "송혜교", "이병헌", "송강호", "마동석", "유해진", "전지현", "설경구"
+  "이제훈",
+  "송혜교",
+  "이병헌",
+  "송강호",
+  "마동석",
+  "유해진",
+  "전지현",
+  "설경구",
 ];
 
-const ActorFilter = () => {
+const ActorSearch: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  // 현재 URL 기준으로 어떤 탭이 활성인지 판별
+  const isGenre = location.pathname === "/Search";
+  const isDirector = location.pathname === "/Search/Director";
+  const isActor =
+    location.pathname === "/Search/Actor" || location.pathname === "/actor";
+
   return (
     <div className="filter-container">
-
-      <FilterTab active="actor" />
-
       <div className="filter-header-right">
         <div className="search-box">
           <img src="/icons/search.png" className="search-icon" alt="search" />
@@ -21,10 +32,31 @@ const ActorFilter = () => {
         </div>
       </div>
 
+      <div className="filter-tab-btn">
+        <button
+          className={`tab ${isGenre ? "active" : ""}`}
+          onClick={() => navigate("/Search")}
+        >
+          장르
+        </button>
+        <button
+          className={`tab ${isDirector ? "active" : ""}`}
+          onClick={() => navigate("/Search/Director")}
+        >
+          감독
+        </button>
+        <button
+          className={`tab ${isActor ? "active" : ""}`}
+          onClick={() => navigate("/Search/Actor")}
+        >
+          배우
+        </button>
+      </div>
+
       <div className="tag-scroll-box">
         <div className="tag-list">
           {actorList.map((t2) => (
-            <button key={t2}  className={t2 === "이제훈" ? "tag active" : "tag"}>
+            <button key={t2} className={t2 === "이제훈" ? "tag active" : "tag"}>
               {t2}
             </button>
           ))}
@@ -52,7 +84,8 @@ const ActorFilter = () => {
                   <button className="movieDetail-genreTag">코미디</button>
                 </div>
                 <p className="card-text">
-                  1997년 외환위기 당시 '진로'와 골드만삭스 실화를 바탕으로 한 작품
+                  1997년 외환위기 당시 '진로'와 골드만삭스 실화를 바탕으로 한
+                  작품
                 </p>
                 <p className="card-text">
                   <small className="text-muted">★ 3.0</small>
@@ -105,9 +138,7 @@ const ActorFilter = () => {
                   <h5 className="card-title">건축학개론 2012</h5>
                   <button className="movieDetail-genreTag">로맨스</button>
                 </div>
-                <p className="card-text">
-                  재밌네요. 배우들이 연기를 잘해요
-                </p>
+                <p className="card-text">재밌네요. 배우들이 연기를 잘해요</p>
                 <p className="card-text">
                   <small className="text-muted">★ 4.0</small>
                 </p>
@@ -117,18 +148,33 @@ const ActorFilter = () => {
         </div>
       </section>
 
-        <footer className="movieLog-footer">
+      <footer className="movieLog-footer">
         {/* 페이지네이션 */}
-        <nav aria-label="Page navigation example" className="movieLog-pagination-box">
+        <nav
+          aria-label="Page navigation example"
+          className="movieLog-pagination-box"
+        >
           <ul className="pagination justify-content-center">
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -137,9 +183,8 @@ const ActorFilter = () => {
           </ul>
         </nav>
       </footer>
-
     </div>
   );
 };
 
-export default ActorFilter;
+export default ActorSearch;

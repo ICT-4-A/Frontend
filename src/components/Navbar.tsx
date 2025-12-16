@@ -39,15 +39,17 @@ const Navbar: React.FC = () => {
             </li>
 
             <li className="nav-item dropdown">
-              <a
+              <Link className="nav-link" to="/Search">
+                영화 검색
+              </Link>
+              {/* <a
                 className="nav-link dropdown-toggle"
                 href="#"
                 id="navbarScrollingDropdown"
                 role="button"
-                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                감독/배우
+                영화 검색
               </a>
               <ul
                 className="dropdown-menu"
@@ -66,7 +68,7 @@ const Navbar: React.FC = () => {
                     배우별 영화 기록
                   </Link>
                 </li>
-              </ul>
+              </ul> */}
             </li>
 
             <li className="nav-item">
