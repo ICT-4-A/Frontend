@@ -21,10 +21,9 @@ import ToAdminForm from "../contents/Mypage/ToAdminForm";
 import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
 import Login from "../contents/Login/Login";
 import SignUp from "../contents/SignUp/SignUp";
+import Diary from "../contents/Diary/Diary";
 
 const AppRoutes: React.FC = () => {
-
-
   const routeList = [
     { path: "/", element: <MovieLog /> },
     { path: "/movielog", element: <MovieLog /> },
@@ -34,7 +33,7 @@ const AppRoutes: React.FC = () => {
     { path: "/movielog/detail3", element: <MovieDetail3 /> },
     { path: "/movielog/detail4", element: <MovieDetail4 /> },
 
-    { path: "/genre", element: <GenreFilter /> },
+    { path: "/Diary", element: <Diary /> },
     { path: "/actor", element: <ActorFilter /> },
     { path: "/director", element: <DirecetorFilter /> },
 
