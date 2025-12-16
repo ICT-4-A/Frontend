@@ -1,15 +1,30 @@
 // comp/Navbar.tsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light" style={{ padding: '0 0 8px 0' }}>
-      <div className="container-fluid" style={{ paddingLeft: 0, paddingRight: 0 }}>
-        <div className="collapse navbar-collapse justify-content-center" id="navbarScroll">
+    <nav
+      className="navbar navbar-expand-lg navbar-light bg-light"
+      style={{ padding: "0 0 8px 0" }}
+    >
+      <div
+        className="container-fluid"
+        style={{ paddingLeft: 0, paddingRight: 0 }}
+      >
+        <div
+          className="collapse navbar-collapse justify-content-center"
+          id="navbarScroll"
+        >
           <ul
             className="navbar-nav mx-auto my-2 my-lg-0 navbar-nav-scroll"
-            style={{ maxHeight: '100px' , display:'flex', justifyContent:'center', gap:'150px', fontSize:'20px'}}
+            style={{
+              maxHeight: "100px",
+              display: "flex",
+              justifyContent: "center",
+              gap: "150px",
+              fontSize: "20px",
+            }}
           >
             <li className="nav-item">
               <Link className="nav-link" to="/MovieLog">
@@ -18,8 +33,8 @@ const Navbar: React.FC = () => {
             </li>
 
             <li className="nav-item">
-              <Link className="nav-link" to="/genre">
-                장르
+              <Link className="nav-link" to="/Diary">
+                다이어리
               </Link>
             </li>
 
@@ -34,7 +49,10 @@ const Navbar: React.FC = () => {
               >
                 감독/배우
               </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+              <ul
+                className="dropdown-menu"
+                aria-labelledby="navbarScrollingDropdown"
+              >
                 <li>
                   <Link className="dropdown-item" to="/director">
                     감독별 영화 기록
