@@ -38,11 +38,16 @@ const Login: React.FC = () => {
             <span className="login-eye">👁</span>
           </div>
         </div>
-
+      
         {/* 로그인 버튼 */}
         <button type="submit" className="btn btn-primary login-btn">
           Log In
         </button>
+
+         {/* 아이디 비밀번호 찾기 링크 */}
+              
+        <a>아이디 찾기 / 비밀번호 재설정</a>       
+        
 
         {/* 하단 링크 */}
         <p className="login-footer">
