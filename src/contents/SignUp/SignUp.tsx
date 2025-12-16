@@ -1,6 +1,7 @@
 // src/contents/Auth/SignUp.tsx (경로는 프로젝트 구조에 맞게)
 import React from "react";
 import "./SignUp.css";
+import { Button } from "react-bootstrap";
 
 const SignUp: React.FC = () => {
   return (
@@ -40,6 +41,11 @@ const SignUp: React.FC = () => {
           {/* <span className="signup-msg success">사용 가능한 아이디입니다.</span> */}
         </div>
 
+        {/* 아이디 중복 확인 */}
+        <div>
+          <button>중복확인</button>       
+        </div>
+
         {/* 비밀번호 */}
         <div className="signup-field">
           <label htmlFor="password" className="signup-label">
@@ -52,6 +58,24 @@ const SignUp: React.FC = () => {
               name="password"
               className="form-control signup-input"
               placeholder="비밀번호를 입력해주세요."
+            />
+            {/* 아이콘 자리는 span으로 확보해 두기만 */}
+            <span className="password-eye">👁</span>
+          </div>
+        </div>
+
+        {/* 비밀번호 확인 */}
+        <div className="signup-field">
+          <label htmlFor="password" className="signup-label">
+            비밀번호 확인
+          </label>
+          <div className="signup-password-wrapper">
+            <input
+              type="password"
+              id="password"
+              name="password"
+              className="form-control signup-input"
+              placeholder="비밀번호를 한번 더 입력해주세요."
             />
             {/* 아이콘 자리는 span으로 확보해 두기만 */}
             <span className="password-eye">👁</span>
