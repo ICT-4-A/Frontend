@@ -1,0 +1,202 @@
+.movieinfo-wrapper {
+  max-width: 1100px;
+  margin: 40px auto 80px;
+  font-family: "Pretendard", -apple-system, system-ui, sans-serif;
+  color: #212529;
+}
+
+/* 큰 카드 박스 */
+.movieinfo-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  padding: 32px 36px;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* 상단: 포스터 + 정보 */
+.movieinfo-top {
+  display: flex;
+  gap: 32px;
+}
+
+.movieinfo-poster-box {
+  flex: 0 0 260px;
+}
+
+.movieinfo-poster {
+  width: 100%;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.movieinfo-main {
+  flex: 1;
+}
+
+.movieinfo-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.movieinfo-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.movieinfo-year {
+  font-size: 18px;
+  color: #868e96;
+}
+
+/* 장르 배지 */
+.movieinfo-genre-badge {
+  border-radius: 999px;
+  background-color: #e7f1ff;
+  color: #1c7ed6;
+  font-size: 13px;
+  padding: 6px 14px;
+  border: none;
+  margin-bottom: 18px;
+}
+
+.movieinfo-meta {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* 하단: 별점 + 리뷰 두 열 레이아웃 */
+.movieinfo-bottom {
+  display: grid;
+  grid-template-columns: 1.1fr 1.4fr;
+  gap: 28px;
+  margin-top: 32px;
+}
+
+.movieinfo-subtitle {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* 별점 숫자/별 아이콘 라인 */
+.movieinfo-score-line {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.movieinfo-stars {
+  font-size: 20px;
+  color: #4dabf7;
+}
+
+.movieinfo-score {
+  font-size: 16px;
+  color: #4dabf7;
+  font-weight: 600;
+}
+
+/* 별점 분포 막대 */
+.movieinfo-bar-list {
+  margin-top: 4px;
+}
+
+.movieinfo-bar-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 12px;
+}
+
+.bar-label {
+  width: 26px;
+  text-align: right;
+  color: #868e96;
+}
+
+.bar-track {
+  flex: 1;
+  height: 6px;
+  border-radius: 999px;
+  background-color: #f1f3f5;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #4dabf7, #1c7ed6);
+}
+
+.bar-percent {
+  width: 38px;
+  text-align: right;
+  color: #868e96;
+}
+
+/* 한줄평 카드 */
+.movieinfo-review-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.movieinfo-review-card {
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  padding: 14px 16px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.review-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #f1f3f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+}
+
+.review-name {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.review-tag {
+  font-size: 11px;
+  color: #4dabf7;
+}
+
+.review-text {
+  font-size: 13px;
+  color: #495057;
+  margin: 0;
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+  .movieinfo-top {
+    flex-direction: column;
+  }
+
+  .movieinfo-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .movieinfo-wrapper {
+    margin: 20px auto 60px;
+  }
+}

@@ -118,7 +118,7 @@ const DirectorSearch: React.FC = () => {
             </div>
           </div>
 
-          {/* 카드 4*/}
+          {/* 카드 4  */}
           <div className="col-md-4">
             <div className="card movie-card h-100">
               <img
