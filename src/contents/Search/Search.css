@@ -100,3 +100,42 @@ a:visited {
   background-color: #4a90e2;
   border-radius: 2px;
 }
+/* 배우 검색 카드 그리드 */
+.moive-grid {
+  margin-top: 20px;
+}
+
+.moive-card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.moive-poster {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.moive-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.genre-badge {
+  border-radius: 999px;
+  background-color: #e7f1ff;
+  color: #1c7ed6;
+  font-size: 12px;
+  padding: 4px 10px;
+  border: none;
+}
+
+.moive-rating {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #4dabf7;
+}

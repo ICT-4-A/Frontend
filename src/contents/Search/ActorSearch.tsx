@@ -63,85 +63,85 @@ const ActorSearch: React.FC = () => {
         </div>
       </div>
 
-      {/* 하단 카드 리스트 영역 */}
-      <section className="movieLog-list">
-        {/* 카드 1 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
+      {/* 하단 카드 그리드 영역 */}
+      <section className="moive-grid">
+        <div className="row g-4">
+          {/* 카드 1 */}
+          <div className="col-md-4">
+            <div className="card moive-card h-100">
               <img
                 src="/images/poster9.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터9"
+                className="card-img-top moive-poster"
+                alt="소주전쟁"
               />
-            </div>
-            <div className="col-md-9">
               <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">
-                    <a href="/movielog/detail4">소주전쟁 2025</a>
-                  </h5>
-                  <button className="movieDetail-genreTag">코미디</button>
-                </div>
-                <p className="card-text">
-                  1997년 외환위기 당시 '진로'와 골드만삭스 실화를 바탕으로 한
-                  작품
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">★ 3.0</small>
-                </p>
+                <h5 className="moive-title">소주전쟁 2025</h5>
+                <button className="badge genre-badge">코미디</button>
+                <div className="moive-rating">★ 3.0</div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* 카드 2 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
+          {/* 카드 2 */}
+          <div className="col-md-4">
+            <div className="card moive-card h-100">
               <img
                 src="/images/poster8.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터8"
+                className="card-img-top moive-poster"
+                alt="탈주"
               />
-            </div>
-            <div className="col-md-9">
               <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">탈주 2025</h5>
-                  <button className="movieDetail-genreTag">코미디</button>
-                </div>
-                <p className="card-text">
-                  이제훈, 구교환 배우의 연기와 속도감 있는 전개
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">★ 4.0</small>
-                </p>
+                <h5 className="moive-title">탈주 2025</h5>
+                <button className="badge genre-badge">코미디</button>
+                <div className="moive-rating">★ 4.0</div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* 카드 2 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
+          {/* 카드 3 */}
+          <div className="col-md-4">
+            <div className="card moive-card h-100">
               <img
                 src="/images/poster10.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터10"
+                className="card-img-top moive-poster"
+                alt="건축학개론"
               />
-            </div>
-            <div className="col-md-9">
               <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">건축학개론 2012</h5>
-                  <button className="movieDetail-genreTag">로맨스</button>
-                </div>
-                <p className="card-text">재밌네요. 배우들이 연기를 잘해요</p>
-                <p className="card-text">
-                  <small className="text-muted">★ 4.0</small>
-                </p>
+                <h5 className="moive-title">건축학개론 2012</h5>
+                <button className="badge genre-badge">로맨스</button>
+                <div className="moive-rating">★ 4.0</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드 4 */}
+          <div className="col-md-4">
+            <div className="card moive-card h-100">
+              <img
+                src="/images/poster10.jpg"
+                className="card-img-top moive-poster"
+                alt="건축학개론"
+              />
+              <div className="card-body">
+                <h5 className="moive-title">건축학개론 2012</h5>
+                <button className="badge genre-badge">로맨스</button>
+                <div className="moive-rating">★ 4.0</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드 5 */}
+          <div className="col-md-4">
+            <div className="card moive-card h-100">
+              <img
+                src="/images/poster10.jpg"
+                className="card-img-top moive-poster"
+                alt="건축학개론"
+              />
+              <div className="card-body">
+                <h5 className="moive-title">건축학개론 2012</h5>
+                <button className="badge genre-badge">로맨스</button>
+                <div className="moive-rating">★ 4.0</div>
               </div>
             </div>
           </div>
