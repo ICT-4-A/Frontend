@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Search.css";
 
 const GenreSearch: React.FC = () => {
@@ -66,7 +66,7 @@ const GenreSearch: React.FC = () => {
               />
               <div className="card-body">
                 <h5 className="movie-title">
-                  <a href="/movielog/detail2">어벤져스 엔드게임 2019</a>
+                  <a href="/MovieInfo">어벤져스 엔드게임 2019</a>
                 </h5>
                 <button className="badge genre-badge">액션</button>
                 <p className="movie-rating">★ 4.0</p>

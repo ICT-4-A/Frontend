@@ -22,6 +22,7 @@ import Diary from "../contents/Diary/Diary";
 import GenreSearch from "../contents/Search/GenreSearch";
 import DirectorSearch from "../contents/Search/DirectorSearch";
 import ActorSearch from "../contents/Search/ActorSearch";
+import MovieInfo from "../contents/Movie/MovieInfo";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -38,6 +39,8 @@ const AppRoutes: React.FC = () => {
     { path: "/Search", element: <GenreSearch /> },
     { path: "/Search/Director", element: <DirectorSearch /> },
     { path: "/Search/Actor", element: <ActorSearch /> },
+
+    { path: "/MovieInfo", element: <MovieInfo /> },
 
     { path: "/board", element: <Board /> },
     { path: "/board/detail1", element: <BoardDetail1 /> },
