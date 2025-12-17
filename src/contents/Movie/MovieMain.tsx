@@ -9,11 +9,11 @@ const MovieLog = () => {
       <section className="movieLog-top">
         {/* 검색 폼 */}
         <div className="filter-header-right">
-        <div className="search-box">
-          <img src="/icons/search.png" className="search-icon" alt="search" />
-          <input className="form-control" placeholder="Search..." />
+          <div className="search-box">
+            <img src="/icons/search.png" className="search-icon" alt="search" />
+            <input className="form-control" placeholder="Search..." />
+          </div>
         </div>
-      </div>
         {/* 1. 상단 캐러셀 영역 */}
 
         <div
@@ -145,16 +145,31 @@ const MovieLog = () => {
 
       <footer className="movieLog-footer">
         {/* 페이지네이션 */}
-        <nav aria-label="Page navigation example" className="movieLog-pagination-box">
+        <nav
+          aria-label="Page navigation example"
+          className="movieLog-pagination-box"
+        >
           <ul className="pagination justify-content-center">
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Previous">
                 <span aria-hidden="true">&laquo;</span>
               </a>
             </li>
-            <li className="page-item"><a className="page-link" href="#">1</a></li>
-            <li className="page-item"><a className="page-link" href="#">2</a></li>
-            <li className="page-item"><a className="page-link" href="#">3</a></li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                2
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Next">
                 <span aria-hidden="true">&raquo;</span>
@@ -164,7 +179,7 @@ const MovieLog = () => {
         </nav>
 
         {/* 오른쪽 + 버튼 */}
-        <Link to="/movieform">
+        <Link to="/moviesearch">
           <button className="fab-btn" aria-label="영화 기록 작성">
             +
           </button>
