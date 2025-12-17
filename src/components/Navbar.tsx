@@ -32,48 +32,21 @@ const Navbar: React.FC = () => {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/Diary">
-                다이어리
-              </Link>
-            </li>
-
             <li className="nav-item dropdown">
               <Link className="nav-link" to="/Search">
                 영화 검색
               </Link>
-              {/* <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarScrollingDropdown"
-                role="button"
-                aria-expanded="false"
-              >
-                영화 검색
-              </a>
-              <ul
-                className="dropdown-menu"
-                aria-labelledby="navbarScrollingDropdown"
-              >
-                <li>
-                  <Link className="dropdown-item" to="/director">
-                    감독별 영화 기록
-                  </Link>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <Link className="dropdown-item" to="/actor">
-                    배우별 영화 기록
-                  </Link>
-                </li>
-              </ul> */}
             </li>
 
             <li className="nav-item">
               <Link className="nav-link" to="/board">
                 게시판
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link className="nav-link" to="/Diary">
+                다이어리
               </Link>
             </li>
 

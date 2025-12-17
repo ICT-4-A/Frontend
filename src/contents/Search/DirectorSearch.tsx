@@ -16,13 +16,14 @@ const DirectorSearch: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // 현재 URL 기준으로 어떤 탭이 활성인지 판별
   const isGenre = location.pathname === "/Search";
   const isDirector = location.pathname === "/Search/Director";
   const isActor =
     location.pathname === "/Search/Actor" || location.pathname === "/actor";
+
   return (
     <div className="filter-container">
+      {/* 검색창 */}
       <div className="filter-header-right">
         <div className="search-box">
           <img src="/icons/search.png" className="search-icon" alt="search" />
@@ -30,6 +31,7 @@ const DirectorSearch: React.FC = () => {
         </div>
       </div>
 
+      {/* 상단 탭 */}
       <div className="filter-tab-btn">
         <button
           className={`tab ${isGenre ? "active" : ""}`}
@@ -51,75 +53,91 @@ const DirectorSearch: React.FC = () => {
         </button>
       </div>
 
+      {/* 감독 태그 리스트 */}
       <div className="tag-scroll-box">
         <div className="tag-list">
-          {directorList.map((t1) => (
-            <button key={t1} className={t1 === "준추" ? "tag active" : "tag"}>
-              {t1}
+          {directorList.map((name) => (
+            <button
+              key={name}
+              className={name === "준추" ? "tag active" : "tag"}
+            >
+              {name}
             </button>
           ))}
         </div>
       </div>
 
-      {/* 하단 카드 리스트 영역 */}
-      <section className="movieLog-list">
-        {/* 카드 1 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
+      {/* 하단 카드 그리드 영역 */}
+      <section className="movie-grid">
+        <div className="row g-4">
+          {/* 카드 1: 옥자 */}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
               <img
                 src="/images/poster7.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터7"
+                className="card-img-top movie-poster"
+                alt="옥자"
               />
-            </div>
-            <div className="col-md-9">
               <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">
-                    <a href="/movielog/detail3">옥자 2017</a>
-                  </h5>
-                  <button className="movieDetail-genreTag">코미디</button>
-                </div>
-                <p className="card-text">
-                  사회 비판적 메시지와 우화적인 풍자, 재미까지!
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">★ 4.0</small>
-                </p>
+                <h5 className="movie-title">옥자 2017</h5>
+                <button className="badge genre-badge">코미디</button>
+                <p className="movie-rating">★ 4.0</p>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* 카드 2 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
+          {/* 카드 2: 기생충 */}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
               <img
                 src="/images/poster6.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터6"
+                className="card-img-top movie-poster"
+                alt="기생충"
               />
-            </div>
-            <div className="col-md-9">
               <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">기생충 2019</h5>
-                  <button className="movieDetail-genreTag">공포/스릴러</button>
-                </div>
-                <p className="card-text">재밌네요. 배우들이 연기를 잘해요</p>
-                <p className="card-text">
-                  <small className="text-muted">★ 3.0</small>
-                </p>
+                <h5 className="movie-title">기생충 2019</h5>
+                <button className="badge genre-badge">공포/스릴러</button>
+                <p className="movie-rating">★ 3.0</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드 3*/}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
+              <img
+                src="/images/poster6.jpg"
+                className="card-img-top movie-poster"
+                alt="기생충"
+              />
+              <div className="card-body">
+                <h5 className="movie-title">기생충 2019</h5>
+                <button className="badge genre-badge">공포/스릴러</button>
+                <p className="movie-rating">★ 3.0</p>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드 4*/}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
+              <img
+                src="/images/poster6.jpg"
+                className="card-img-top movie-poster"
+                alt="기생충"
+              />
+              <div className="card-body">
+                <h5 className="movie-title">기생충 2019</h5>
+                <button className="badge genre-badge">공포/스릴러</button>
+                <p className="movie-rating">★ 3.0</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
+      {/* 페이지네이션 그대로 */}
       <footer className="movieLog-footer">
-        {/* 페이지네이션 */}
         <nav
           aria-label="Page navigation example"
           className="movieLog-pagination-box"
