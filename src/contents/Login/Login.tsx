@@ -1,4 +1,4 @@
-// src/contents/Auth/Login.tsx (경로는 프로젝트 구조에 맞게)
+// src/contents/Auth/Login.tsx
 import React from "react";
 import "./Login.css";
 
@@ -38,16 +38,16 @@ const Login: React.FC = () => {
             <span className="login-eye">👁</span>
           </div>
         </div>
-      
+
         {/* 로그인 버튼 */}
         <button type="submit" className="btn btn-primary login-btn">
           Log In
         </button>
 
-         {/* 아이디 비밀번호 찾기 링크 */}
-              
-        <a>아이디 찾기 / 비밀번호 재설정</a>       
-        
+        {/* 아이디/비밀번호 찾기 링크 */}
+        <div className="login-find-links">
+          <a href="/find-account">아이디 찾기 / 비밀번호 재설정</a>
+        </div>
 
         {/* 하단 링크 */}
         <p className="login-footer">
@@ -56,6 +56,40 @@ const Login: React.FC = () => {
             Sign Up
           </a>
         </p>
+
+        {/* 소셜 로그인 구분선 */}
+        <div className="login-divider">
+          <span>또는 소셜 계정으로 로그인</span>
+        </div>
+
+        {/* 소셜 로그인 버튼들 */}
+        <div className="social-login-group">
+          <button
+            type="button"
+            className="social-btn kakao"
+            aria-label="카카오톡으로 로그인"
+          >
+            <img src="/icons/Kakao.png" alt="Kakao" className="social-icon" />
+          </button>
+          <button
+            type="button"
+            className="social-btn google"
+            aria-label="Google로 로그인"
+          >
+            <img src="/icons/Google.png" alt="Google" className="social-icon" />
+          </button>
+          <button
+            type="button"
+            className="social-btn twitter"
+            aria-label="Twitter로 로그인"
+          >
+            <img
+              src="/icons/Twitter.png"
+              alt="Twitter"
+              className="social-icon"
+            />
+          </button>
+        </div>
       </form>
     </div>
   );
