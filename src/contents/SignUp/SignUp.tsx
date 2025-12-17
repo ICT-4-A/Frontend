@@ -1,7 +1,6 @@
-// src/contents/Auth/SignUp.tsx (경로는 프로젝트 구조에 맞게)
+// src/contents/Auth/SignUp.tsx
 import React from "react";
 import "./SignUp.css";
-import { Button } from "react-bootstrap";
 
 const SignUp: React.FC = () => {
   return (
@@ -14,36 +13,40 @@ const SignUp: React.FC = () => {
           <label htmlFor="nickname" className="signup-label">
             닉네임
           </label>
-          <input
-            type="text"
-            id="nickname"
-            name="nickname"
-            className="form-control signup-input"
-            placeholder="닉네임을 입력해주세요."
-          />
-          {/* 예시 메시지: 중복일 때 */}
-          {/* <span className="signup-msg error">이미 사용 중인 닉네임입니다.</span> */}
+          <div className="signup-row">
+            <input
+              type="text"
+              id="nickname"
+              name="nickname"
+              className="form-control signup-input"
+              placeholder="이메일을 입력해주세요."
+            />
+            <button type="button" className="email-check-btn">
+              중복확인
+            </button>
+          </div>
+          {/* <span className="signup-msg success">사용 가능한 이메일입니다.</span> */}
+          {/* <span className="signup-msg error">이미 사용 중인 이메일입니다.</span> */}
         </div>
-
-        {/* 아이디 */}
+        {/* 이메일 + 중복 확인 */}
         <div className="signup-field">
-          <label htmlFor="userId" className="signup-label">
-            아이디
+          <label htmlFor="email" className="signup-label">
+            이메일
           </label>
-          <input
-            type="text"
-            id="userId"
-            name="userId"
-            className="form-control signup-input"
-            placeholder="아이디를 입력해주세요."
-          />
-          {/* 사용 가능 예시 */}
-          {/* <span className="signup-msg success">사용 가능한 아이디입니다.</span> */}
-        </div>
-
-        {/* 아이디 중복 확인 */}
-        <div>
-          <button>중복확인</button>       
+          <div className="signup-row">
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="form-control signup-input"
+              placeholder="이메일을 입력해주세요."
+            />
+            <button type="button" className="email-check-btn">
+              중복확인
+            </button>
+          </div>
+          {/* <span className="signup-msg success">사용 가능한 이메일입니다.</span> */}
+          {/* <span className="signup-msg error">이미 사용 중인 이메일입니다.</span> */}
         </div>
 
         {/* 비밀번호 */}
@@ -59,25 +62,23 @@ const SignUp: React.FC = () => {
               className="form-control signup-input"
               placeholder="비밀번호를 입력해주세요."
             />
-            {/* 아이콘 자리는 span으로 확보해 두기만 */}
             <span className="password-eye">👁</span>
           </div>
         </div>
 
         {/* 비밀번호 확인 */}
         <div className="signup-field">
-          <label htmlFor="password" className="signup-label">
+          <label htmlFor="passwordConfirm" className="signup-label">
             비밀번호 확인
           </label>
           <div className="signup-password-wrapper">
             <input
               type="password"
-              id="password"
-              name="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
               className="form-control signup-input"
-              placeholder="비밀번호를 한번 더 입력해주세요."
+              placeholder="비밀번호를 한 번 더 입력해주세요."
             />
-            {/* 아이콘 자리는 span으로 확보해 두기만 */}
             <span className="password-eye">👁</span>
           </div>
         </div>
