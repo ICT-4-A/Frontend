@@ -1,114 +1,56 @@
-import React, { useRef } from "react";
+// src/contents/Movie/MovieForm.tsx
+import React from "react";
 import "./MovieForm.css";
 
-const MovieForm = () => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-  // 파일 첨부 버튼 클릭 → 숨겨진 input 작동
-  const handleUploadClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
+const MovieForm: React.FC = () => {
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // 업로드 처리 로직 추가 예정
   };
 
   return (
-    <div className="movie-form">
+    <div className="movieform-wrapper">
+      <h2 className="movieform-step-title">영화 기록 - 게시글 작성 2단계</h2>
 
-      {/* 제목 */}
-      <label className="label">영화 제목</label>
-      <input type="text" className="input-line" placeholder="영화 제목을 입력하세요" />
-
-      {/* 장르 */}
-      <label className="label">장르</label>
-      <div className="row-flex">
-        <select className="select-box">
-          <option>액션</option>
-          <option>코미디</option>
-          <option>로맨스</option>
-          <option>공포/스릴러</option>
-          <option>SF/판타지</option>
-          <option>애니메이션</option>
-        </select>
-
-        {/* 예시 태그 (정적 UI) */}
-        <div className="tag-box">
-          <span className="tag">코미디 ×</span>
-          <span className="tag">로맨스 ×</span>
+      <form className="movieform-card" onSubmit={handleSubmit}>
+        {/* 한 줄 평 */}
+        <div className="movieform-field">
+          <label className="movieform-label">한 줄 평</label>
+          <input
+            type="text"
+            className="movieform-input"
+            placeholder="한 줄 평을 입력하세요"
+          />
         </div>
-      </div>
 
-      {/* 감독 */}
-      <label className="label">감독</label>
-      <div className="tag-box">
-        <span className="tag">이동필 ×</span>
-      </div>
+        {/* 감상평 */}
+        <div className="movieform-field">
+          <label className="movieform-label">감상평</label>
+          <textarea
+            className="movieform-textarea"
+            placeholder="감상평을 입력하세요"
+          />
+        </div>
 
-      {/* 배우 */}
-      <label className="label">배우</label>
-      <div className="tag-box">
-        <span className="tag">이재훈 ×</span>
-        <span className="tag">구교환 ×</span>
-      </div>
+        {/* 별점 */}
+        <div className="movieform-field">
+          <label className="movieform-label">별점</label>
+          <div className="movieform-stars">
+            <span className="star active">★</span>
+            <span className="star">★</span>
+            <span className="star">★</span>
+            <span className="star">★</span>
+            <span className="star">★</span>
+          </div>
+        </div>
 
-      {/* 개봉일 */}
-      <label className="label">개봉일</label>
-      <div className="row-flex">
-        <select className="select-box">
-          <option>2023</option>
-          <option>2024</option>
-          <option>2025</option>
-        </select>
-
-        <select className="select-box">
-          <option>1월</option>
-          <option>2월</option>
-          <option>3월</option>
-          <option>4월</option>
-          <option>5월</option>
-          <option>6월</option>
-          <option>7월</option>
-          <option>8월</option>
-          <option>10월</option>
-          <option>11월</option>
-          <option>12월</option>
-        </select>
-      </div>
-
-      {/* 한 줄 평 */}
-      <label className="label">한 줄 평</label>
-      <input type="text" className="input-line" placeholder="한 줄 평가를 입력하세요" />
-
-      {/* 감상평 */}
-      <label className="label">감상평</label>
-      <textarea className="textarea" placeholder="감상평을 입력하세요"></textarea>
-
-      {/* 별점 UI */}
-      <label className="label">별점</label>
-      <div className="star-rating">
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-        <span>★</span>
-      </div>
-
-      <label className="label">포스터 사진 첨부</label>
-
-      {/* 포스터 사진 첨부 */}
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-      />
-
-      {/* 첨부 박스 */}
-      <div className="upload-box" onClick={handleUploadClick}>
-        <span className="plus">+</span>
-      </div>
-
-      {/* 업로드 버튼 */}
-      <button className="upload-btn">업로드</button>
+        {/* 업로드 버튼 */}
+        <div className="movieform-footer">
+          <button type="submit" className="movieform-submit-btn">
+            업로드
+          </button>
+        </div>
+      </form>
     </div>
   );
 };

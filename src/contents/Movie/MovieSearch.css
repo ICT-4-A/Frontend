@@ -1,0 +1,166 @@
+.movieSearch-wrapper {
+  max-width: 900px;
+  margin: 40px auto 80px;
+  font-family: "Pretendard", -apple-system, system-ui, sans-serif;
+}
+
+.movieSearch-step-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 18px;
+}
+
+/* 상단 검색 영역 */
+.movieSearch-top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.movieSearch-type-select {
+  position: relative;
+}
+
+.movieSearch-type-btn {
+  min-width: 180px;
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+  font-size: 14px;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.movieSearch-type-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  overflow: hidden;
+}
+
+.movieSearch-type-menu .menu-item {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.movieSearch-type-menu .menu-item:hover {
+  background-color: #f8f9fa;
+}
+
+.caret {
+  font-size: 11px;
+}
+
+.movieSearch-input-box {
+  flex: 1;
+  display: flex;
+  gap: 6px;
+}
+
+.movieSearch-input {
+  background-color: #ffffff;
+}
+
+.movieSearch-search-btn {
+  width: 42px;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  background-color: #ffffff;
+}
+
+/* 선택된 영화 카드 */
+.movieSearch-card {
+  margin-top: 16px;
+  padding: 24px 28px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  display: flex;
+  gap: 24px;
+}
+
+.movieSearch-poster-wrap {
+  flex: 0 0 170px;
+}
+
+.movieSearch-poster {
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.movieSearch-info {
+  flex: 1;
+}
+
+.movieSearch-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.movieSearch-title {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.movieSearch-year {
+  font-size: 16px;
+  color: #868e96;
+}
+
+.movieSearch-genre-badge {
+  border-radius: 999px;
+  background-color: #e7f1ff;
+  color: #1c7ed6;
+  font-size: 13px;
+  padding: 5px 12px;
+  border: none;
+  margin-bottom: 14px;
+}
+
+.movieSearch-meta {
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* 하단 버튼 */
+.movieSearch-footer {
+  margin-top: 28px;
+  text-align: center;
+}
+
+.movieSearch-next-btn {
+  min-width: 140px;
+  padding: 10px 0;
+  border-radius: 6px;
+  border: none;
+  background-color: #1c7ed6;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .movieSearch-card {
+    flex-direction: column;
+  }
+
+  .movieSearch-poster-wrap {
+    flex: 0 0 auto;
+    max-width: 200px;
+  }
+}

@@ -23,12 +23,15 @@ import GenreSearch from "../contents/Search/GenreSearch";
 import DirectorSearch from "../contents/Search/DirectorSearch";
 import ActorSearch from "../contents/Search/ActorSearch";
 import MovieInfo from "../contents/Movie/MovieInfo";
+import MovieSearch from "../contents/Movie/MovieSearch";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
     { path: "/", element: <MovieLog /> },
     { path: "/movielog", element: <MovieLog /> },
+    { path: "/moviesearch", element: <MovieSearch /> },
     { path: "/movieform", element: <MovieForm /> },
+
     { path: "/movielog/detail", element: <MovieDetail /> },
     { path: "/movielog/detail2", element: <MovieDetail2 /> },
     { path: "/movielog/detail3", element: <MovieDetail3 /> },

@@ -1,116 +1,101 @@
-.movie-form {
-  width: 450px;
-  margin: 0 auto;
-  font-family: "Pretendard", sans-serif;
-  color: #333;
+.movieform-wrapper {
+  max-width: 800px;
+  margin: 40px auto 80px;
+  font-family: "Pretendard", -apple-system, system-ui, sans-serif;
 }
 
-.label {
-  display: block;
-  font-size: 15px;
-  margin-top: 25px;
-  margin-bottom: 5px;
+.movieform-step-title {
+  font-size: 18px;
+  font-weight: 500;
+  color: #495057;
+  margin-bottom: 18px;
 }
 
-.input-line {
-  width: 100%;
-  border: none;
-  border-bottom: 1px solid #dcdcdc;
-  padding: 6px 0;
-  font-size: 16px;
-  outline: none;
+.movieform-card {
+  padding: 28px 32px 32px;
+  border-radius: 12px;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
 }
 
-.row-flex {
+.movieform-field {
   display: flex;
-  gap: 10px;
-  align-items: center;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
 }
 
-.select-box {
-  border: 1px solid #c8c8c8;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 15px;
-  background-color: white;
-}
-
-.tag-box {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.tag {
-  background: #f1f1f1;
-  border-radius: 20px;
-  padding: 5px 12px;
-  font-size: 13px;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.close-btn {
-  border: none;
-  background: none;
-  cursor: pointer;
-  font-size: 13px;
-}
-
-.textarea {
-  width: 100%;
-  height: 130px;
-  padding: 10px;
-  border: 1px solid #dcdcdc;
-  border-radius: 6px;
-  resize: none;
-}
-
-.upload-box {
+.movieform-label {
   width: 90px;
-  height: 120px;
-  border: 1px solid #dcdcdc;
-  background-color: #efefef;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+  padding-top: 8px;
+}
+
+.movieform-input {
+  flex: 1;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  padding: 10px 12px;
+  font-size: 14px;
+}
+
+.movieform-textarea {
+  flex: 1;
+  border-radius: 6px;
+  border: 1px solid #dee2e6;
+  padding: 10px 12px;
+  font-size: 14px;
+  min-height: 180px;
+  resize: vertical;
+}
+
+/* 별점 */
+.movieform-stars {
+  flex: 1;
+  padding-top: 6px;
+  font-size: 20px;
+}
+
+.star {
+  color: #ced4da;
   cursor: pointer;
+  margin-right: 4px;
 }
 
-.plus {
-  font-size: 35px;
-  color: #777;
+.star.active {
+  color: #339af0;
 }
 
-.upload-btn {
-  display: block;
-  width: 150px;
-  height: 40px;
-  margin: 30px auto;
-  border-radius: 8px;
+/* 버튼 */
+.movieform-footer {
+  text-align: center;
+  margin-top: 16px;
+}
+
+.movieform-submit-btn {
+  min-width: 150px;
+  padding: 10px 0;
+  border-radius: 6px;
   border: none;
-  background-color: #3aa3e9;
-  color: white;
+  background-color: #1c7ed6;
+  color: #ffffff;
   font-size: 15px;
-  cursor: pointer;
+  font-weight: 600;
 }
 
-/* 별점 UI */
-.star-rating {
-  display: flex;
-  gap: 5px;
-  font-size: 26px;
-  cursor: pointer;
-  flex-direction: row; 
-  justify-content: flex-start; 
-}
-.star-rating span {
-  color: #dcdcdc;
-  transition: color 0.2s;
-}
-/* 별점 색칠 */
-.star-rating span:hover{
-  color: #ffc107;
-}
+/* 반응형 */
+@media (max-width: 768px) {
+  .movieform-card {
+    padding: 20px 18px 24px;
+  }
 
+  .movieform-field {
+    flex-direction: column;
+  }
+
+  .movieform-label {
+    width: auto;
+    padding-top: 0;
+  }
+}
