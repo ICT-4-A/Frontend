@@ -12,8 +12,13 @@ const MovieDetail: React.FC = () => {
           <div className="movieDetail-user">
             <div className="movieDetail-user-avatar">A</div>
             <div className="movieDetail-user-info">
-              <div className="movieDetail-user-name">테스트1</div>
-              <span className="movieDetail-tag">선호 장르1</span>
+              <div className="movieDetail-user-name">사용자1</div>
+              <span className="movieDetail-tag">애니메이션</span>
+            </div>
+            <div className="movieDetail-user-avatar">B</div>
+            <div className="movieDetail-user-info">
+              <div className="movieDetail-user-name">사용자2</div>
+              <span className="movieDetail-tag">로멘스</span>
             </div>
           </div>
 
@@ -44,8 +49,9 @@ const MovieDetail: React.FC = () => {
               최고의 명작! 시간 가는 줄 모르고 봤어요
             </div>
             <p className="movieDetail-reviewText">
-              개인적으로 위키드 캐릭터들의 매력은 잊고 살다가 히스토리에서 나온다고 생각해서
-              아리아나 그란데의 어딘지 모르게 어설픈 글리크 연기가 꽤나 매력적으로 느껴졌다...
+              개인적으로 위키드 캐릭터들의 매력은 잊고 살다가 히스토리에서
+              나온다고 생각해서 아리아나 그란데의 어딘지 모르게 어설픈 글리크
+              연기가 꽤나 매력적으로 느껴졌다...
             </p>
 
             {/* 좋아요/댓글/조회수 영역 */}
@@ -79,7 +85,8 @@ const MovieDetail: React.FC = () => {
             </div>
           </div>
           <p className="comment-text">
-            와 이런 사연이 있는 줄은 또 몰랐네요 ㅎㅎ 의도된 오마주였다니... 좋은 정보 감사합니다!
+            와 이런 사연이 있는 줄은 또 몰랐네요 ㅎㅎ 의도된 오마주였다니...
+            좋은 정보 감사합니다!
           </p>
         </div>
 
@@ -98,10 +105,7 @@ const MovieDetail: React.FC = () => {
 
       {/* 댓글 입력 영역 */}
       <section className="movieDetail-commentForm">
-        <textarea
-          className="comment-input"
-          placeholder="댓글을 남겨보세요"
-        />
+        <textarea className="comment-input" placeholder="댓글을 남겨보세요" />
         <button className="comment-submit">등록</button>
       </section>
     </div>

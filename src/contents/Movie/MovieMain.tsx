@@ -14,7 +14,7 @@ const MovieLog = () => {
             <input className="form-control" placeholder="Search..." />
           </div>
         </div>
-        
+
         {/* 1. 상단 캐러셀 영역 */}
         <div
           id="carouselExampleInterval"
@@ -93,8 +93,13 @@ const MovieLog = () => {
                 <div className="movieDetail-user">
                   <div className="movieDetail-user-avatar">A</div>
                   <div className="movieDetail-user-info">
-                    <div className="movieDetail-user-name">테스트1</div>
+                    <div className="movieDetail-user-name">사용자1</div>
                     <span className="movieDetail-tag">애니메이션</span>
+                  </div>
+                  <div className="movieDetail-user-avatar">B</div>
+                  <div className="movieDetail-user-info">
+                    <div className="movieDetail-user-name">사용자2</div>
+                    <span className="movieDetail-tag">로멘스</span>
                   </div>
                 </div>
 
