@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import "./MyPage.css";
 import { Link } from "react-router-dom";
 
-type MenuKey = "profile" | "movies" | "posts" | "inquiry" | "stats";
+type MenuKey = "profile" | "friends" | "movies" | "posts" | "inquiry" | "stats";
 
 const MyPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("movies");
@@ -28,6 +28,17 @@ const MyPage: React.FC = () => {
           >
             <span className="menu-icon">👤</span>
             <span>회원정보 수정</span>
+          </button>
+
+          {/* 친구 목록 탭  */}
+          <button
+            className={`menu-item ${
+              selectedMenu === "friends" ? "active" : ""
+            }`}
+            onClick={() => setSelectedMenu("friends")}
+          >
+            <span className="menu-icon">👥</span>
+            <span>친구 목록</span>
           </button>
 
           <button
@@ -69,6 +80,7 @@ const MyPage: React.FC = () => {
       {/* 오른쪽 메인 영역: 선택된 메뉴에 따라 내용 변경 */}
       <section className="mypage-main">
         {selectedMenu === "profile" && <ProfileSection />}
+        {selectedMenu === "friends" && <FriendsSection />}
         {selectedMenu === "movies" && <MovieListSection />}
         {selectedMenu === "posts" && <PostListSection />}
         {selectedMenu === "inquiry" && <InquirySection />}
@@ -145,6 +157,95 @@ const ProfileSection: React.FC = () => (
     </div>
   </>
 );
+
+const FriendsSection: React.FC = () => {
+  // 더미 데이터
+  const requestFriends = [
+    { id: 1, nickname: "새친구1", favorite: "액션" },
+    { id: 2, nickname: "새친구2", favorite: "로맨스" },
+    { id: 3, nickname: "새친구3", favorite: "SF/판타지" },
+  ];
+
+  const myFriends = [
+    { id: 1, nickname: "영화덕후99", favorite: "SF/판타지" },
+    { id: 2, nickname: "애니좋아", favorite: "애니메이션" },
+    { id: 3, nickname: "스릴러매니아", favorite: "공포/스릴러" },
+    { id: 4, nickname: "로맨틱가이", favorite: "로맨스" },
+    { id: 5, nickname: "코미디매니아", favorite: "코미디" },
+    { id: 6, nickname: "액션덕후", favorite: "액션" },
+  ]
+    // 닉네임 기준 내림차순 정렬
+    .sort((a, b) => (a.nickname < b.nickname ? 1 : -1));
+
+  return (
+    <>
+      <h2 className="mypage-title">마이페이지</h2>
+
+      {/* 친구 요청 박스 */}
+      <div className="friends-card">
+        <h3 className="friends-title">친구 신청</h3>
+        <p className="friends-desc">
+          나에게 온 친구 신청을 확인하고 수락 또는 거절할 수 있습니다.
+        </p>
+
+        <div className="friends-table-wrapper small">
+          <table className="table mypage-table align-middle">
+            <thead>
+              <tr>
+                <th style={{ width: "60px" }}>No</th>
+                <th>닉네임</th>
+                <th style={{ width: "140px" }}>선호 장르</th>
+                <th style={{ width: "140px" }}>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requestFriends.map((f, idx) => (
+                <tr key={f.id}>
+                  <td>{requestFriends.length - idx}</td>
+                  <td>{f.nickname}</td>
+                  <td>{f.favorite}</td>
+                  <td>
+                    <button className="friend-btn accept">수락</button>
+                    <button className="friend-btn reject">거절</button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      {/* 나의 친구 목록 박스 */}
+      <div className="friends-card">
+        <h3 className="friends-title">친구 목록</h3>
+        <p className="friends-desc">
+          내가 추가한 친구 목록입니다. 닉네임 기준 내림차순으로 정렬됩니다.
+        </p>
+
+        <div className="friends-table-wrapper large">
+          <table className="table mypage-table align-middle">
+            <thead>
+              <tr>
+                <th style={{ width: "60px" }}>No</th>
+                <th>닉네임</th>
+                <th style={{ width: "140px" }}>선호 장르</th>
+              </tr>
+            </thead>
+            <tbody>
+              {myFriends.map((f, idx) => (
+                <tr key={f.id}>
+                  <td>{myFriends.length - idx}</td>
+                  <td>{f.nickname}</td>
+                  <td>{f.favorite}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </>
+  );
+};
 
 const MovieListSection: React.FC = () => (
   <>

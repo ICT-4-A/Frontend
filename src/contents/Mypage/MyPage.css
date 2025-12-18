@@ -275,3 +275,68 @@
   font-size: 15px;
   font-weight: 600;
 }
+
+.friends-card {
+  margin-top: 16px;
+}
+
+.friends-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.friends-desc {
+  font-size: 13px;
+  color: #868e96;
+  margin-bottom: 10px;
+}
+
+/* 스크롤 영역 공통 */
+.friends-table-wrapper {
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+  background-color: #ffffff;
+  overflow-y: auto;
+}
+
+/* 위: 친구 신청(2~3개 정도 보이는 높이) */
+.friends-table-wrapper.small {
+  max-height: 170px; /* 필요하면 150~190px 사이로 조절 */
+}
+
+/* 아래: 친구 목록(5~6개 정도 보이는 높이) */
+.friends-table-wrapper.large {
+  max-height: 260px; /* 필요하면 240~280px 사이로 조절 */
+  margin-top: 8px;
+}
+
+/* 스크롤바 살짝만 보이게 */
+.friends-table-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.friends-table-wrapper::-webkit-scrollbar-thumb {
+  background-color: #dee2e6;
+  border-radius: 999px;
+}
+
+/* 친구 신청 수락/거절 버튼 */
+.friend-btn {
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  border: none;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.friend-btn.accept {
+  background-color: #1c7ed6;
+  color: #ffffff;
+}
+
+.friend-btn.reject {
+  background-color: #f1f3f5;
+  color: #495057;
+}
