@@ -126,12 +126,12 @@ a:visited {
 }
 
 .genre-badge {
-  border-radius: 999px;
-  background-color: #e7f1ff;
-  color: #1c7ed6;
+  background-color: transparent;
+  border: 1px solid #4dabf7;
+  color: #4dabf7 !important;
   font-size: 12px;
   padding: 4px 10px;
-  border: none;
+  border-radius: 10px !important;
 }
 
 .moive-rating {

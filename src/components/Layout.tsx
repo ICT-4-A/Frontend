@@ -55,13 +55,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
       <footer
         style={{
-          backgroundColor: "pink",
+          backgroundColor: "#a6cef5ff",
           color: "white",
           padding: "10px",
           textAlign: "center",
           marginTop: "40px",
         }}
-      ></footer>
+      >Copyright 2025.ICT-A.All rights reserved.</footer>
     </div>
   );
 };

@@ -81,7 +81,7 @@ const DirectorSearch: React.FC = () => {
               <div className="card-body">
                 <h5 className="movie-title">옥자 2017</h5>
                 <button className="badge genre-badge">코미디</button>
-                <p className="movie-rating">★ 4.0</p>
+                <div className="moive-rating">★ 3.5</div>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ const DirectorSearch: React.FC = () => {
               <div className="card-body">
                 <h5 className="movie-title">기생충 2019</h5>
                 <button className="badge genre-badge">공포/스릴러</button>
-                <p className="movie-rating">★ 3.0</p>
+                <div className="moive-rating">★ 3.5</div>
               </div>
             </div>
           </div>
@@ -106,14 +106,14 @@ const DirectorSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card movie-card h-100">
               <img
-                src="/images/poster6.jpg"
+                src="/images/poster13.jpg"
                 className="card-img-top movie-poster"
-                alt="기생충"
+                alt="설국열차"
               />
               <div className="card-body">
-                <h5 className="movie-title">기생충 2019</h5>
-                <button className="badge genre-badge">공포/스릴러</button>
-                <p className="movie-rating">★ 3.0</p>
+                <h5 className="movie-title">설국열차 2012</h5>
+                <button className="badge genre-badge">SF/판타지</button>
+                <div className="moive-rating">★ 3.5</div>
               </div>
             </div>
           </div>
@@ -122,17 +122,34 @@ const DirectorSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card movie-card h-100">
               <img
-                src="/images/poster6.jpg"
+                src="/images/poster8.jpg"
                 className="card-img-top movie-poster"
                 alt="기생충"
               />
               <div className="card-body">
-                <h5 className="movie-title">기생충 2019</h5>
+                <h5 className="movie-title">탈주 2019</h5>
                 <button className="badge genre-badge">공포/스릴러</button>
                 <p className="movie-rating">★ 3.0</p>
               </div>
             </div>
           </div>
+
+          {/* 카드 5  */}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
+              <img
+                src="/images/poster9.jpg"
+                className="card-img-top movie-poster"
+                alt="기생충"
+              />
+              <div className="card-body">
+                <h5 className="movie-title">소주전쟁 2024</h5>
+                <button className="badge genre-badge">공포/스릴러</button>
+                <p className="movie-rating">★ 3.0</p>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

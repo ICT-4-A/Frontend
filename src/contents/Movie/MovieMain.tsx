@@ -14,25 +14,29 @@ const MovieLog = () => {
             <input className="form-control" placeholder="Search..." />
           </div>
         </div>
+        
         {/* 1. 상단 캐러셀 영역 */}
-
         <div
           id="carouselExampleInterval"
           className="carousel slide"
           data-bs-ride="carousel"
-          data-bs-interval="2000"
+          data-bs-interval="4000" //이미지 슬라이드 속도
         >
           <div className="carousel-inner">
             <div className="carousel-item active">
-              <img src="/images/poster1.jpg" alt="포스터1" />
+              <img src="/images/poster5.jpg" alt="포스터1" />
             </div>
 
             <div className="carousel-item">
-              <img src="/images/poster2.jpg" alt="포스터2" />
+              <img src="/images/poster7.jpg" alt="포스터2" />
             </div>
 
             <div className="carousel-item">
               <img src="/images/poster3.jpg" alt="포스터3" />
+            </div>
+
+            <div className="carousel-item">
+              <img src="/images/poster4.jpg" alt="포스터4" />
             </div>
           </div>
 
