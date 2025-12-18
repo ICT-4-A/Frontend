@@ -21,7 +21,7 @@ const MovieDetail: React.FC = () => {
             <div className="movieDetail-user-avatar">B</div>
             <div className="movieDetail-user-info">
               <div className="movieDetail-user-name">사용자2</div>
-              <span className="movieDetail-tag">판타지</span>
+              <span className="movieDetail-tag"></span>
             </div>
           </div>
 
