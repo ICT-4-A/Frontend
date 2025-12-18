@@ -12,8 +12,16 @@ const MovieDetail: React.FC = () => {
           <div className="movieDetail-user">
             <div className="movieDetail-user-avatar">A</div>
             <div className="movieDetail-user-info">
-              <div className="movieDetail-user-name">테스트1</div>
-              <span className="movieDetail-tag">선호 장르1</span>
+              <div className="movieDetail-user-name">사용자1</div>
+              <span className="movieDetail-tag">액션</span>
+            </div>
+          </div>
+
+          <div className="movieDetail-user">
+            <div className="movieDetail-user-avatar">B</div>
+            <div className="movieDetail-user-info">
+              <div className="movieDetail-user-name">사용자2</div>
+              <span className="movieDetail-tag"></span>
             </div>
           </div>
 
@@ -44,9 +52,11 @@ const MovieDetail: React.FC = () => {
               뜨거운 안녕의 끝에서 열렬한 환영의 시작으로
             </div>
             <p className="movieDetail-reviewText">
-             Exciting, entertaining, and emotionally impactful, Avengers: Endgame does whatever it takes 
-             to deliver a satisfying finale to Marvel's epic Infinity Saga.
-             흥미진진하고 감동적이다. 어벤져스: 엔드게임은 마블의 기념비적인 인피니티 사가를 훌륭하게 마무리짓기 위해 모든 것을 걸었다.
+              Exciting, entertaining, and emotionally impactful, Avengers:
+              Endgame does whatever it takes to deliver a satisfying finale to
+              Marvel's epic Infinity Saga. 흥미진진하고 감동적이다. 어벤져스:
+              엔드게임은 마블의 기념비적인 인피니티 사가를 훌륭하게 마무리짓기
+              위해 모든 것을 걸었다.
             </p>
 
             {/* 좋아요/댓글/조회수 영역 */}
@@ -80,7 +90,8 @@ const MovieDetail: React.FC = () => {
             </div>
           </div>
           <p className="comment-text">
-            엔드게임은 마블의 기념비적인 인피니티 사가를 훌륭하게 마무리짓기 위해 모든 것을 걸었다.
+            엔드게임은 마블의 기념비적인 인피니티 사가를 훌륭하게 마무리짓기
+            위해 모든 것을 걸었다.
           </p>
         </div>
 
@@ -99,10 +110,7 @@ const MovieDetail: React.FC = () => {
 
       {/* 댓글 입력 영역 */}
       <section className="movieDetail-commentForm">
-        <textarea
-          className="comment-input"
-          placeholder="댓글을 남겨보세요"
-        />
+        <textarea className="comment-input" placeholder="댓글을 남겨보세요" />
         <button className="comment-submit">등록</button>
       </section>
     </div>

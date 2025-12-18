@@ -101,12 +101,20 @@ const MovieInfo: React.FC = () => {
           <div className="movieinfo-review-list">
             <div className="movieinfo-review-card">
               <div className="review-header">
-                <div className="review-avatar">👤</div>
+                <div className="review-avatar">A</div>
                 <div>
                   <div className="review-name">
-                    <Link to="/movielog/detail2">테스트 1</Link>
+                    <Link to="/movielog/detail2">사용자 1</Link>
                   </div>
-                  <div className="review-tag">선호 장르1</div>
+                  <div className="review-tag">액션</div>
+                </div>
+
+                <div className="review-avatar">B</div>
+                <div>
+                  <div className="review-name">
+                    <Link to="/movielog/detail2">사용자 2</Link>
+                  </div>
+                  <div className="review-tag">판타지</div>
                 </div>
               </div>
               <p className="review-text">
