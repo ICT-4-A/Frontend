@@ -66,10 +66,10 @@ const GenreSearch: React.FC = () => {
               />
               <div className="card-body">
                 <h5 className="movie-title">
-                  <a href="/MovieInfo">어벤져스 엔드게임 2019</a>
+                  <a href="/MovieInfo">어벤져스 엔드게임 2019<br/></a>
                 </h5>
                 <button className="badge genre-badge">액션</button>
-                <p className="movie-rating">★ 4.0</p>
+                <div className="moive-rating">★ 5.0</div>
               </div>
             </div>
           </div>
@@ -78,14 +78,14 @@ const GenreSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card movie-card h-100">
               <img
-                src="/images/poster5.jpg"
+                src="/images/poster1.jpg"
                 className="card-img-top movie-poster"
-                alt="스파이더맨 파 프롬 홈"
+                alt=""
               />
               <div className="card-body">
-                <h5 className="movie-title">스파이더맨 파 프롬 홈 2019</h5>
+                <h5 className="movie-title">아바타: 불과 재 <br/>2025</h5>
                 <button className="badge genre-badge">액션</button>
-                <p className="movie-rating">★ 5.0</p>
+                <div className="moive-rating">★ 4.5</div>
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@ const GenreSearch: React.FC = () => {
               <div className="card-body">
                 <h5 className="movie-title">스파이더맨 파 프롬 홈 2019</h5>
                 <button className="badge genre-badge">액션</button>
-                <p className="movie-rating">★ 5.0</p>
+                <div className="moive-rating">★ 5.0</div>
               </div>
             </div>
           </div>
@@ -110,17 +110,50 @@ const GenreSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card movie-card h-100">
               <img
-                src="/images/poster5.jpg"
+                src="/images/poster3.jpg"
                 className="card-img-top movie-poster"
-                alt="스파이더맨 파 프롬 홈"
+                alt="나우유씨미3"
               />
               <div className="card-body">
-                <h5 className="movie-title">스파이더맨 파 프롬 홈 2019</h5>
+                <h5 className="movie-title">나우유씨미3 <br/> 2025</h5>
                 <button className="badge genre-badge">액션</button>
-                <p className="movie-rating">★ 5.0</p>
+                <div className="moive-rating">★ 4.5</div>
               </div>
             </div>
           </div>
+
+          {/* 카드 5 */}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
+              <img
+                src="/images/poster11.jpg"
+                className="card-img-top movie-poster"
+                alt="나우유씨미3"
+              />
+              <div className="card-body">
+                <h5 className="movie-title">닥터스트레인지<br/> 대혼돈의 멀티버스 <br/> 2017</h5>
+                <button className="badge genre-badge">액션</button>
+                <div className="moive-rating">★ 2.5</div>
+              </div>
+            </div>
+          </div>
+
+          {/* 카드 6 */}
+          <div className="col-md-4">
+            <div className="card movie-card h-100">
+              <img
+                src="/images/poster12.jpg"
+                className="card-img-top movie-poster"
+                alt="나우유씨미3"
+              />
+              <div className="card-body">
+                <h5 className="movie-title">가디언즈오브 갤럭시 <br/> 2018</h5>
+                <button className="badge genre-badge">액션</button>
+                <div className="moive-rating">★ 3.0</div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 

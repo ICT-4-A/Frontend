@@ -118,14 +118,14 @@ const ActorSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card moive-card h-100">
               <img
-                src="/images/poster10.jpg"
+                src="/images/poster14.png"
                 className="card-img-top moive-poster"
                 alt="건축학개론"
               />
               <div className="card-body">
-                <h5 className="moive-title">건축학개론 2012</h5>
-                <button className="badge genre-badge">로맨스</button>
-                <div className="moive-rating">★ 4.0</div>
+                <h5 className="moive-title">사냥의 시간 2020</h5>
+                <button className="badge genre-badge">공포/스릴러</button>
+                <div className="moive-rating">★ 3.5</div>
               </div>
             </div>
           </div>
@@ -134,14 +134,14 @@ const ActorSearch: React.FC = () => {
           <div className="col-md-4">
             <div className="card moive-card h-100">
               <img
-                src="/images/poster10.jpg"
-                className="card-img-top moive-poster"
-                alt="건축학개론"
+                src="/images/poster7.jpg"
+                className="card-img-top movie-poster"
+                alt="옥자"
               />
               <div className="card-body">
-                <h5 className="moive-title">건축학개론 2012</h5>
-                <button className="badge genre-badge">로맨스</button>
-                <div className="moive-rating">★ 4.0</div>
+                <h5 className="movie-title">옥자 2017</h5>
+                <button className="badge genre-badge">코미디</button>
+                <div className="moive-rating">★ 3.5</div>
               </div>
             </div>
           </div>
