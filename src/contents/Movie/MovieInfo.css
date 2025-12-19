@@ -46,8 +46,8 @@
 }
 
 .movieinfo-year {
-  font-size: 18px;
-  color: #868e96;
+  font-size: 23px;
+  color: #525252;
 }
 
 /* 장르 배지 */
@@ -100,10 +100,9 @@
 }
 
 /* 별점 분포 막대 */
-.movieinfo-bar-list {
+/* .movieinfo-bar-list {
   margin-top: 4px;
 }
-
 .movieinfo-bar-row {
   display: flex;
   align-items: center;
@@ -111,13 +110,11 @@
   margin-bottom: 6px;
   font-size: 12px;
 }
-
 .bar-label {
   width: 26px;
   text-align: right;
   color: #868e96;
 }
-
 .bar-track {
   flex: 1;
   height: 6px;
@@ -125,22 +122,21 @@
   background-color: #f1f3f5;
   overflow: hidden;
 }
-
 .bar-fill {
   height: 100%;
   border-radius: 999px;
   background: linear-gradient(90deg, #4dabf7, #1c7ed6);
 }
-
 .bar-percent {
   width: 38px;
   text-align: right;
   color: #868e96;
-}
+} */
 
 /* 한줄평 카드 */
 .movieinfo-review-list {
   display: flex;
+  margin-top: 20px;
   flex-direction: column;
   gap: 12px;
 }

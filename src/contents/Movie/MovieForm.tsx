@@ -1,8 +1,10 @@
 // src/contents/Movie/MovieForm.tsx
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./MovieForm.css";
 
 const MovieForm: React.FC = () => {
+  const navigate = useNavigate();
   // TODO: 실제 로그인 유저 / 친구 목록은 props나 API로 대체
   const currentUser = { nickname: "사용자1" };
   const friends = [
@@ -31,6 +33,7 @@ const MovieForm: React.FC = () => {
 
     console.log("submit payload", payload);
     // 업로드 처리 로직 추가 예정
+
   };
 
   return (
@@ -106,9 +109,13 @@ const MovieForm: React.FC = () => {
 
         {/* 업로드 버튼 */}
         <div className="movieform-footer">
-          <button type="submit" className="movieform-submit-btn">
+         <button
+            type="button"
+            className="movieform-submit-btn"
+            onClick={() => navigate("/movielog")}>
             업로드
           </button>
+
         </div>
       </form>
     </div>
