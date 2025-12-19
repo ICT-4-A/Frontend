@@ -28,6 +28,7 @@ import FindID from "../contents/Login/Find";
 import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
 import SurveryDetail from "../contents/Survey/SurveryDetail";
+import SurveyResult from "../contents/Survey/SurveyResult";
 
 
 const AppRoutes: React.FC = () => {
@@ -65,7 +66,8 @@ const AppRoutes: React.FC = () => {
 
     {path:"/survey/surveyform", element:<SurveyForm />},
     { path: "/survey", element: <Survey /> },
-    { path: "/survey/detail", element: <SurveryDetail /> }
+    { path: "/survey/detail", element: <SurveryDetail /> },
+    { path: "/survey/result", element: <SurveyResult /> }
   ];
 
   return (

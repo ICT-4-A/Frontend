@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const SurveyForm: React.FC = () => {
     const [question, setQuestion] = useState('');
@@ -46,12 +47,14 @@ const SurveyForm: React.FC = () => {
 
                 {/* 버튼 */}
                 <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                    <Link to="/survey">
                     <button
                         onClick={handleSubmit}
                         style={{ background: '#4a8df6', color: 'white', border: 'none', 
                             padding: '10px 30px', borderRadius: '6px', cursor: 'pointer' }}>
                         작성 완료
                     </button>
+                    </Link>
                 </div>
             </div>
         </div>
