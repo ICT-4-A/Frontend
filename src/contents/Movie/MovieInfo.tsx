@@ -6,8 +6,8 @@ import { Link } from "react-router-dom";
 const MovieInfo: React.FC = () => {
   // TODO: 실제로는 useParams 등으로 id 받아서 데이터 조회
   const movie = {
-    title: "어벤져스 엔드게임 2019",
-    year: 2025,
+    title: "어벤져스 엔드게임",
+    year: 2019,
     genre: "액션",
     release: "2025년 11월",
     director: "어벤져스",
@@ -47,9 +47,7 @@ const MovieInfo: React.FC = () => {
           </div>
         </div>
 
-        {/* 하단: 별점 + 한줄평 박스 영역 */}
-        <div className="movieinfo-bottom">
-          {/* 좌측: 별점 박스 (더미) */}
+        {/* 하단: 별점 + 한줄평 박스 영역
           <div className="movieinfo-rating-box">
             <h3 className="movieinfo-subtitle">사용자 별점</h3>
             <div className="movieinfo-score-line">
@@ -58,7 +56,6 @@ const MovieInfo: React.FC = () => {
             </div>
 
             <div className="movieinfo-bar-list">
-              {/* 더미 비율 */}
               <div className="movieinfo-bar-row">
                 <span className="bar-label">5★</span>
                 <div className="bar-track">
@@ -96,7 +93,7 @@ const MovieInfo: React.FC = () => {
               </div>
             </div>
           </div>
-
+ */}
           {/* 우측: 한줄평 카드 리스트 (더미) */}
           <div className="movieinfo-review-list">
             <div className="movieinfo-review-card">
@@ -137,7 +134,6 @@ const MovieInfo: React.FC = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
