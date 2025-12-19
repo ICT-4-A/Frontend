@@ -1,0 +1,80 @@
+.survey-wrap {
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
+
+.survey-title {
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+
+.survey-box {
+  background-color: #ffffff;
+}
+
+.survey-question {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.Q-mark {
+  color: #3b82f6;
+  font-size: 30px;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.survey-options {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #f1f5f9;
+  padding: 14px 16px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.option-item input {
+  cursor: pointer;
+}
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.survey-checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #3b82f6;
+}
+.answer-option{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 12px;
+  background-color: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background-color: #2563eb;
+}

@@ -27,6 +27,8 @@ import MovieSearch from "../contents/Movie/MovieSearch";
 import FindID from "../contents/Login/Find";
 import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
+import SurveryDetail from "../contents/Survey/SurveryDetail";
+
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -63,6 +65,7 @@ const AppRoutes: React.FC = () => {
 
     {path:"/survey/surveyform", element:<SurveyForm />},
     { path: "/survey", element: <Survey /> },
+    { path: "/survey/detail", element: <SurveryDetail /> }
   ];
 
   return (

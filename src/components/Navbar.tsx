@@ -60,6 +60,11 @@ const Navbar: React.FC = () => {
                     설문조사
                   </Link>
                 </li>
+                <li>
+                  <Link className="dropdown-item" to="/survey/detail">
+                    설문조사 Detail
+                  </Link>
+                </li>
               </ul>
             </li>
 
