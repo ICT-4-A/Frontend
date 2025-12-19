@@ -25,6 +25,7 @@ import ActorSearch from "../contents/Search/ActorSearch";
 import MovieInfo from "../contents/Movie/MovieInfo";
 import MovieSearch from "../contents/Movie/MovieSearch";
 import FindID from "../contents/Login/Find";
+import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
 
 const AppRoutes: React.FC = () => {
@@ -60,6 +61,7 @@ const AppRoutes: React.FC = () => {
     { path: "/Find", element: <FindID /> },
     { path: "/signup", element: <SignUp /> },
 
+    {path:"/survey/surveyform", element:<SurveyForm />}
     { path: "/survey", element: <Survey /> },
   ];
 

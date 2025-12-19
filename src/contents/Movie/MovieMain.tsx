@@ -208,7 +208,7 @@ const MovieLog = () => {
               </Link>
             </li>
             <li>
-              <Link className="dropdown-item" to="/survey/form">
+              <Link className="dropdown-item" to="/survey/surveyform">
                 설문조사 등록하러 가기
               </Link>
             </li>
