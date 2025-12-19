@@ -46,8 +46,7 @@ const Login: React.FC = () => {
 
         {/* 아이디/비밀번호 찾기 링크 */}
         <div className="login-find-links">
-          <a href="/find-account">아이디 찾기</a> <a>|</a>{" "}
-          <a href="">비밀번호 재설정</a>
+          <a href="/Find">아이디 찾기 | 비밀번호 재설정</a>
         </div>
 
         {/* 하단 링크 */}

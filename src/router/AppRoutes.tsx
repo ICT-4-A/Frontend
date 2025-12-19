@@ -24,6 +24,7 @@ import DirectorSearch from "../contents/Search/DirectorSearch";
 import ActorSearch from "../contents/Search/ActorSearch";
 import MovieInfo from "../contents/Movie/MovieInfo";
 import MovieSearch from "../contents/Movie/MovieSearch";
+import FindID from "../contents/Login/Find";
 
 const AppRoutes: React.FC = () => {
   const routeList = [
@@ -55,6 +56,7 @@ const AppRoutes: React.FC = () => {
     { path: "/mypage/toadmindetail", element: <ToAdminDetail /> },
 
     { path: "/login", element: <Login /> },
+    { path: "/Find", element: <FindID /> },
     { path: "/signup", element: <SignUp /> },
   ];
 
