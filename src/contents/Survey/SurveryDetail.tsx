@@ -16,28 +16,28 @@ const SurveryDetail: React.FC = () => {
         <ul className="survey-options">
           <li>
             <label className="option-item">
-              <input type="checkbox" className="survey-checkbox"/>
+              <input type="radio" name="survey" className="survey-radio"/>
               <span className="answer-option">90분 이하</span>
             </label>
           </li>
 
           <li>
             <label className="option-item">
-              <input type="checkbox" className="survey-checkbox"/>
+              <input type="radio" name="survey" className="survey-radio"/>
               <span className="answer-option">120분 내외</span>
             </label>
           </li>
 
           <li>
             <label className="option-item">
-              <input type="checkbox" className="survey-checkbox"/>
+              <input type="radio" name="survey" className="survey-radio"/>
               <span className="answer-option">150분 이상도 OK</span>
             </label>
           </li>
 
           <li>
             <label className="option-item">
-              <input type="checkbox" className="survey-checkbox" />
+              <input type="radio" name="survey" className="survey-radio" />
               <span className="answer-option">재미만 있으면 상관없다</span>
             </label>
           </li>

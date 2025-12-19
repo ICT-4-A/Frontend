@@ -57,16 +57,20 @@ const Diary: React.FC = () => {
     return (
         <div style={{ textAlign: 'center', marginTop: '30px' }}>
             <h2>Diary</h2>
-            <div style={{
-                width: '620px', margin: '20px auto',
-                overflow: 'hidden', borderRadius: '10px',
-                boxShadow: '0 8px 20px rgba(0,0,0,0.2)'
-            }}>
+            <div
+                style={{
+                    width: '900px',          // ← 기존 620px에서 더 크게
+                    margin: '20px auto',
+                    overflow: 'hidden',
+                    borderRadius: '10px',
+                    boxShadow: '0 8px 20px rgba(0,0,0,0.2)'
+                }}
+            >
                 {/* usePortrait={true} : 모바일에서 화면이 작으면 책이 한장(반응형웹) 
               {...({ style: {}, usePortrait: true } as any)} 
               기존의 스타일 인터페이스에 동적으로 추가 하기  
              */}
-                <HTMLFlipBook width={300} height={400}
+                <HTMLFlipBook width={450} height={600}
                     showCover={true}
                     {...({ style: {}, usePortrait: true } as any)}
                     autoSize={true} mobileScrollSupport={true}
@@ -122,7 +126,7 @@ const Diary: React.FC = () => {
 
                                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
 
-                                    <img src={entry.movieimg} alt="movie" style={{ width: '120px', height: '160px', objectFit: 'cover', borderRadius: '8px', marginRight: '10px', marginTop: '20px', marginLeft: '20px' }} />
+                                    <img src={entry.movieimg} alt="movie" style={{ width: '250px', height: '300px', objectFit: 'cover', borderRadius: '8px', marginRight: '10px', marginTop: '20px', marginLeft: '20px' }} />
 
                                     <h3 style={{ margin: 0, fontSize: '20px', fontWeight: 'bold', textAlign: 'left' }}> {entry.title} </h3>
                                 </div>
