@@ -188,11 +188,32 @@ const MovieLog = () => {
         </nav>
 
         {/* 오른쪽 + 버튼 */}
-        <Link to="/moviesearch">
-          <button className="fab-btn" aria-label="영화 기록 작성">
+        <div className="dropdown movieLog-fab-dropdown">
+          <button
+            className="fab-btn dropdown-toggle"
+            type="button"
+            id="movieLogFabDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
             +
           </button>
-        </Link>
+          <ul
+            className="dropdown-menu dropdown-menu-end"
+            aria-labelledby="movieLogFabDropdown"
+          >
+            <li>
+              <Link className="dropdown-item" to="/moviesearch">
+                영화 기록하기
+              </Link>
+            </li>
+            <li>
+              <Link className="dropdown-item" to="/survey/form">
+                설문조사 등록하러 가기
+              </Link>
+            </li>
+          </ul>
+        </div>
       </footer>
     </div>
   );
