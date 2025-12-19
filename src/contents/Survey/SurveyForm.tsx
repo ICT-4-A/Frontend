@@ -11,10 +11,7 @@ const SurveyForm: React.FC = () => {
     };
 
     const handleSubmit = () => {
-        console.log({
-            question,
-            options,
-        });
+        console.log({ question, options });
     };
 
     return (
