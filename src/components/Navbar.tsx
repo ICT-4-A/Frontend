@@ -38,10 +38,29 @@ const Navbar: React.FC = () => {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link className="nav-link" to="/board">
-                게시판
-              </Link>
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="communityDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                커뮤니티
+              </a>
+              <ul className="dropdown-menu" aria-labelledby="communityDropdown">
+                <li>
+                  <Link className="dropdown-item" to="/board">
+                    게시판
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/survey">
+                    설문조사
+                  </Link>
+                </li>
+              </ul>
             </li>
 
             <li className="nav-item">

@@ -47,11 +47,12 @@
 }
 
 /* 링크 방문 후 밑줄 제거, 색 변경 제거 */
-.a, a:link, a:visited {
-    color: black;
-    text-decoration-line: none;
+.a,
+a:link,
+a:visited {
+  color: black;
+  text-decoration-line: none;
 }
-
 
 /* 페이지네이션 */
 .movieLog-pagination {
@@ -88,12 +89,9 @@
 .movieLog-footer {
   max-width: 1000px;
   margin: 16px auto 40px;
-  position: relative;    
+  position: relative;
 }
 
-
-
-/* 플로팅 플러스 버튼 (시안의 오른쪽 아래 버튼 느낌) */
 .fab-btn {
   width: 48px;
   height: 48px;
@@ -108,9 +106,9 @@
   transition: all 0.2s ease-in-out;
 
   position: absolute;
-  right: 40px;   /* 오른쪽 여백 (원하는 만큼 조절) */
-  top: 50%;      /* footer 세로 가운데 기준 */
-  transform: translateY(-50%);  /* 버튼 자체를 세로 가운데로 */
+  right: 40px; /* 오른쪽 여백 (원하는 만큼 조절) */
+  top: 50%; /* footer 세로 가운데 기준 */
+  transform: translateY(-50%); /* 버튼 자체를 세로 가운데로 */
 }
 
 .fab-btn:hover {
@@ -118,17 +116,22 @@
   background-color: #1153ce;
 }
 
+/* FAB 드롭다운 버튼에서 기본 화살표 숨기기 */
+.fab-btn.dropdown-toggle::after {
+  display: none;
+}
+
 /* 공통 포스터 사이즈 (위키드2 카드 기준 값, 필요하면 숫자만 조절) */
 .poster-img {
-  width: 180px;      
-  height: 260px;    
+  width: 180px;
+  height: 260px;
   object-fit: cover; /* 비율 유지하면서 빈 공간 없이 잘라줌 */
 }
 
-.movieDetail-user-info{
+.movieDetail-user-info {
   margin: 10px 10px 10px 10px;
 }
-.movieDetail-genreTag{
+.movieDetail-genreTag {
   margin-left: 10px;
 }
 /* 영화 기록 카드 영화제목, 연도, 장르 */
