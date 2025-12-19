@@ -4,13 +4,14 @@ import "./SurveyResult.css";
 
 const SurveyResult: React.FC = () => {
   // TODO: 실제 데이터는 API에서 받아오기
-  const totalVotes = 100;
+
   const results = [
     { id: 1, label: "90분 이하", value: 18 },
     { id: 2, label: "120분 내외", value: 35 },
     { id: 3, label: "150분 이상도 OK", value: 22 },
     { id: 4, label: "재미만 있으면 상관없다", value: 25 },
   ];
+  const totalVotes = results.reduce((sum, item) => sum + item.value, 0);
 
   return (
     <div className="survey-wrap">
@@ -48,6 +49,9 @@ const SurveyResult: React.FC = () => {
             );
           })}
         </ul>
+        <div className="survey-total-votes">
+          총 {totalVotes.toLocaleString()}명 참여
+        </div>
       </div>
     </div>
   );
