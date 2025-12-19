@@ -1,5 +1,6 @@
 import React from "react";
 import "./SurveryDetail.css";
+import { Link } from "react-router-dom";
 
 const SurveryDetail: React.FC = () => {
   return (
@@ -42,7 +43,7 @@ const SurveryDetail: React.FC = () => {
           </li>
         </ul>
 
-        <button className="submit-btn">설문하기</button>
+        <Link to="/survey/result"><button className="submit-btn">설문완료</button></Link>
       </div>
     </div>
   );
