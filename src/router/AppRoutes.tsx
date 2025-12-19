@@ -61,7 +61,7 @@ const AppRoutes: React.FC = () => {
     { path: "/Find", element: <FindID /> },
     { path: "/signup", element: <SignUp /> },
 
-    {path:"/survey/surveyform", element:<SurveyForm />}
+    {path:"/survey/surveyform", element:<SurveyForm />},
     { path: "/survey", element: <Survey /> },
   ];
 
