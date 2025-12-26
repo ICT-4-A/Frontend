@@ -1,57 +1,65 @@
-// src/contents/Survey/SurveyResult.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import "./SurveyResult.css";
 
-const SurveyResult: React.FC = () => {
-  // TODO: 실제 데이터는 API에서 받아오기
+interface SurveyContent {
+  surveytitle: string;
+  surveycnt: number;
+  subcode: number;
+}
 
-  const results = [
-    { id: 1, label: "90분 이하", value: 18 },
-    { id: 2, label: "120분 내외", value: 35 },
-    { id: 3, label: "150분 이상도 OK", value: 22 },
-    { id: 4, label: "재미만 있으면 상관없다", value: 25 },
-  ];
-  const totalVotes = results.reduce((sum, item) => sum + item.value, 0);
+interface SurveyVO {
+  num: number;
+  sub: string;
+  contents: SurveyContent[];
+}
+
+const SurveyResult: React.FC = () => {
+  const { num } = useParams<{ num: string }>();
+  const REACT_APP_BACK_END_URL = process.env.REACT_APP_BACK_END_URL;
+
+  const [surveyDetail, setSurveyDetail] = useState<SurveyVO | null>(null);
+
+  useEffect(() => {
+    const fetchSurveyResult = async () => {
+      try {
+        const res = await axios.get(`${REACT_APP_BACK_END_URL}/api/survey/result/${num}`);
+        setSurveyDetail(res.data);
+      } catch (error) {
+        console.error("설문 결과 호출 실패", error);
+      }
+    };
+    fetchSurveyResult();
+  }, [num]);
+
+  if (!surveyDetail) return <div>로딩중...</div>;
+
+  const totalVotes = surveyDetail.contents.reduce((sum, item) => sum + item.surveycnt, 0);
 
   return (
     <div className="survey-wrap">
-      <h2 className="survey-title">영화 취향 설문</h2>
+      <h2 className="survey-title">{surveyDetail.sub}</h2>
 
       <div className="survey-box">
-        <p className="survey-question">
-          <span className="Q-mark">Q.</span>
-          영화 러닝타임, 어디까지 괜찮아?
-        </p>
-
         <ul className="survey-result-list">
-          {results.map((item, index) => {
-            const percent = Math.round((item.value / totalVotes) * 100);
-            const isTop = index === 0; // 예시: 첫 번째 항목을 강조
+          {surveyDetail.contents.map(item => {
+            const percent = totalVotes > 0 ? Math.round((item.surveycnt / totalVotes) * 100) : 0;
             return (
-              <li
-                key={item.id}
-                className={`result-item ${isTop ? "top" : ""}`}
-              >
+              <li key={item.subcode} className="result-item">
                 <div className="result-label-row">
-                  <span className="result-label">{item.label}</span>
+                  <span className="result-label">{item.surveytitle}</span>
                   <span className="result-percent">{percent}%</span>
                 </div>
                 <div className="result-bar-bg">
-                  <div
-                    className="result-bar-fill"
-                    style={{ width: `${percent}%` }}
-                  />
+                  <div className="result-bar-fill" style={{ width: `${percent}%` }} />
                 </div>
-                <div className="result-count">
-                  {item.value.toLocaleString()}명
-                </div>
+                <div className="result-count">{item.surveycnt}명</div>
               </li>
             );
           })}
         </ul>
-        <div className="survey-total-votes">
-          총 {totalVotes.toLocaleString()}명 참여
-        </div>
+        <div className="survey-total-votes">총 {totalVotes}명 참여</div>
       </div>
     </div>
   );

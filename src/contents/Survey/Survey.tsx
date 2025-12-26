@@ -1,8 +1,38 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Board/Board.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const Board = () => {
+interface SurveyContent {
+    surveytype: string;
+    surveytitle: string;
+    surveycnt: number;
+}
+
+interface Survey {
+    num:number;
+    sub: string;
+     code: number;
+    contents: SurveyContent[];
+}
+
+const Survey = () => {
+  const REACT_APP_BACK_END_URL = process.env.REACT_APP_BACK_END_URL;
+  const [survey, setSurvey] = useState<Survey[]>([]); 
+
+  useEffect(() =>  {
+    const fetchSurvey = async () => {
+      try {
+        const response = await axios.get(`${REACT_APP_BACK_END_URL}/api/survey/list`);
+        setSurvey(response.data);
+      } catch (error) {
+        console.error("설문조사 리스트 호출 실패", error);
+      }
+    };
+    fetchSurvey();
+  }, []);
+
+
   return (
     <div className="board-container">
       <div className="board-header">
@@ -29,8 +59,8 @@ const Board = () => {
           </thead>
 
           <tbody>
-
-            {/* HOT 게시글*/}
+            {/*
+            HOT 게시글
             <tr className="hot-row">
               <th><span className="hot-badge">HOT</span></th>
               <td><Link to="/survey/detail">영화 러닝타임, 어디까지 괜찮아?</Link></td>
@@ -51,25 +81,22 @@ const Board = () => {
               <td>영화속으로</td>
             </tr>
 
-            {/* 일반 설문조사 */}
+             일반 설문조사 리스트 */}
 
-            <tr>
-              <th>3</th>
-              <td>설문 4</td>
-              <td>로코덕후</td>
-            </tr>
+            {survey.map((s) => (
+              <tr key={s.num}>
+                <th>{s.num}</th>
+                <td>
+                  <Link to={`/survey/detail/${s.num}`}>
+                    {s.sub}
+                  </Link>
+                </td>
+                {/* {s.nickname} */}
+                <td>로코덕후</td>
+              </tr>
 
-            <tr>
-              <th>2</th>
-              <td>설문 5</td>
-              <td>영화한잔</td>
-            </tr>
-
-            <tr>
-              <th>1</th>
-              <td>설문 6</td>
-              <td>극장탐험가</td>
-            </tr>
+            ))}
+            
 
           </tbody>
         </table>
@@ -106,4 +133,4 @@ const Board = () => {
   );
 };
 
-export default Board;
+export default Survey;
