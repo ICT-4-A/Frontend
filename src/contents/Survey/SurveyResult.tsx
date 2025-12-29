@@ -5,6 +5,7 @@ import "./SurveyResult.css";
 
 interface SurveyContent {
   surveytitle: string;
+  surveytype: string;
   surveycnt: number;
   subcode: number;
 }
@@ -45,21 +46,36 @@ const SurveyResult: React.FC = () => {
         <ul className="survey-result-list">
           {surveyDetail.contents.map(item => {
             const percent = totalVotes > 0 ? Math.round((item.surveycnt / totalVotes) * 100) : 0;
+
+
             return (
-              <li key={item.subcode} className="result-item">
+              <li key={item.surveytype} className="result-item">
                 <div className="result-label-row">
                   <span className="result-label">{item.surveytitle}</span>
-                  <span className="result-percent">{percent}%</span>
+                  <span className="result-right">
+                    <span className="result-percent">{percent}%</span>
+                    <span className="result-count-inline">({item.surveycnt}명)</span>
+                  </span>
                 </div>
+
                 <div className="result-bar-bg">
                   <div className="result-bar-fill" style={{ width: `${percent}%` }} />
                 </div>
-                <div className="result-count">{item.surveycnt}명</div>
+
               </li>
             );
           })}
         </ul>
-        <div className="survey-total-votes">총 {totalVotes}명 참여</div>
+        <div className="survey-footer">
+          <div className="survey-total-votes">
+            총 {totalVotes}명 참여
+          </div>
+
+          <a href="/survey" className="survey-list-link">
+            목록으로 이동
+          </a>
+        </div>
+
       </div>
     </div>
   );

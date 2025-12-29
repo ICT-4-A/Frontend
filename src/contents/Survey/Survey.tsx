@@ -1,29 +1,37 @@
 import React, { useEffect, useState } from "react";
-import "../Board/Board.css";
+import "./Survey.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 interface SurveyContent {
-    surveytype: string;
-    surveytitle: string;
-    surveycnt: number;
+  surveytype: string;
+  surveytitle: string;
+  surveycnt: number;
 }
 
 interface Survey {
-    num:number;
-    sub: string;
-     code: number;
-    contents: SurveyContent[];
+  num: number;
+  sub: string;
+  code: number;
+  totalVotes: number; // 문항별 전체 투표수
+  contents: SurveyContent[];
 }
 
 const Survey = () => {
   const REACT_APP_BACK_END_URL = process.env.REACT_APP_BACK_END_URL;
-  const [survey, setSurvey] = useState<Survey[]>([]); 
+  const [survey, setSurvey] = useState<Survey[]>([]);
+  const sortedByVotes = [...survey].sort((a, b) => b.totalVotes - a.totalVotes);
+  const top3 = sortedByVotes.slice(0, 3);
+  const rest = sortedByVotes
+  .slice(3)
+  .sort((a, b) => b.num - a.num);
 
-  useEffect(() =>  {
+  useEffect(() => {
     const fetchSurvey = async () => {
       try {
-        const response = await axios.get(`${REACT_APP_BACK_END_URL}/api/survey/list`);
+        const response = await axios.get(
+          `${REACT_APP_BACK_END_URL}/api/survey/list`
+        );
         setSurvey(response.data);
       } catch (error) {
         console.error("설문조사 리스트 호출 실패", error);
@@ -32,73 +40,65 @@ const Survey = () => {
     fetchSurvey();
   }, []);
 
-
   return (
-    <div className="board-container">
-      <div className="board-header">
+    <div className="survey-container">
+      <div className="survey-header">
         <h3>영화 취향 설문</h3>
+
         {/* 검색창 */}
         <div className="search-box">
           <img src="/icons/search.png" alt="검색" className="search-icon" />
-          <input 
+          <input
             type="text"
             placeholder="Search..."
-            className="form-control"
-          />
+            className="form-control"/>
         </div>
-      </div>  
+      </div>
 
       <div className="table-wrapper">
-        <table className="board-table">
+        <table className="survey-table table">
           <thead>
             <tr>
               <th>No</th>
               <th>제목</th>
               <th>닉네임</th>
+              <th>투표수</th>
             </tr>
           </thead>
 
           <tbody>
-            {/*
-            HOT 게시글
-            <tr className="hot-row">
-              <th><span className="hot-badge">HOT</span></th>
-              <td><Link to="/survey/detail">영화 러닝타임, 어디까지 괜찮아?</Link></td>
-              <td>필름러버</td>
-              
-            </tr>
-
-            <tr className="hot-row">
-              <th><span className="hot-badge">HOT</span></th>
-              <td>설문 2</td>
-              <td>영화감상가</td>
-              
-            </tr>
-
-            <tr className="hot-row">
-              <th><span className="hot-badge">HOT</span></th>
-              <td>설문 3</td>
-              <td>영화속으로</td>
-            </tr>
-
-             일반 설문조사 리스트 */}
-
-            {survey.map((s) => (
-              <tr key={s.num}>
-                <th>{s.num}</th>
+            {/* TOP 3 고정 */}
+            {top3.map((s, index: number) => (
+              <tr key={s.num} className="hot-row">
+                <th>
+                  <span className="hot-badge">HOT</span>
+                </th>
                 <td>
                   <Link to={`/survey/detail/${s.num}`}>
                     {s.sub}
                   </Link>
                 </td>
-                {/* {s.nickname} */}
                 <td>로코덕후</td>
+                <td>{s.totalVotes}</td>
               </tr>
-
             ))}
-            
 
+            {/* 일반 설문 */}
+            {rest.map((s, index: number) => (
+              <tr key={s.num}>
+                <th>{rest.length - index}</th>
+                <td>
+                  <Link to={`/survey/detail/${s.num}`}>
+                    {s.sub}
+                  </Link>
+                </td>
+                <td>로코덕후</td>
+                <td>{s.totalVotes}</td>
+              </tr>
+            ))}
           </tbody>
+
+
         </table>
 
         {/* 글쓰기 버튼 */}
@@ -106,7 +106,6 @@ const Survey = () => {
           <Link to="/survey/surveyform" className="write-btn">
             글쓰기
           </Link>
-
         </div>
       </div>
 
@@ -128,7 +127,6 @@ const Survey = () => {
           </li>
         </ul>
       </nav>
-
     </div>
   );
 };
