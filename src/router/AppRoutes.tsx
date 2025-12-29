@@ -69,8 +69,8 @@ const AppRoutes: React.FC = () => {
 
     { path: "/survey/surveyform", element: <SurveyForm /> },
     { path: "/survey", element: <Survey /> },
-    { path: "/survey/detail", element: <SurveryDetail /> },
-    { path: "/survey/result", element: <SurveyResult /> }
+    { path: "/survey/detail/:num", element: <SurveryDetail /> },
+    { path: "/survey/result/:num", element: <SurveyResult /> }
   ];
 
   return (
