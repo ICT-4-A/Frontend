@@ -60,6 +60,11 @@ const Navbar: React.FC = () => {
                     설문조사
                   </Link>
                 </li>
+                <li>
+                  <Link className="dropdown-item" to="/gallery">
+                    갤러리
+                  </Link>
+                </li>
               </ul>
             </li>
 

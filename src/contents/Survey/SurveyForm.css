@@ -1,0 +1,64 @@
+/* SurveyForm.css */
+
+.survey-form-wrap {
+  padding: 40px 0;
+}
+
+.survey-form-container {
+  width: 600px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+.survey-form-title {
+  margin-bottom: 30px;
+}
+
+.survey-form-question {
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.survey-form-question span {
+  width: 60px;
+}
+
+.survey-form-question input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid grey;
+  border-radius: 10px;
+}
+
+.survey-form-option {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.survey-form-option input[type="radio"] {
+  margin-right: 10px;
+}
+
+.survey-form-option input[type="text"] {
+  flex: 1;
+  padding: 8px 4px;
+  border: none;
+  border-bottom: 1px solid grey;
+  outline: none;
+}
+
+.survey-form-submit {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.survey-form-submit button {
+  background: #4a8df6;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  border-radius: 6px;
+  cursor: pointer;
+}
