@@ -51,7 +51,7 @@ const Navbar: React.FC = () => {
               </a>
               <ul className="dropdown-menu" aria-labelledby="communityDropdown">
                 <li>
-                  <Link className="dropdown-item" to="/board">
+                  <Link className="dropdown-item" to="/board/list">
                     게시판
                   </Link>
                 </li>

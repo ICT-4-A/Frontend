@@ -11,8 +11,8 @@ import MovieDetail3 from "../contents/Movie/MovieDetail3";
 import MovieDetail4 from "../contents/Movie/MovieDetail4";
 
 import Board from "../contents/Board/Board";
-import BoardDetail1 from "../contents/Board/BoardDetail1";
-import BoardDetail2 from "../contents/Board/BoardDetail2";
+import BoardDetail1 from "../contents/Board/Detail1";
+import BoardDetail2 from "../contents/Board/Detail2";
 import BoardForm from "../contents/Board/BoardForm";
 import ToAdminForm from "../contents/Mypage/ToAdminForm";
 import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
@@ -29,6 +29,9 @@ import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
 import SurveryDetail from "../contents/Survey/SurveryDetail";
 import SurveyResult from "../contents/Survey/SurveyResult";
+import BoardList from "../contents/Board/BoardList";
+import BoardDetail from "../contents/Board/BoardDetail";
+
 
 
 const AppRoutes: React.FC = () => {
@@ -51,10 +54,15 @@ const AppRoutes: React.FC = () => {
 
     { path: "/MovieInfo", element: <MovieInfo /> },
 
-    { path: "/board", element: <Board /> },
-    { path: "/board/detail1", element: <BoardDetail1 /> },
-    { path: "/board/detail2", element: <BoardDetail2 /> },
-    { path: "/board/write", element: <BoardForm /> },
+    // { path: "/board", element: <Board /> },
+    // { path: "/board/detail1", element: <BoardDetail1 /> },
+    // { path: "/board/detail2", element: <BoardDetail2 /> },
+    // { path: "/board/write", element: <BoardForm /> },
+    { path: '/board/list', element: <BoardList/>},
+    { path: '/board/form', element: <BoardForm/>},
+    { path: '/board/detail/:num', element: <BoardDetail/>},
+    
+
 
     { path: "/mypage", element: <Mypage /> },
     { path: "/mypage/toadminform", element: <ToAdminForm /> },
