@@ -29,6 +29,7 @@ import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
 import SurveryDetail from "../contents/Survey/SurveryDetail";
 import SurveyResult from "../contents/Survey/SurveyResult";
+import Gallery from "../contents/Gallery/Gallery";
 
 
 const AppRoutes: React.FC = () => {
@@ -55,6 +56,8 @@ const AppRoutes: React.FC = () => {
     { path: "/board/detail1", element: <BoardDetail1 /> },
     { path: "/board/detail2", element: <BoardDetail2 /> },
     { path: "/board/write", element: <BoardForm /> },
+    { path: "/gallery", element: <Gallery /> },
+
 
     { path: "/mypage", element: <Mypage /> },
     { path: "/mypage/toadminform", element: <ToAdminForm /> },
@@ -64,7 +67,7 @@ const AppRoutes: React.FC = () => {
     { path: "/Find", element: <FindID /> },
     { path: "/signup", element: <SignUp /> },
 
-    {path:"/survey/surveyform", element:<SurveyForm />},
+    { path: "/survey/surveyform", element: <SurveyForm /> },
     { path: "/survey", element: <Survey /> },
     { path: "/survey/detail", element: <SurveryDetail /> },
     { path: "/survey/result", element: <SurveyResult /> }
