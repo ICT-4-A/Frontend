@@ -1,8 +1,45 @@
 // src/contents/Auth/SignUp.tsx
-import React from "react";
+import React, { useState } from "react";
 import "./SignUp.css";
+import axios from 'axios';
+
+interface MemberForm{
+  email: string;
+  password: string;
+  nickname: string;
+  genre: string;
+}
 
 const SignUp: React.FC = () => {
+
+  const [form,setForm] = useState<MemberForm>({
+    email: '',
+    password: '',
+    nickname: '',
+    genre: ''
+  });
+  const [nicknameMessage, setNicknameMessage] = useState('');
+
+  const nicknameCheck = async () => {
+    try {
+      const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/member/nicknameCheck?=${form.nickname}`);
+      console.log(res)
+      if(res.data === 0){
+        alert('사용 가능한 닉네임입니다.');
+        setNicknameMessage('사용 가능한 닉네임입니다.');
+      }else{
+        setNicknameMessage('이미 사용중인 닉네임 입니다.');
+      }
+    } catch (error) {
+      alert('닉네임 중복 확인 실패');
+      console.error(error);
+    }
+  }
+
+
+
+
+
   return (
     <div className="signup-wrapper">
       <h1 className="signup-title">Sign Up</h1>
@@ -21,7 +58,7 @@ const SignUp: React.FC = () => {
               className="form-control signup-input"
               placeholder="이메일을 입력해주세요."
             />
-            <button type="button" className="email-check-btn">
+            <button type="button" className="email-check-btn" onClick={nicknameCheck}>
               중복확인
             </button>
           </div>
