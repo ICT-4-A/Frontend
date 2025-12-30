@@ -46,11 +46,10 @@ const MovieSearch: React.FC = () => {
   };
 
   const handleNext = () => {
-    if (selectedMovie) {
-      navigate(`/movieform/`, { state: { movie: selectedMovie } });
-    } else {
+    if (!selectedMovie) {
       alert("영화를 선택해주세요!");
-    }
+    } 
+    navigate(`/movieform/${selectedMovie?.num}`,{state: {movie: selectedMovie}})
   };
 
   return (
