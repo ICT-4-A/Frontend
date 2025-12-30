@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "axios";
 import "./SurveyResult.css";
 
 interface SurveyContent {
   surveytitle: string;
-  surveytype: string;
   surveycnt: number;
-  subcode: number;
 }
 
 interface SurveyVO {
@@ -25,18 +23,23 @@ const SurveyResult: React.FC = () => {
   useEffect(() => {
     const fetchSurveyResult = async () => {
       try {
-        const res = await axios.get(`${REACT_APP_BACK_END_URL}/api/survey/result/${num}`);
+        const res = await axios.get(
+          `${REACT_APP_BACK_END_URL}/api/survey/result/${num}`
+        );
         setSurveyDetail(res.data);
       } catch (error) {
         console.error("설문 결과 호출 실패", error);
       }
     };
     fetchSurveyResult();
-  }, [num]);
+  }, [num, REACT_APP_BACK_END_URL]);
 
   if (!surveyDetail) return <div>로딩중...</div>;
 
-  const totalVotes = surveyDetail.contents.reduce((sum, item) => sum + item.surveycnt, 0);
+  const totalVotes = surveyDetail.contents.reduce(
+    (sum, item) => sum + item.surveycnt,
+    0
+  );
 
   return (
     <div className="survey-wrap">
@@ -44,38 +47,45 @@ const SurveyResult: React.FC = () => {
 
       <div className="survey-box">
         <ul className="survey-result-list">
-          {surveyDetail.contents.map(item => {
-            const percent = totalVotes > 0 ? Math.round((item.surveycnt / totalVotes) * 100) : 0;
-
+          {surveyDetail.contents.map((item, idx) => {
+            const percent =
+              totalVotes > 0
+                ? Math.round((item.surveycnt / totalVotes) * 100)
+                : 0;
 
             return (
-              <li key={item.surveytype} className="result-item">
+              <li key={`${item.surveytitle}-${idx}`} className="result-item">
                 <div className="result-label-row">
                   <span className="result-label">{item.surveytitle}</span>
+
                   <span className="result-right">
                     <span className="result-percent">{percent}%</span>
-                    <span className="result-count-inline">({item.surveycnt}명)</span>
+                    <span className="result-count-inline">
+                      ({item.surveycnt}명)
+                    </span>
                   </span>
                 </div>
 
                 <div className="result-bar-bg">
-                  <div className="result-bar-fill" style={{ width: `${percent}%` }} />
+                  <div
+                    className="result-bar-fill"
+                    style={{ width: `${percent}%` }}
+                  />
                 </div>
-
               </li>
             );
           })}
         </ul>
+
         <div className="survey-footer">
           <div className="survey-total-votes">
             총 {totalVotes}명 참여
           </div>
 
-          <a href="/survey" className="survey-list-link">
+          <Link to="/survey" className="survey-list-link">
             목록으로 이동
-          </a>
+          </Link>
         </div>
-
       </div>
     </div>
   );

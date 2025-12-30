@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 interface SurveyContent {
-  surveytype: string;
   surveytitle: string;
   surveycnt: number;
 }
@@ -12,7 +11,6 @@ interface SurveyContent {
 interface Survey {
   num: number;
   sub: string;
-  code: number;
   totalVotes: number;
   contents: SurveyContent[];
 }
@@ -22,13 +20,15 @@ const Survey: React.FC = () => {
   const [survey, setSurvey] = useState<Survey[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const itemsPerPage = 10; // 한 페이지 글 수 (HOT 포함)
-  const hotCount = 3; // HOT 게시글 수: 3개
+  const itemsPerPage = 10;
+  const hotCount = 3;
 
   useEffect(() => {
     const fetchSurvey = async () => {
       try {
-        const response = await axios.get(`${REACT_APP_BACK_END_URL}/api/survey/list`);
+        const response = await axios.get(
+          `${REACT_APP_BACK_END_URL}/api/survey/list`
+        );
         setSurvey(response.data || []);
       } catch (error) {
         console.error("설문조사 리스트 호출 실패", error);
@@ -39,28 +39,37 @@ const Survey: React.FC = () => {
 
   const safeSurvey = survey || [];
 
-  // HOT 3: totalVotes 기준 내림차순
-  const sortedByVotes = safeSurvey.slice().sort((a, b) => b.totalVotes - a.totalVotes);
-  const hot3 = sortedByVotes.slice(0, hotCount);
+  // HOT 3 (투표수 기준)
+  const sortedByVotes = safeSurvey
+    .map((s) => ({
+      ...s,
+      totalVotes: s.contents.reduce((sum, c) => sum + c.surveycnt, 0),
+    }))
+    .sort((a, b) => b.totalVotes - a.totalVotes);
 
-  // 일반 글: HOT 제외, num 기준 내림차순
+  const hot3 = sortedByVotes.slice(0, hotCount);
   const restAll = sortedByVotes
     .filter((s) => !hot3.includes(s))
     .sort((a, b) => b.num - a.num);
 
-  const generalPerPageFirst = itemsPerPage - hotCount; // 첫 페이지에는 hot 게시판 포함
-  const generalPerPageOther = itemsPerPage; // 이후 페이지는 일반 글만 10개
+  const generalPerPageFirst = itemsPerPage - hotCount;
+  const generalPerPageOther = itemsPerPage;
 
   let displayList: Survey[] = [];
   if (currentPage === 1) {
     displayList = [...hot3, ...restAll.slice(0, generalPerPageFirst)];
   } else {
-    const startIndex = generalPerPageFirst + (currentPage - 2) * generalPerPageOther;
-    displayList = restAll.slice(startIndex, startIndex + generalPerPageOther);
+    const startIndex =
+      generalPerPageFirst + (currentPage - 2) * generalPerPageOther;
+    displayList = restAll.slice(
+      startIndex,
+      startIndex + generalPerPageOther
+    );
   }
 
-  // 전체 페이지 계산
-  const totalRestPages = Math.ceil((restAll.length - generalPerPageFirst) / generalPerPageOther);
+  const totalRestPages = Math.ceil(
+    (restAll.length - generalPerPageFirst) / generalPerPageOther
+  );
   const totalPages = totalRestPages > 0 ? totalRestPages + 1 : 1;
 
   const pageChange = (page: number) => {
@@ -86,17 +95,27 @@ const Survey: React.FC = () => {
           <tbody>
             {displayList.map((s, idx) => {
               const isHot = currentPage === 1 && idx < hotCount;
-              let no = 0;
 
+              let no = 0;
               if (!isHot) {
                 const generalIdx =
-                  currentPage === 1 ? idx - hotCount : generalPerPageFirst + (currentPage - 2) * generalPerPageOther + idx;
+                  currentPage === 1
+                    ? idx - hotCount
+                    : generalPerPageFirst +
+                      (currentPage - 2) * generalPerPageOther +
+                      idx;
                 no = restAll.length - generalIdx;
               }
 
               return (
                 <tr key={s.num} className={isHot ? "hot-row" : ""}>
-                  <th>{isHot ? <span className="hot-badge">HOT</span> : no}</th>
+                  <th>
+                    {isHot ? (
+                      <span className="hot-badge">HOT</span>
+                    ) : (
+                      no
+                    )}
+                  </th>
                   <td>
                     <Link to={`/survey/detail/${s.num}`}>{s.sub}</Link>
                   </td>
@@ -135,6 +154,7 @@ const Survey: React.FC = () => {
             </li>
           </ul>
         </nav>
+        
       </div>
     </div>
   );
