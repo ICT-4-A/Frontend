@@ -50,22 +50,82 @@
   resize: vertical;
 }
 
-/* 별점 */
-.movieform-stars {
-  flex: 1;
-  padding-top: 6px;
-  font-size: 20px;
+/* 별점 완벽 UI */
+.movieform-stars-input {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  border: 1px solid #dee2e6;
+}
+
+.stars-visual {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .star {
-  color: #ced4da;
-  cursor: pointer;
-  margin-right: 4px;
+  font-size: 26px;
+  color: #dee2e6;
+  transition: all 0.2s;
+  cursor: default;
 }
 
-.star.active {
-  color: #339af0;
+.star.full { color: #ffd700; }
+.star.half { 
+  color: #ffd700; 
+  position: relative;
+  overflow: hidden;
+  width: 14px;
 }
+.star.half::before {
+  content: '★';
+  position: absolute;
+  left: 0;
+  color: #ffd700;
+  width: 50%;
+}
+
+.rating-text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #495057;
+  margin-left: 12px;
+  min-width: 50px;
+}
+
+.star-input {
+  width: 72px;
+  height: 44px;
+  padding: 0 12px;
+  font-size: 20px;
+  font-weight: 700;
+  border: 2px solid #dee2e6;
+  border-radius: 12px;
+  text-align: center;
+  background: white;
+}
+
+.star-input:focus {
+  border-color: #ffd700;
+  box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .movieform-stars-input {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  
+  .stars-visual {
+    justify-content: center;
+  }
+}
+
 
 /* 버튼 */
 .movieform-footer {
