@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
-import { Link, useNavigate  } from 'react-router-dom';
-import axios from 'axios';
-import './SurveyForm.css';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "./SurveyForm.css";
 
 const REACT_APP_BACK_END_URL = process.env.REACT_APP_BACK_END_URL;
 
 const SurveyForm: React.FC = () => {
-
   const navigate = useNavigate();
-  const [question, setQuestion] = useState('');
-  const [options, setOptions] = useState(['', '', '', '']);
+  const [question, setQuestion] = useState("");
+  const [options, setOptions] = useState(["", "", "", ""]);
 
   const handleOptionChange = (index: number, value: string) => {
     const copy = [...options];
@@ -18,27 +17,30 @@ const SurveyForm: React.FC = () => {
   };
 
   const handleSubmit = async () => {
-  if (!question || options.some(opt => !opt)) {
-    return alert('질문과 옵션을 작성해주세요.');
-  }
+    if (!question || options.some((opt) => !opt.trim())) {
+      alert("질문과 옵션을 모두 작성해주세요.");
+      return;
+    }
 
-  const payload = {
-    sub: question,
-    contents: options.map((opt, idx) => ({
-      surveytitle: opt,
-      surveytype: 'single', 
-    })),
+    const payload = {
+      sub: question,
+      contents: options.map((opt) => ({
+        surveytitle: opt,
+      })),
+    };
+
+    try {
+      await axios.post(
+        `${REACT_APP_BACK_END_URL}/api/survey/addsurvey`,
+        payload
+      );
+      alert("설문 작성 완료!");
+      navigate("/survey");
+    } catch (error) {
+      console.error("설문 작성 실패", error);
+      alert("설문 작성 실패");
+    }
   };
-
-  try {
-    await axios.post(`${REACT_APP_BACK_END_URL}/api/survey/addsurvey`, payload);
-    alert('설문 작성 완료!');
-    navigate('/survey'); // 작성 완료 후 설문 리스트로 이동
-  } catch (error) {
-    console.error('설문 작성 실패', error);
-    alert('설문 작성 실패');
-  }
-};
 
   return (
     <div className="survey-form-wrap">
@@ -51,26 +53,28 @@ const SurveyForm: React.FC = () => {
             type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="질문"
+            placeholder="질문을 입력하세요"
+            className="survey-input"
           />
         </div>
 
-        {options.map((option, index) => (
-          <div key={index} className="survey-form-option">
-            <input type="radio" disabled />
+        <div className="survey-options">
+          {options.map((option, index) => (
             <input
+              key={index}
               type="text"
               value={option}
               onChange={(e) => handleOptionChange(index, e.target.value)}
               placeholder={`옵션 ${index + 1}`}
+              className="survey-input survey-option-input"
             />
-          </div>
-        ))}
+          ))}
+        </div>
 
         <div className="survey-form-submit">
-          <Link to="/survey">
-            <button onClick={handleSubmit}>작성 완료</button>
-          </Link>
+          <button className="survey-submit-btn" onClick={handleSubmit}>
+            작성 완료
+          </button>
         </div>
       </div>
     </div>

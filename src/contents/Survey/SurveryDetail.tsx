@@ -4,15 +4,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 interface SurveyContent {
-  surveytype: string;   // A, B, C, D
   surveytitle: string;
   surveycnt: number;
 }
 
 interface Survey {
-  num: number;  // surveyNum
+  num: number;
   sub: string;
-  code: number;
   contents: SurveyContent[];
 }
 
@@ -22,9 +20,8 @@ const SurveryDetail: React.FC = () => {
   const navigate = useNavigate();
 
   const [surveyDetail, setSurveyDetail] = useState<Survey | null>(null);
-  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
 
-  // 설문 데이터 조회
   useEffect(() => {
     const fetchSurveyDetail = async () => {
       try {
@@ -33,36 +30,24 @@ const SurveryDetail: React.FC = () => {
         );
         setSurveyDetail(response.data);
       } catch (error) {
-        console.error("설문조사 디테일 호출 실패", error);
+        console.error("설문 디테일 호출 실패", error);
       }
     };
-
     fetchSurveyDetail();
   }, [num, REACT_APP_BACK_END_URL]);
 
-  // 설문 제출
   const handleSubmit = async () => {
-    if (!surveyDetail?.num) {
-      alert("설문 정보가 없습니다.");
+    if (!selectedTitle || !surveyDetail) {
+      alert("항목을 선택해주세요.");
       return;
     }
-
-    if (!selectedOption) {
-      alert("옵션을 선택해주세요!");
-      return;
-    }
-
-    console.log("최종 전송값:", {
-      surveyNum: surveyDetail.num,
-      surveytype: selectedOption,
-    });
 
     try {
       await axios.post(
         `${REACT_APP_BACK_END_URL}/api/survey/updateCount`,
         {
-          surveyNum: surveyDetail.num, 
-          surveytype: selectedOption  
+          surveyNum: surveyDetail.num,
+          surveytitle: selectedTitle,
         }
       );
 
@@ -74,27 +59,31 @@ const SurveryDetail: React.FC = () => {
     }
   };
 
-  return (
-    <div className="survey-wrap">
-      <h2 className="survey-title">영화 취향 설문</h2>
+  if (!surveyDetail) return <div>로딩중...</div>;
 
-      <div className="survey-box">
-        <p className="survey-question">
-          <span className="Q-mark">Q.</span> {surveyDetail?.sub}
+  return (
+    <div className="survey-detail-wrap">
+      <h2 className="survey-detail-title">영화 취향 설문</h2>
+
+      <div className="survey-detail-box">
+        <p className="survey-detail-question">
+          <span className="survey-detail-Q-mark">Q.</span>
+          {surveyDetail.sub}
         </p>
 
-        <ul className="survey-options">
-          {surveyDetail?.contents.map((option) => (
-            <li key={option.surveytype}>
-              <label className="option-item">
+        <ul className="survey-detail-options">
+          {surveyDetail.contents.map((option, idx) => (
+            <li key={`${option.surveytitle}-${idx}`}>
+              <label className="survey-detail-option-item">
                 <input
                   type="radio"
                   name="survey"
-                  value={option.surveytype}
-                  checked={selectedOption === option.surveytype}
-                  onChange={(e) => setSelectedOption(e.target.value)}
+                  value={option.surveytitle}
+                  checked={selectedTitle === option.surveytitle}
+                  onChange={(e) => setSelectedTitle(e.target.value)}
+                  className="survey-detail-radio"
                 />
-                <span className="answer-option">
+                <span className="survey-detail-answer">
                   {option.surveytitle}
                 </span>
               </label>
@@ -103,10 +92,9 @@ const SurveryDetail: React.FC = () => {
         </ul>
 
         <button
-          className="submit-btn"
+          className="survey-detail-submit-btn"
           onClick={handleSubmit}
-          disabled={!selectedOption}
-        >
+          disabled={!selectedTitle} >
           설문완료
         </button>
       </div>
