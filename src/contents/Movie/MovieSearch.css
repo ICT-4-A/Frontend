@@ -1,166 +1,291 @@
-.movieSearch-wrapper {
+.movie-search-container {
   max-width: 900px;
-  margin: 40px auto 80px;
-  font-family: "Pretendard", -apple-system, system-ui, sans-serif;
+  margin: 0 auto;
+  padding: 40px 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
-.movieSearch-step-title {
-  font-size: 18px;
-  font-weight: 500;
-  color: #495057;
-  margin-bottom: 18px;
+.movie-search-header {
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-/* 상단 검색 영역 */
-.movieSearch-top {
+.movie-search-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 8px 0;
+}
+
+.movie-search-header p {
+  color: #666;
+  font-size: 16px;
+  margin: 0;
+}
+
+/* 검색 영역 */
+.search-section {
+  background: #f8f9fa;
+  padding: 24px;
+  border-radius: 16px;
+  margin-bottom: 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.search-inputs {
   display: flex;
-  gap: 16px;
+  gap: 12px;
   align-items: center;
-  margin-bottom: 24px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
-.movieSearch-type-select {
-  position: relative;
-}
-
-.movieSearch-type-btn {
-  min-width: 180px;
-  padding: 10px 14px;
-  border-radius: 6px;
-  border: 1px solid #dee2e6;
-  background-color: #ffffff;
+.search-select {
+  flex: 0 0 120px;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
+  border-radius: 12px;
   font-size: 14px;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.movieSearch-type-menu {
-  position: absolute;
-  top: 110%;
-  left: 0;
-  width: 100%;
-  border-radius: 6px;
-  border: 1px solid #dee2e6;
-  background-color: #ffffff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-  overflow: hidden;
-}
-
-.movieSearch-type-menu .menu-item {
-  padding: 8px 12px;
-  font-size: 14px;
+  background: white;
   cursor: pointer;
 }
 
-.movieSearch-type-menu .menu-item:hover {
-  background-color: #f8f9fa;
-}
-
-.caret {
-  font-size: 11px;
-}
-
-.movieSearch-input-box {
+.search-input {
   flex: 1;
-  display: flex;
-  gap: 6px;
-}
-
-.movieSearch-input {
-  background-color: #ffffff;
-}
-
-.movieSearch-search-btn {
-  width: 42px;
-  border-radius: 6px;
-  border: 1px solid #dee2e6;
-  background-color: #ffffff;
-}
-
-/* 선택된 영화 카드 */
-.movieSearch-card {
-  margin-top: 16px;
-  padding: 24px 28px;
+  padding: 12px 16px;
+  border: 2px solid #e9ecef;
   border-radius: 12px;
-  border: 1px solid #e5e5e5;
-  background-color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.search-input:focus {
+  border-color: #007bff;
+}
+
+.search-btn {
+  padding: 12px 24px;
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.search-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,123,255,0.4);
+}
+
+/* 검색 결과 */
+.results-section {
+  margin-bottom: 32px;
+}
+
+.results-header h3 {
+  font-size: 20px;
+  color: #1a1a1a;
+  margin: 0 0 20px 0;
   display: flex;
-  gap: 24px;
-}
-
-.movieSearch-poster-wrap {
-  flex: 0 0 170px;
-}
-
-.movieSearch-poster {
-  width: 100%;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.movieSearch-info {
-  flex: 1;
-}
-
-.movieSearch-title-row {
-  display: flex;
-  align-items: baseline;
+  align-items: center;
   gap: 8px;
-  margin-bottom: 10px;
 }
 
-.movieSearch-title {
-  font-size: 22px;
+.result-count {
+  color: #007bff;
   font-weight: 700;
 }
 
-.movieSearch-year {
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.movie-card {
+  background: white;
+  border: 2px solid #f1f3f4;
+  border-radius: 16px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.movie-card:hover {
+  border-color: #007bff;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.movie-card.selected {
+  border-color: #007bff;
+  background: linear-gradient(135deg, #f0f8ff, white);
+  box-shadow: 0 8px 25px rgba(0,123,255,0.2);
+}
+
+.movie-card.selected::before {
+  content: '✅ 선택됨';
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: #007bff;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.movie-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}
+
+.movie-details h4 {
   font-size: 16px;
-  color: #868e96;
+  margin: 0 0 8px 0;
+  color: #1a1a1a;
+  line-height: 1.3;
 }
 
-.movieSearch-genre-badge {
-  border-radius: 999px;
-  background-color: #e7f1ff;
-  color: #1c7ed6;
-  font-size: 13px;
-  padding: 5px 12px;
-  border: none;
-  margin-bottom: 14px;
-}
-
-.movieSearch-meta {
+.movie-meta {
+  margin: 0;
+  color: #666;
   font-size: 14px;
-  line-height: 1.7;
 }
 
-/* 하단 버튼 */
-.movieSearch-footer {
-  margin-top: 28px;
+/* 미리보기 영역 */
+.preview-section {
+  margin-bottom: 40px;
+}
+
+.preview-card {
+  background: white;
+  border: 2px solid #e9ecef;
+  border-radius: 20px;
+  padding: 32px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.preview-poster img {
+  width: 160px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.preview-info h3 {
+  font-size: 24px;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.genre-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #28a745, #20c997);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.meta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.meta-info div {
+  color: #495057;
+  font-size: 15px;
+}
+
+.no-selection {
+  text-align: center;
+  color: #6c757d;
+  flex: 1;
+}
+
+.placeholder-poster {
+  width: 160px;
+  height: 220px;
+  background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 48px;
+  margin: 0 auto 20px;
+}
+
+.no-selection h3 {
+  font-size: 20px;
+  margin: 0 0 8px 0;
+}
+
+/* 버튼 영역 */
+.action-section {
   text-align: center;
 }
 
-.movieSearch-next-btn {
-  min-width: 140px;
-  padding: 10px 0;
-  border-radius: 6px;
+.next-btn {
+  padding: 16px 40px;
+  background: #6c757d;
+  color: white;
   border: none;
-  background-color: #1c7ed6;
-  color: #ffffff;
-  font-size: 15px;
+  border-radius: 16px;
+  font-size: 16px;
   font-weight: 600;
+  cursor: not-allowed;
+  transition: all 0.2s;
+}
+
+.next-btn.active {
+  background: linear-gradient(135deg, #007bff, #0056b3);
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,123,255,0.3);
+}
+
+.next-btn.active:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,123,255,0.4);
+}
+
+.next-btn:disabled {
+  opacity: 0.6;
 }
 
 /* 반응형 */
 @media (max-width: 768px) {
-  .movieSearch-card {
-    flex-direction: column;
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
   }
-
-  .movieSearch-poster-wrap {
-    flex: 0 0 auto;
-    max-width: 200px;
+  
+  .preview-card {
+    flex-direction: column;
+    text-align: center;
+    gap: 20px;
+  }
+  
+  .search-inputs {
+    flex-direction: column;
+    gap: 12px;
   }
 }

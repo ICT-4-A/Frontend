@@ -40,7 +40,7 @@ const AppRoutes: React.FC = () => {
     { path: "/", element: <MovieLog /> },
     { path: "/movielog", element: <MovieLog /> },
     { path: "/moviesearch", element: <MovieSearch /> },
-    { path: "/movieform", element: <MovieForm /> },
+    { path: "/movieform/:num", element: <MovieForm /> },
 
     { path: "/movielog/detail", element: <MovieDetail /> },
     { path: "/movielog/detail2", element: <MovieDetail2 /> },
