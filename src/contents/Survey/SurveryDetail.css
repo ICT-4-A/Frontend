@@ -1,70 +1,73 @@
-.survey-wrap {
+.survey-detail-wrap {
   max-width: 600px;
   margin: 60px auto;
   padding: 0 20px;
 }
 
-.survey-title {
+.survey-detail-title {
   font-size: 25px;
   font-weight: bold;
   margin-bottom: 30px;
 }
 
-.survey-box {
+.survey-detail-box {
   background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
 }
 
-.survey-question {
+.survey-detail-question {
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
 }
 
-.Q-mark {
+.survey-detail-question .survey-detail-Q-mark {
   color: #3b82f6;
   font-size: 30px;
   font-weight: bold;
   margin-right: 6px;
 }
 
-.survey-options {
+.survey-detail-options {
   list-style: none;
   padding: 0;
   margin: 0 0 30px 0;
 }
 
-.option-item {
+.survey-detail-option-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  background-color: #f1f5f9;
+  gap: 12px;
+  background-color: #f1f5f9; 
   padding: 14px 16px;
   border-radius: 6px;
   margin-bottom: 10px;
   cursor: pointer;
+  transition: background-color 0.2s;
 }
 
-.option-item input {
-  cursor: pointer;
-}
-.option-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  cursor: pointer;
+/* hover 시 배경색 변경 */
+.survey-detail-option-item:hover {
+  background-color: #e0efff; 
 }
 
-.survey-radio {
+/* 라디오 버튼 */
+.survey-detail-radio {
   width: 18px;
   height: 18px;
   accent-color: #3b82f6;
-}
-.answer-option{
-    font-size: 18px;
-    font-weight: 500;
+  cursor: pointer;
 }
 
-.submit-btn {
+.survey-detail-answer {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+/* 제출 버튼 */
+.survey-detail-submit-btn {
   width: 100%;
   padding: 12px;
   background-color: #3b82f6;
@@ -74,7 +77,10 @@
   font-size: 17px;
   cursor: pointer;
 }
-
-.submit-btn:hover {
+.survey-detail-submit-btn:hover:enabled {
   background-color: #2563eb;
+}
+.survey-detail-submit-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
 }
