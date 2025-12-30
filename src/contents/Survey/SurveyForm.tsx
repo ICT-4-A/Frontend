@@ -33,7 +33,7 @@ const SurveyForm: React.FC = () => {
   try {
     await axios.post(`${REACT_APP_BACK_END_URL}/api/survey/addsurvey`, payload);
     alert('설문 작성 완료!');
-    navigate('/survey'); // 작성 완료 후 설문 리스트로 이동
+    navigate('/survey');
   } catch (error) {
     console.error('설문 작성 실패', error);
     alert('설문 작성 실패');
@@ -51,19 +51,18 @@ const SurveyForm: React.FC = () => {
             type="text"
             value={question}
             onChange={(e) => setQuestion(e.target.value)}
-            placeholder="질문"
-          />
+            placeholder="질문" />
         </div>
 
         {options.map((option, index) => (
-          <div key={index} className="survey-form-option">
-            <input type="radio" disabled />
+          <div className="survey-form">
+            <input type="radio" className="survey-form-radio" disabled />
             <input
-              type="text"
+              type="text" 
+              className="survey-form-text"
               value={option}
               onChange={(e) => handleOptionChange(index, e.target.value)}
-              placeholder={`옵션 ${index + 1}`}
-            />
+              placeholder={`옵션 ${index + 1}`} />
           </div>
         ))}
 

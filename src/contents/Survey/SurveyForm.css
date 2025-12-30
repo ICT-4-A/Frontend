@@ -1,5 +1,3 @@
-/* SurveyForm.css */
-
 .survey-form-wrap {
   padding: 40px 0;
 }
@@ -31,17 +29,21 @@
   border-radius: 10px;
 }
 
-.survey-form-option {
+.survey-form {
   display: flex;
   align-items: center;
   margin-bottom: 15px;
 }
 
-.survey-form-option input[type="radio"] {
+.survey-form-radio {
+  appearance: radio !important;
+  width: auto !important;
+  height: auto;
   margin-right: 10px;
 }
 
-.survey-form-option input[type="text"] {
+/* 텍스트 입력 */
+.survey-form-text {
   flex: 1;
   padding: 8px 4px;
   border: none;
@@ -49,6 +51,7 @@
   outline: none;
 }
 
+/* 제출 버튼 */
 .survey-form-submit {
   text-align: center;
   margin-top: 30px;

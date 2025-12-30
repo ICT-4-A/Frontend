@@ -40,7 +40,6 @@ const SurveryDetail: React.FC = () => {
     fetchSurveyDetail();
   }, [num, REACT_APP_BACK_END_URL]);
 
-  // 설문 제출
   const handleSubmit = async () => {
     if (!surveyDetail?.num) {
       alert("설문 정보가 없습니다.");
@@ -48,11 +47,11 @@ const SurveryDetail: React.FC = () => {
     }
 
     if (!selectedOption) {
-      alert("옵션을 선택해주세요!");
+      alert("옵션을 선택해주세요.");
       return;
     }
 
-    console.log("최종 전송값:", {
+    console.log("submitLog:", {
       surveyNum: surveyDetail.num,
       surveytype: selectedOption,
     });
@@ -82,19 +81,20 @@ const SurveryDetail: React.FC = () => {
         <p className="survey-question">
           <span className="Q-mark">Q.</span> {surveyDetail?.sub}
         </p>
-
-        <ul className="survey-options">
+        
+        <ul className="survey-detail-options">
           {surveyDetail?.contents.map((option) => (
             <li key={option.surveytype}>
-              <label className="option-item">
+              <label className="survey-detail-option-item">
                 <input
                   type="radio"
                   name="survey"
                   value={option.surveytype}
                   checked={selectedOption === option.surveytype}
                   onChange={(e) => setSelectedOption(e.target.value)}
+                  className="survey-detail-radio"
                 />
-                <span className="answer-option">
+                <span className="survey-detail-answer">
                   {option.surveytitle}
                 </span>
               </label>
@@ -103,10 +103,9 @@ const SurveryDetail: React.FC = () => {
         </ul>
 
         <button
-          className="submit-btn"
+          className="survey-detail-submit-btn"
           onClick={handleSubmit}
-          disabled={!selectedOption}
-        >
+          disabled={!selectedOption} >
           설문완료
         </button>
       </div>
