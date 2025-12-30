@@ -1,122 +1,166 @@
-// src/contents/Movie/MovieSearch.tsx
 import React, { useState } from "react";
 import "./MovieSearch.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+interface MovieVO {
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
 
 const MovieSearch: React.FC = () => {
   const navigate = useNavigate();
-  const [isOpen, setIsOpen] = useState(false); // 메뉴 열림 여부
-  const [type, setType] = useState("영화 제목"); // 선택된 항목
+  const [searchType, setSearchType] = useState('1');
+  const [searchValue, setSearchValue] = useState('');
+  const [movieList, setMovieList] = useState<MovieVO[]>([]);
+  const [selectedMovie, setSelectedMovie] = useState<MovieVO | null>(null);
+
+  const searchFunction = async () => {
+    if (!searchValue.trim()) {
+      alert("검색어를 입력해주세요!");
+      return;
+    }
+    
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/search`, {
+        params: {
+          searchType: parseInt(searchType),
+          searchValue: searchValue.trim()
+        }
+      });
+      setMovieList(response.data.movie || []);
+      setSelectedMovie(null);
+    } catch (error) {
+      console.error("검색 실패:", error);
+      setMovieList([]);
+    }
+  };
+
+  const selectMovie = (movie: MovieVO) => {
+    setSelectedMovie(movie);
+  };
 
   const handleNext = () => {
-    navigate("/movieform"); // 예시
-  };
-
-  const handleSelect = (value: string) => {
-    setType(value);
-    setIsOpen(false);
-  };
-  // TODO: 실제로는 검색 결과에서 선택된 영화 정보로 대체
-  const movie = {
-    title: "위키드: 포 굿",
-    year: 2025,
-    genre: "판타지",
-    release: "2025. 11",
-    director: "존 추",
-    actors: "신시아 에리보, 아리아나 그란데",
-    poster: "/images/poster_sample_wicked.jpg",
+    if (selectedMovie) {
+      navigate(`/movieform/`, { state: { movie: selectedMovie } });
+    } else {
+      alert("영화를 선택해주세요!");
+    }
   };
 
   return (
-    <div className="movieSearch-wrapper">
-      <h2 className="movieSearch-step-title">영화 기록 - 게시글 작성 1단계</h2>
+    <div className="movie-search-container">
+      <div className="movie-search-header">
+        <h2>영화 선택</h2>
+        <p>검색 후 원하는 영화를 선택하세요</p>
+      </div>
 
-      <div className="movieSearch-top">
-        {/* 드롭다운 */}
-        <div className="movieSearch-type-select">
-          <button
-            type="button"
-            className="movieSearch-type-btn"
-            onClick={() => setIsOpen((prev) => !prev)}
+      {/* 검색 영역 */}
+      <div className="search-section">
+        <div className="search-inputs">
+          <select 
+            value={searchType} 
+            onChange={(e) => setSearchType(e.target.value)}
+            className="search-select"
           >
-            {type}
-            <span className="caret">{isOpen ? "▲" : "▼"}</span>
+            <option value="1">제목</option>
+            <option value="2">장르</option>
+            <option value="3">감독</option>
+            <option value="4">배우</option>
+          </select>
+          <input
+            type="text"
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && searchFunction()}
+            placeholder="영화 검색..."
+            className="search-input"
+          />
+          <button onClick={searchFunction} className="search-btn">
+            🔍 검색
           </button>
+        </div>
+      </div>
 
-          {isOpen && (
-            <div className="movieSearch-type-menu">
+      {/* 검색 결과 */}
+      {movieList.length > 0 && (
+        <div className="results-section">
+          <div className="results-header">
+            <h3>검색결과 <span className="result-count">{movieList.length}건</span></h3>
+          </div>
+          <div className="movies-grid">
+            {movieList.map((movie) => (
               <div
-                className="menu-item"
-                onClick={() => handleSelect("영화 제목")}
+                key={movie.num}
+                className={`movie-card ${selectedMovie?.num === movie.num ? 'selected' : ''}`}
+                onClick={() => selectMovie(movie)}
               >
-                영화 제목
+                <div className="movie-poster">
+                  <img
+                    src={`${movie.poster}`}
+                    alt={movie.title}
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/no-poster.png';
+                    }}
+                  />
+                </div>
+                <div className="movie-details">
+                  <h4>{movie.title}</h4>
+                  <p className="movie-meta">{movie.director} | {movie.genre}</p>
+                </div>
               </div>
-              <div
-                className="menu-item"
-                onClick={() => handleSelect("영화 장르")}
-              >
-                영화 장르
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* 선택된 영화 미리보기 */}
+      <div className="preview-section">
+        <div className="preview-card">
+          {selectedMovie ? (
+            <>
+              <div className="preview-poster">
+                <img
+                  src={`${selectedMovie.poster}`}
+                  alt={selectedMovie.title}
+                  onError={(e) => {
+                    e.currentTarget.src = '/images/no-poster.png';
+                  }}
+                />
               </div>
-              <div
-                className="menu-item"
-                onClick={() => handleSelect("영화 감독")}
-              >
-                영화 감독
+              <div className="preview-info">
+                <h3>{selectedMovie.title}</h3>
+                <div className="genre-badge">{selectedMovie.genre}</div>
+                <div className="meta-info">
+                  <div>📅 {selectedMovie.release_date}</div>
+                  <div>👨‍🎬 {selectedMovie.director}</div>
+                  <div>👥 {selectedMovie.actor}</div>
+                </div>
               </div>
-              <div
-                className="menu-item"
-                onClick={() => handleSelect("영화 배우")}
-              >
-                영화 배우
-              </div>
+            </>
+          ) : (
+            <div className="no-selection">
+              <div className="placeholder-poster">📺</div>
+              <h3>영화를 선택해주세요</h3>
+              <p>위 목록에서 원하는 영화를 클릭하세요</p>
             </div>
           )}
         </div>
-
-        {/* 검색창 */}
-        <div className="movieSearch-input-box">
-          <input
-            className="form-control movieSearch-input"
-            placeholder="Search ..."
-          />
-          <button className="movieSearch-search-btn" type="button">
-            <span className="search-icon">🔍</span>
-          </button>
-        </div>
       </div>
 
-      {/* 선택된 영화 카드 */}
-      <div className="movieSearch-card">
-        <div className="movieSearch-poster-wrap">
-          <img
-            src="/images/poster2.jpg"
-            alt="위키드: 포 굿"
-            className="movieSearch-poster"
-          />
-        </div>
-
-        <div className="movieSearch-info">
-          <div className="movieSearch-title-row">
-            <h3 className="movieSearch-title">{movie.title}</h3>
-            <span className="movieSearch-year">{movie.year}</span>
-          </div>
-
-          <button className="badge movieSearch-genre-badge">
-            {movie.genre}
-          </button>
-
-          <div className="movieSearch-meta">
-            <div>개봉: {movie.release}</div>
-            <div>감독: {movie.director}</div>
-            <div>배우: {movie.actors}</div>
-          </div>
-        </div>
-      </div>
-
-      {/* 다음 버튼 */}
-      <div className="movieSearch-footer">
-        <button className="movieSearch-next-btn" onClick={handleNext}>
-          다음
+      {/* 버튼 영역 */}
+      <div className="action-section">
+        <button 
+          className={`next-btn ${selectedMovie ? 'active' : ''}`}
+          onClick={handleNext}
+          disabled={!selectedMovie}
+        >
+          다음 단계
         </button>
       </div>
     </div>
