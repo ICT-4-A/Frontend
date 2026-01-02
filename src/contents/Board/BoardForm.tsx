@@ -7,7 +7,6 @@ import axios from "axios";
 interface BoardVO {
     num?: Number;
     title: string;
-    nickname?: string;
     content: string;
     hit?: number;
     reip?: string;
@@ -17,7 +16,7 @@ interface BoardVO {
 const BoardForm: React.FC = () => {
     const [formData, setFormData] = useState<BoardVO>({
         title: '',
-        content: ''
+        content: '',
     },);
     const formChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target
@@ -27,12 +26,9 @@ const BoardForm: React.FC = () => {
     const navigate = useNavigate();
     const myFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
-        // const data = new FormData();
-        // data.append('title', formData.title);
-  
-        // data.append('content', formData.content);
-       
+        const data = new FormData();
+        data.append('title', formData.title);
+        data.append('content', formData.content);
         try {
             const url = `${process.env.REACT_APP_BACK_END_URL}/board/boardAdd`;
             await axios.post(url, {
