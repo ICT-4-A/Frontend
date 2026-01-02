@@ -33,6 +33,7 @@ import BoardList from "../contents/Board/BoardList";
 import BoardDetail from "../contents/Board/BoardDetail";
 
 import Gallery from "../contents/Gallery/Gallery";
+import RequireAuth from "../components/RequireAuth";
 
 
 const AppRoutes: React.FC = () => {
@@ -61,7 +62,7 @@ const AppRoutes: React.FC = () => {
     // { path: "/board/write", element: <BoardForm /> },
     { path: '/board/list', element: <BoardList/>},
     { path: '/board/form', element: <BoardForm/>},
-    { path: '/board/detail/:num', element: <BoardDetail/>},
+    { path: '/board/detail/:num', element: <RequireAuth><BoardDetail/></RequireAuth>},
     
     { path: "/board", element: <Board /> },
     { path: "/board/detail1", element: <BoardDetail1 /> },

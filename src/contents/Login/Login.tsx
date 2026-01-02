@@ -1,24 +1,63 @@
 // src/contents/Auth/Login.tsx
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { useAuth } from "../../components/AuthProvider";
 
 const Login: React.FC = () => {
+  const [formData, setFormData] = useState({email: '', password: ''});
+  const [messag, setMessage] = useState('');
+  const navigate = useNavigate();
+  const {login} = useAuth();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  let from = '/';
+  const state = location.state as {from?: Location | string};
+
+
+  if (state?.from){
+    if(typeof state.from === 'string'){
+      from = state.from;
+    }else if(typeof state.from === 'object'){
+      from = (state.from as Location).pathname;
+    }
+  }else if (searchParams.get('from')){
+    from = searchParams.get('from')!;
+  }
+
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  };
+
+  const submitLogin = async (e:React.MouseEvent<HTMLButtonElement>) => {
+   e.preventDefault();
+    const result = await login(formData.email, formData.password);
+    if (result === 'success'){
+      setMessage('로그인 성공');
+      navigate(from, {replace:true});
+    }else if (result === 'fail'){
+      setMessage('아이디 또는 비밀번호가 틀렸습니다.');
+    }else{
+      setMessage('서버 오류');
+    }
+  };
   return (
     <div className="login-wrapper">
-      <h1 className="login-title">Login</h1>
+      <h1 className="login-title">Login2</h1>
 
       <form className="login-form">
         {/* 아이디 */}
         <div className="login-field">
           <label htmlFor="loginId" className="login-label">
-            아이디
+            이메일
           </label>
           <input
             type="text"
-            id="loginId"
-            name="loginId"
+            id="email"
+            name="email"
             className="form-control login-input"
-            placeholder="아이디를 입력하세요"
+            placeholder="이메일을 입력하세요"
+            onChange={inputChange}
           />
         </div>
 
@@ -30,17 +69,19 @@ const Login: React.FC = () => {
           <div className="login-password-wrapper">
             <input
               type="password"
-              id="loginPw"
-              name="loginPw"
+              id="password"
+              name="password"
               className="form-control login-input"
               placeholder="비밀번호를 입력하세요"
+              onChange={inputChange}
             />
             <span className="login-eye">👁</span>
           </div>
         </div>
 
         {/* 로그인 버튼 */}
-        <button type="submit" className="btn btn-primary login-btn">
+        <button type="submit" className="btn btn-primary login-btn"
+        onClick={submitLogin}> 
           Log In
         </button>
 

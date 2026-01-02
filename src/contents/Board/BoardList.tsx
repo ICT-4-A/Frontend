@@ -36,11 +36,19 @@ const BoardList: React.FC = () => {
                 }
             });
             let list: BoardVO[] = response.data.data;
-            list.sort((a,b) => b.hit - a.hit);
-            const hotNums = list.slice(0, 3).map(item => item.num);
+            const hotPosts = [...list]
+            .sort((a,b) => b.hit - a.hit)
+            .slice(0, 3);
+            const hotNums = hotPosts.map(item => item.num);
+
+            const otherPosts = list
+            .filter(item => !hotNums.includes(item.num))
+            .sort((a, b) => new Date(b.bdate).getTime() - new Date(a.bdate).getTime());
+
+            setBoardList([...hotPosts, ...otherPosts]);
 
             console.log(response.data.data);
-            setBoardList(response.data.data);
+            
             setTotalitems(response.data.totalItems);
             setTotalPages(response.data.totalPages);
             setCurrentPage(response.data.currentPage);
