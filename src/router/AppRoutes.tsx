@@ -30,6 +30,9 @@ import Survey from "../contents/Survey/Survey";
 import SurveryDetail from "../contents/Survey/SurveryDetail";
 import SurveyResult from "../contents/Survey/SurveyResult";
 import Gallery from "../contents/Gallery/Gallery";
+import GalleryDetail from "../contents/Gallery/GalleryDetail";
+import GalleryForm from "../contents/Gallery/GalleryForm";
+import RequireAuth from "../contents/Gallery/RequireAuth";
 
 
 const AppRoutes: React.FC = () => {
@@ -56,7 +59,13 @@ const AppRoutes: React.FC = () => {
     { path: "/board/detail1", element: <BoardDetail1 /> },
     { path: "/board/detail2", element: <BoardDetail2 /> },
     { path: "/board/write", element: <BoardForm /> },
-    { path: "/gallery", element: <Gallery /> },
+   
+    { path: "/gallery/detail", element: <GalleryDetail /> },
+    { path: "/gallery/form", element: <GalleryForm /> },
+    { path: '/gallery', element: <Gallery /> },
+    { path: '/gallery/write', element: <GalleryForm /> },
+    { path: '/gallery/gdetail/:num', element: <RequireAuth><GalleryDetail /></RequireAuth> },
+
 
 
     { path: "/mypage", element: <Mypage /> },
