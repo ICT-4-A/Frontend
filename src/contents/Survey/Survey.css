@@ -1,0 +1,106 @@
+.survey-container {
+  width: 60%;
+  margin: 40px auto;
+  font-family: "Pretendard", sans-serif;
+  color: #333;
+}
+
+.survey-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.survey-table thead th:nth-child(2),
+.survey-table tbody td:nth-child(2) {
+  width: 60%;
+}
+
+/* 검색창 */
+.search-box {
+  position: relative;
+  width: 240px;
+}
+.search-box input {
+  padding-left: 35px;
+}
+.search-box .search-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  width: 18px;
+  height: 18px;
+  transform: translateY(-50%);
+  opacity: 0.6;
+}
+
+/* 테이블 */
+.survey-table {
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+/* Thead */
+.survey-table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e5e5e5;
+  font-weight: 600;
+  padding: 12px 0;
+  color: #6c757d;
+  text-align: center;
+}
+
+/* Tbody */
+.survey-table tbody td,
+.survey-table tbody th {
+  padding: 12px 0;
+  border-top: 1px solid #f1f3f5;
+  text-align: center;
+}
+
+/* HOT 게시글 */
+.survey-table tbody tr.hot-row {
+  --bs-table-bg: #f5faff;
+  --bs-table-accent-bg: #f5faff;
+}
+.hot-badge {
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 2px 6px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* 링크 */
+.survey-table a {
+  color: #000;
+  text-decoration: none;
+}
+.survey-table a:hover {
+  text-decoration: underline;
+}
+
+/* 글쓰기 버튼 */
+.write-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+}
+.write-btn {
+  padding: 8px 15px;
+  font-weight: 500;
+  background-color: #007bff;
+  color: white !important;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* 페이지네이션 */

@@ -11,8 +11,8 @@ import MovieDetail3 from "../contents/Movie/MovieDetail3";
 import MovieDetail4 from "../contents/Movie/MovieDetail4";
 
 import Board from "../contents/Board/Board";
-import BoardDetail1 from "../contents/Board/BoardDetail1";
-import BoardDetail2 from "../contents/Board/BoardDetail2";
+import BoardDetail1 from "../contents/Board/Detail1";
+import BoardDetail2 from "../contents/Board/Detail2";
 import BoardForm from "../contents/Board/BoardForm";
 import ToAdminForm from "../contents/Mypage/ToAdminForm";
 import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
@@ -29,6 +29,9 @@ import SurveyForm from "../contents/Survey/SurveyForm";
 import Survey from "../contents/Survey/Survey";
 import SurveryDetail from "../contents/Survey/SurveryDetail";
 import SurveyResult from "../contents/Survey/SurveyResult";
+import BoardList from "../contents/Board/BoardList";
+import BoardDetail from "../contents/Board/BoardDetail";
+
 import Gallery from "../contents/Gallery/Gallery";
 import GalleryDetail from "../contents/Gallery/GalleryDetail";
 import GalleryForm from "../contents/Gallery/GalleryForm";
@@ -40,7 +43,7 @@ const AppRoutes: React.FC = () => {
     { path: "/", element: <MovieLog /> },
     { path: "/movielog", element: <MovieLog /> },
     { path: "/moviesearch", element: <MovieSearch /> },
-    { path: "/movieform", element: <MovieForm /> },
+    { path: "/movieform/:num", element: <MovieForm /> },
 
     { path: "/movielog/detail", element: <MovieDetail /> },
     { path: "/movielog/detail2", element: <MovieDetail2 /> },
@@ -55,6 +58,14 @@ const AppRoutes: React.FC = () => {
 
     { path: "/MovieInfo", element: <MovieInfo /> },
 
+    // { path: "/board", element: <Board /> },
+    // { path: "/board/detail1", element: <BoardDetail1 /> },
+    // { path: "/board/detail2", element: <BoardDetail2 /> },
+    // { path: "/board/write", element: <BoardForm /> },
+    { path: '/board/list', element: <BoardList/>},
+    { path: '/board/form', element: <BoardForm/>},
+    { path: '/board/detail/:num', element: <RequireAuth><BoardDetail/></RequireAuth>},
+    
     { path: "/board", element: <Board /> },
     { path: "/board/detail1", element: <BoardDetail1 /> },
     { path: "/board/detail2", element: <BoardDetail2 /> },
@@ -78,8 +89,8 @@ const AppRoutes: React.FC = () => {
 
     { path: "/survey/surveyform", element: <SurveyForm /> },
     { path: "/survey", element: <Survey /> },
-    { path: "/survey/detail", element: <SurveryDetail /> },
-    { path: "/survey/result", element: <SurveyResult /> }
+    { path: "/survey/detail/:num", element: <SurveryDetail /> },
+    { path: "/survey/result/:num", element: <SurveyResult /> }
   ];
 
   return (

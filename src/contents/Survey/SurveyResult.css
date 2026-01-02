@@ -57,6 +57,16 @@
   font-size: 15px;
   font-weight: 500;
 }
+.result-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.result-count-inline {
+  font-size: 12px;
+  color: #64748b;
+}
 
 .result-percent {
   font-size: 14px;
@@ -83,4 +93,22 @@
   margin-top: 4px;
   font-size: 12px;
   color: #64748b;
+}
+
+.survey-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+}
+
+.survey-list-link {
+  font-size: 13px;
+  color: #2563eb;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.survey-list-link:hover {
+  text-decoration: underline;
 }
