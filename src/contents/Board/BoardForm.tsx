@@ -62,7 +62,7 @@ const BoardForm: React.FC = () => {
                             id="title" name="title" type="text" className={style.title}
                             placeholder="제목을 입력하세요."
                             value={formData.title}
-                            onChange={formChange} required maxLength={50} />
+                            onChange={formChange} required maxLength={30} />
                         {/* 글자 수 카운터 */}
                         <span className={style.counter}>
                             {formData.title.length}/50

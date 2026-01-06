@@ -32,11 +32,10 @@ const MovieForm: React.FC = () => {
   const navigate = useNavigate();
 
   // TODO: 실제 로그인 유저 / 친구 목록은 props나 API로 대체
-  const currentUser = { writer: 3, nickname: "사용자" };
+  const currentUser = { writer: 21, nickname: "사용자" };
   const friends = [
-    { toge_writer: 1, nickname: "성우" },
-    { toge_writer: 4, nickname: "테스형" },
-    { toge_writer: 41, nickname: "성우임" },
+    { toge_writer: 41, nickname: "성우" },
+
   ];
 
 
@@ -45,7 +44,7 @@ const MovieForm: React.FC = () => {
     num: 0,
     movie_id: state?.movie?.num || parseInt(num || '0'),
     writer: currentUser.writer, // 추후에 로그인 하면 그 때 마다 바꾸게 설정
-    toge_writer: 1,
+    toge_writer: 41,
     simple_review: '',
     review: '',
     rate: 0,
@@ -159,7 +158,7 @@ const MovieForm: React.FC = () => {
                 onChange={handleFriendChange}
               >
                 {/* 임의 숫자 값을 입력해준다. 추후에 친구 기능과 합치기 */}
-                <option value={1}>추가 작성자</option> 
+                <option value={41}>추가 작성자</option> 
                 {friends.map((friend) => (
                   <option key={friend.toge_writer} value={friend.toge_writer}>
                     {friend.nickname}
