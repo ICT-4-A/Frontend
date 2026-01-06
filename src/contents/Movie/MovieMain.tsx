@@ -1,9 +1,40 @@
 // src/components/MovieLog/MovieLog.tsx
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./MovieMain.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-const MovieLog = () => {
+interface MovieLogVO{
+  num: number;
+  title: string;
+  poster: string;
+  genre: string;
+
+  writer_num: number;
+  writer_name: string;
+
+  toge_writer_num?: number;
+  toge_writer_name?: string;
+
+  simple_review: string;
+  review: string;
+  rate: number;
+  hit: number;
+  created_at: string;
+}
+
+
+
+const MovieMain: React.FC = () => {
+  const [movieLogs, setMovieLogs] = useState<MovieLogVO[]>([]);
+useEffect(()=> {
+  axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`)
+  .then((res) => {
+    setMovieLogs(res.data.data);
+  })
+  .catch((err) => console.error("MovinLog load error", err));
+},[]);
+
   return (
     <div className="movieLog-wrapper">
       <section className="movieLog-top">
@@ -71,85 +102,57 @@ const MovieLog = () => {
 
       {/* 2. 하단 카드 리스트 영역 */}
       <section className="movieLog-list">
-        {/* 카드 1 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
-              <img
-                src="/images/poster2.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터2"
-              />
-            </div>
-            <div className="col-md-9">
-              <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">
-                    <a href="/movielog/detail">위키드2: 포 굿 2025</a>
-                  </h5>
-                  <button className="movieDetail-genreTag">판타지</button>
-                </div>
-                {/* 유저 프로필 */}
-                <div className="movieDetail-user">
-                  <div className="movieDetail-user-avatar">A</div>
-                  <div className="movieDetail-user-info">
-                    <div className="movieDetail-user-name">사용자1</div>
-                    <span className="movieDetail-tag">애니메이션</span>
+        {movieLogs.map((log) => (
+          <div key={log.num} className="card movieLog-card">
+            <div className="row g-0">
+              <div className="col-md-3">
+                <img src={`${log.poster}`} alt={log.title} className="img-fluid rounded-start poster-img" />
+              </div>
+              <div className="col-md-9">
+                <div className="card-body">
+                  <div className="movie-title-row">
+                    <h5 className="card-title">
+                      <Link to={`/movie/detail/${log.num}`}>{log.title}</Link>
+                    </h5>
+                    <div className="movieDetail-genreTag">
+                      {log.genre}
+                    </div>
                   </div>
-                  <div className="movieDetail-user-avatar">B</div>
-                  <div className="movieDetail-user-info">
-                    <div className="movieDetail-user-name">사용자2</div>
-                    <span className="movieDetail-tag">로멘스</span>
+                  <div className="movieDetail-user">
+                    <div className="movieDetail-user-avatar">
+                      {log.writer_name}
+                    </div>
+                    <div className="movieDetail-user-info">
+                      <div className="movieDetail-user-name">
+                        {log.writer_name}
+                      </div>
+                    </div>
+                    {log.toge_writer_name && (
+                      <>
+                      <div className="movieDetail-user-avatar">
+                        {log.toge_writer_name?.charAt(0)}
+                      </div>
+                      <div className="movieDetail-user-info">
+                        <div className="movieDetail-user-name">
+                          {log.toge_writer_name}
+                        </div>
+                      </div>
+                      </>
+                    )}
                   </div>
+                  <p className="card-text">
+                    {log.simple_review}
+                  </p>
+                  <p className="card-text">
+                    <small className="text-muted">
+                      ★ {log.rate}
+                    </small>
+                  </p>
                 </div>
-
-                <p className="card-text">
-                  최고의 명작! 시간 가는 줄 모르고 봤어요.
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">★ 5.0</small>
-                </p>
               </div>
             </div>
           </div>
-        </div>
-
-        {/* 카드 2 */}
-        <div className="card movieLog-card">
-          <div className="row g-0">
-            <div className="col-md-3">
-              <img
-                src="/images/poster3.jpg"
-                className="img-fluid rounded-start poster-img"
-                alt="포스터3"
-              />
-            </div>
-            <div className="col-md-9">
-              <div className="card-body">
-                <div className="movie-title-row">
-                  <h5 className="card-title">나우유씨미3</h5>
-                  <button className="movieDetail-genreTag">판타지</button>
-                </div>
-
-                {/* 유저 프로필 */}
-                <div className="movieDetail-user">
-                  <div className="movieDetail-user-avatar">B</div>
-                  <div className="movieDetail-user-info">
-                    <div className="movieDetail-user-name">필름러버</div>
-                    <span className="movieDetail-tag">SF/판타지</span>
-                  </div>
-                </div>
-
-                <p className="card-text">
-                  시즌1보다 아쉽지만 그래도 재밌었어요.
-                </p>
-                <p className="card-text">
-                  <small className="text-muted">★ 4.0</small>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        ))} 
       </section>
 
       <footer className="movieLog-footer">
@@ -219,4 +222,4 @@ const MovieLog = () => {
   );
 };
 
-export default MovieLog;
+export default MovieMain;
