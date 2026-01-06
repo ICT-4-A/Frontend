@@ -1,15 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Search.css";
+import axios from "axios";
+
+
+interface MovieVO{
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
 
 const GenreSearch: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const [movies,setMovies] = useState<MovieVO[]>([]);
+  const [loading,setLoading] = useState(true);
+
   const isGenre = location.pathname === "/Search";
   const isDirector = location.pathname === "/Search/Director";
   const isActor =
     location.pathname === "/Search/Actor" || location.pathname === "/actor";
+
+  useEffect (() => {
+    const loadMovies = async () => {
+      try {
+        const response = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/movielist`);
+        setMovies(response.data.movie || []);
+      } catch (error) {
+        console.log('실패', error);
+      }finally{
+        setLoading(false);
+      }
+    };
+    loadMovies();
+    
+  },[])
 
   return (
     <div className="genre-container">
@@ -54,106 +84,36 @@ const GenreSearch: React.FC = () => {
       </div>
 
       {/* 하단 카드 그리드 영역 */}
-      <section className="movie-grid">
+<section className="movie-grid">
         <div className="row g-4">
-          {/* 카드 1 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster4.jpg"
-                className="card-img-top movie-poster"
-                alt="어벤져스 엔드게임"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">
-                  <a href="/MovieInfo">어벤져스 엔드게임 2019<br/></a>
-                </h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 5.0</div>
+          {loading ? (
+            <div className="col-12 text-center">로딩중...</div>
+          ) : movies.length > 0 ? (
+            movies.map((movie) => (
+              <div key={movie.num} className="col-md-4">
+                <div className="card movie-card h-100">
+                  <img
+                    src={movie.poster}
+                    className="card-img-top movie-poster"
+                    alt={movie.title}
+                    onError={(e) => {
+                      e.currentTarget.src = '/images/no-poster.png';
+                    }}
+                  />
+                  <div className="card-body">
+                    <h5 className="movie-title">
+                      <Link to={`/MovieInfo/${movie.num}`}>{movie.title} {movie.release_date?.substring(0,4) || ''}<br/>
+                      </Link>
+                    </h5>
+                    <button className="badge genre-badge">{movie.genre}</button>
+                    <div className="moive-rating">★ 5.0</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* 카드 2 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster1.jpg"
-                className="card-img-top movie-poster"
-                alt=""
-              />
-              <div className="card-body">
-                <h5 className="movie-title">아바타: 불과 재 <br/>2025</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 4.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 3 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster5.jpg"
-                className="card-img-top movie-poster"
-                alt="스파이더맨 파 프롬 홈"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">스파이더맨 파 프롬 홈 2019</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 5.0</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 4 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster3.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">나우유씨미3 <br/> 2025</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 4.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 5 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster11.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">닥터스트레인지<br/> 대혼돈의 멀티버스 <br/> 2017</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 2.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 6 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster12.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">가디언즈오브 갤럭시 <br/> 2018</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 3.0</div>
-              </div>
-            </div>
-          </div>
-
+            ))
+          ) : (
+            <div className="col-12 text-center">등록된 영화가 없습니다.</div>
+          )}
         </div>
       </section>
 
