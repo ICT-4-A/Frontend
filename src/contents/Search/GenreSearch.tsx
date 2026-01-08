@@ -136,7 +136,7 @@ const GenreSearch: React.FC = () => {
             ))
           ) : (
             <div className="no-movie">
-              해당 장르의 영화가 없습니다.
+              등록된 영화가 없습니다.
             </div>
           )}
         </div>
