@@ -126,8 +126,6 @@ const MovieForm: React.FC = () => {
   };
 
 
-
-
   return (
     <div className="movieform-wrapper">
       <h2 className="movieform-step-title">영화 기록 - 게시글 작성 2단계</h2>
