@@ -32,9 +32,9 @@ const MovieForm: React.FC = () => {
   const navigate = useNavigate();
 
   // TODO: 실제 로그인 유저 / 친구 목록은 props나 API로 대체
-  const currentUser = { writer: 21, nickname: "사용자" };
+  const currentUser = { writer: 3, nickname: "사용자" };
   const friends = [
-    { toge_writer: 41, nickname: "성우" },
+    { toge_writer: 4, nickname: "성우" },
 
   ];
 
@@ -44,7 +44,7 @@ const MovieForm: React.FC = () => {
     num: 0,
     movie_id: state?.movie?.num || parseInt(num || '0'),
     writer: currentUser.writer, // 추후에 로그인 하면 그 때 마다 바꾸게 설정
-    toge_writer: 41,
+    toge_writer: 4,
     simple_review: '',
     review: '',
     rate: 0,
