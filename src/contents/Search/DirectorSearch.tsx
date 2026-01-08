@@ -1,16 +1,18 @@
-import React from "react";
-import "./Search.css";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import "./Search.css";
 
-const directorList = [
-  "준추",
-  "봉준호",
-  "박찬욱",
-  "제임스 카메론",
-  "리치 무어",
-  "스티븐 스필버그",
-  "크리스토퍼 놀란",
-];
+interface MovieVO {
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
 
 const DirectorSearch: React.FC = () => {
   const navigate = useNavigate();
@@ -20,6 +22,40 @@ const DirectorSearch: React.FC = () => {
   const isDirector = location.pathname === "/Search/Director";
   const isActor =
     location.pathname === "/Search/Actor" || location.pathname === "/actor";
+
+  // 감독 탭 좌우 스크롤
+  const directorRef = useRef<HTMLDivElement>(null);
+
+  const [movies, setMovies] = useState<MovieVO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedDirector, setSelectedDirector] = useState<string | null>(null);
+
+  // 영화 목록 불러오기
+  useEffect(() => {
+    const loadMovies = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movielist`
+        );
+        setMovies(res.data.movie || []);
+      } catch (e) {
+        console.error("영화 로딩 실패", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMovies();
+  }, []);
+
+  // 감독 목록
+  const directors = Array.from(
+    new Set(movies.map(movie => movie.director).filter(Boolean))
+  );
+
+  // 감독 필터링
+  const filteredMovies = selectedDirector
+    ? movies.filter(movie => movie.director === selectedDirector)
+    : movies;
 
   return (
     <div className="filter-container">
@@ -53,107 +89,75 @@ const DirectorSearch: React.FC = () => {
         </button>
       </div>
 
-      {/* 감독 태그 리스트 */}
-      <div className="tag-scroll-box">
-        <div className="tag-list">
-          {directorList.map((name) => (
+      {/* 감독 태그 가로 스크롤 */}
+      <div className="actor-scroll-wrap">
+        <button
+          onClick={() =>
+            directorRef.current?.scrollBy({ left: -200, behavior: "smooth" })
+          }
+        >
+          &lt;
+        </button>
+
+        <div className="actor-line" ref={directorRef}>
+          {directors.map(director => (
             <button
-              key={name}
-              className={name === "준추" ? "tag active" : "tag"}
+              key={director}
+              className={`genre-btn ${
+                selectedDirector === director ? "active" : ""
+              }`}
+              onClick={() => setSelectedDirector(director)}
             >
-              {name}
+              {director}
             </button>
           ))}
         </div>
+
+        <button
+          onClick={() =>
+            directorRef.current?.scrollBy({ left: 200, behavior: "smooth" })
+          }
+        >
+          &gt;
+        </button>
       </div>
 
-      {/* 하단 카드 그리드 영역 */}
+      {/* 영화 카드 */}
       <section className="movie-grid">
         <div className="row g-4">
-          {/* 카드 1: 옥자 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster7.jpg"
-                className="card-img-top movie-poster"
-                alt="옥자"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">옥자 2017</h5>
-                <button className="badge genre-badge">코미디</button>
-                <div className="moive-rating">★ 3.5</div>
+          {loading ? (
+            <div className="col-12 text-center">로딩중...</div>
+          ) : filteredMovies.length > 0 ? (
+            filteredMovies.map(movie => (
+              <div key={movie.num} className="col-md-4">
+                <div className="card movie-card h-100">
+                  <img
+                    src={movie.poster}
+                    className="card-img-top movie-poster"
+                    alt={movie.title}
+                    onError={e => {
+                      e.currentTarget.src = "/images/no-poster.png";
+                    }}
+                  />
+                  <div className="card-body">
+                    <h5 className="movie-title">
+                      <Link to={`/MovieInfo/${movie.num}`}>
+                        {movie.title} {movie.release_date?.substring(0, 4)}
+                      </Link>
+                    </h5>
+                    <span className="genre-badge">{movie.genre}</span>
+                    <div className="moive-rating">★ 5.0</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* 카드 2: 기생충 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster6.jpg"
-                className="card-img-top movie-poster"
-                alt="기생충"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">기생충 2019</h5>
-                <button className="badge genre-badge">공포/스릴러</button>
-                <div className="moive-rating">★ 3.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 3*/}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster13.jpg"
-                className="card-img-top movie-poster"
-                alt="설국열차"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">설국열차 2012</h5>
-                <button className="badge genre-badge">SF/판타지</button>
-                <div className="moive-rating">★ 3.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 4  */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster8.jpg"
-                className="card-img-top movie-poster"
-                alt="기생충"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">탈주 2019</h5>
-                <button className="badge genre-badge">공포/스릴러</button>
-                <p className="movie-rating">★ 3.0</p>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 5  */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster9.jpg"
-                className="card-img-top movie-poster"
-                alt="기생충"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">소주전쟁 2024</h5>
-                <button className="badge genre-badge">공포/스릴러</button>
-                <p className="movie-rating">★ 3.0</p>
-              </div>
-            </div>
-          </div>
-
+            ))
+          ) : (
+            <div className="no-movie">등록된 영화가 없습니다.</div>
+          )}
         </div>
       </section>
 
-      {/* 페이지네이션 그대로 */}
+      {/* 페이지네이션 */}
       <footer className="movieLog-footer">
         <nav
           aria-label="Page navigation example"
@@ -166,19 +170,13 @@ const DirectorSearch: React.FC = () => {
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
+              <a className="page-link" href="#">1</a>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                2
-              </a>
+              <a className="page-link" href="#">2</a>
             </li>
             <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
+              <a className="page-link" href="#">3</a>
             </li>
             <li className="page-item">
               <a className="page-link" href="#" aria-label="Next">

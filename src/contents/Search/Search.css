@@ -148,3 +148,37 @@ a:visited {
   color: #888;
   border-radius: 12px;
 }
+
+/* 배우 버튼 한 줄 가로 스크롤 */
+.actor-scroll-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+.actor-line {
+  display: flex;
+  gap: 8px;
+  overflow-x: hidden; /* 스크롤바 숨김 */
+  white-space: nowrap;
+  width: 100%;
+}
+
+/* 좌우 스크롤 버튼 */
+.actor-scroll-wrap > button {
+  background: #f5f5f5; color: #333;
+  border: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+.actor-scroll-wrap > button:active {
+  transform: scale(0.95);
+}
+
+

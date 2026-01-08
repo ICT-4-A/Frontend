@@ -1,17 +1,19 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import "./Search.css";
 
-const actorList = [
-  "이제훈",
-  "송혜교",
-  "이병헌",
-  "송강호",
-  "마동석",
-  "유해진",
-  "전지현",
-  "설경구",
-];
+interface MovieVO {
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
+
 
 const ActorSearch: React.FC = () => {
   const navigate = useNavigate();
@@ -20,8 +22,46 @@ const ActorSearch: React.FC = () => {
   // 현재 URL 기준으로 어떤 탭이 활성인지 판별
   const isGenre = location.pathname === "/Search";
   const isDirector = location.pathname === "/Search/Director";
-  const isActor =
-    location.pathname === "/Search/Actor" || location.pathname === "/actor";
+  const isActor = location.pathname === "/Search/Actor" || location.pathname === "/actor";
+
+  // 배우 탭 좌우 스크롤
+  const actorRef = useRef<HTMLDivElement>(null);
+
+  const [movies, setMovies] = useState<MovieVO[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedActor, setSelectedActor] = useState<string | null>(null);
+
+  // 영화 목록 불러오기 
+  useEffect(() => {
+    const loadMovies = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movielist`
+        );
+        setMovies(res.data.movie || []);
+      } catch (e) {
+        console.error("영화 로딩 실패", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadMovies();
+  }, []);
+
+  // 배우 목록
+  const actors = Array.from(
+    new Set(movies
+              .flatMap(movie => movie.actor?.split(","))
+              .map(actor => actor.trim())
+              .filter(Boolean)
+            )
+  );
+
+  // 배우 선택 후 해당 배우 영화만, 선택 전이면 전체 영화 표시
+  const filteredMovies = selectedActor
+  ? movies.filter(movie => movie.actor?.includes(selectedActor))
+  : movies;
+
 
   return (
     <div className="filter-container">
@@ -53,98 +93,63 @@ const ActorSearch: React.FC = () => {
         </button>
       </div>
 
-      <div className="tag-scroll-box">
-        <div className="tag-list">
-          {actorList.map((t2) => (
-            <button key={t2} className={t2 === "이제훈" ? "tag active" : "tag"}>
-              {t2}
+      {/* 배우 태그 가로 스크롤 */}
+      <div className="actor-scroll-wrap">
+        <button onClick={() => actorRef.current?.scrollBy({ left: -200, behavior: "smooth" })}>
+          &lt;
+        </button>
+
+        <div className="actor-line" ref={actorRef}>
+          {actors.map(actor => (
+            <button
+              key={actor}
+              className={`genre-btn ${selectedActor === actor ? "active" : ""}`}
+              onClick={() => setSelectedActor(actor)}>
+              {actor}
             </button>
           ))}
         </div>
+
+        <button onClick={() => actorRef.current?.scrollBy({ left: 200, behavior: "smooth" })}>
+          &gt;
+        </button>
       </div>
 
-      {/* 하단 카드 그리드 영역 */}
-      <section className="moive-grid">
+      {/* 영화 카드 */}
+      <section className="movie-grid">
         <div className="row g-4">
-          {/* 카드 1 */}
-          <div className="col-md-4">
-            <div className="card moive-card h-100">
-              <img
-                src="/images/poster9.jpg"
-                className="card-img-top moive-poster"
-                alt="소주전쟁"
-              />
-              <div className="card-body">
-                <h5 className="moive-title">소주전쟁 2025</h5>
-                <button className="badge genre-badge">코미디</button>
-                <div className="moive-rating">★ 3.0</div>
+          {loading ? (
+            <div className="col-12 text-center">로딩중...</div>
+          ) : filteredMovies.length > 0 ? (
+            filteredMovies.map((movie) => (
+              <div key={movie.num} className="col-md-4">
+                <div className="card movie-card h-100">
+                  <img
+                    src={movie.poster}
+                    className="card-img-top movie-poster"
+                    alt={movie.title}
+                    onError={(e) => {
+                      e.currentTarget.src = "/images/no-poster.png";
+                    }}
+                  />
+                  <div className="card-body">
+                    <h5 className="movie-title">
+                      <Link to={`/MovieInfo/${movie.num}`}>
+                        {movie.title}{" "}
+                        {movie.release_date?.substring(0, 4)}
+                      </Link>
+                    </h5>
+                    <span className="genre-badge">{movie.genre}</span>
+                    <div className="moive-rating">★ 5.0</div>
+                  </div>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="no-movie">
+              등록된 영화가 없습니다.
             </div>
-          </div>
-
-          {/* 카드 2 */}
-          <div className="col-md-4">
-            <div className="card moive-card h-100">
-              <img
-                src="/images/poster8.jpg"
-                className="card-img-top moive-poster"
-                alt="탈주"
-              />
-              <div className="card-body">
-                <h5 className="moive-title">탈주 2025</h5>
-                <button className="badge genre-badge">코미디</button>
-                <div className="moive-rating">★ 4.0</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 3 */}
-          <div className="col-md-4">
-            <div className="card moive-card h-100">
-              <img
-                src="/images/poster10.jpg"
-                className="card-img-top moive-poster"
-                alt="건축학개론"
-              />
-              <div className="card-body">
-                <h5 className="moive-title">건축학개론 2012</h5>
-                <button className="badge genre-badge">로맨스</button>
-                <div className="moive-rating">★ 4.0</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 4 */}
-          <div className="col-md-4">
-            <div className="card moive-card h-100">
-              <img
-                src="/images/poster14.png"
-                className="card-img-top moive-poster"
-                alt="건축학개론"
-              />
-              <div className="card-body">
-                <h5 className="moive-title">사냥의 시간 2020</h5>
-                <button className="badge genre-badge">공포/스릴러</button>
-                <div className="moive-rating">★ 3.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 5 */}
-          <div className="col-md-4">
-            <div className="card moive-card h-100">
-              <img
-                src="/images/poster7.jpg"
-                className="card-img-top movie-poster"
-                alt="옥자"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">옥자 2017</h5>
-                <button className="badge genre-badge">코미디</button>
-                <div className="moive-rating">★ 3.5</div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </section>
 
