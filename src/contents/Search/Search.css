@@ -2,29 +2,65 @@
 .genre-container {
   width: 60%;
   margin: 30px auto;
+  position: relative; 
 }
 
-/* 검색창 */
-.search-box {
+.filter-header-right {
   position: relative;
-  width: 250px;
-  margin-left: auto;
-  margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; 
+  margin-bottom: 20px; 
 }
 
-.search-box input,
-.search-box .form-control {
-  padding-left: 35px;
+/* 검색창 */ 
+.search-box { 
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap; 
+} 
+.search-input-wrap {
+  width: 360px;  
+  flex: 0 0 170px; /* input 박스 가로 길이 */  
 }
-
-.search-box .search-icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  width: 18px;
-  height: 18px;
-  transform: translateY(-50%);
-  opacity: 0.6;
+.search-input-wrap .form-control {
+  height: 35px;        /* input 박스 세로 길이 */
+  padding: 2px 20px;   /* input 박스 안 글자 여백 조절 */
+}
+.search-box input:focus { 
+  border-color: #4a90e2; 
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.3); 
+} 
+      
+/* 드롭다운 */ 
+.search-box select { 
+  padding: 6px 12px; 
+  border-radius: 5px; 
+  border: 1px solid #ccc; 
+  font-size: 14px; 
+  cursor: pointer; 
+  outline: none; 
+  width: 75px; 
+} 
+  
+/* 검색 버튼 */ 
+button.btn-search { 
+  display: inline-flex !important; 
+  justify-content: center; 
+  align-items: center; 
+  width: 50px !important; 
+  height: 35px !important; 
+  border-radius: 5px; border: none; 
+  background-color: #4a90e2; 
+  color: white; 
+  font-size: 14px; 
+  cursor: pointer; 
+  text-align: center; 
+}
+.search-btn-wrap .btn-search {
+  width: 100%;
+  height: 100%;
 }
 
 /* 필터 버튼 공통 */
@@ -49,7 +85,6 @@
   transition: 0.2s;
 }
 
-/* 활성화 버튼(액션 버튼) */
 .genre-btn.active,
 .filter-btn.active,
 .tag.active {
@@ -57,14 +92,12 @@
   color: white;
 }
 
-/* 링크 기본 스타일 제거 */
-a,
-a:link,
-a:visited {
+a, a:link, a:visited {
   color: black;
   text-decoration-line: none;
 }
 
+/* 상단 필터 탭 */
 .filter-tab-btn {
   display: flex;
   gap: 20px;
@@ -73,7 +106,6 @@ a:visited {
   margin: 10px 0 20px 0;
 }
 
-/* 필터링 탭(활성화 전) */
 .tab {
   background: none;
   border: none;
@@ -85,11 +117,11 @@ a:visited {
   font-weight: 400;
 }
 
-/* 활성화 탭 */
 .tab.active {
   font-weight: 700;
   color: #000;
 }
+
 .tab.active::after {
   content: "";
   position: absolute;
@@ -100,25 +132,24 @@ a:visited {
   background-color: #4a90e2;
   border-radius: 2px;
 }
-/* 배우 검색 카드 그리드 */
-.moive-grid {
+
+/* 영화 카드 그리드 */
+.movie-grid {
   margin-top: 20px;
 }
-
-.moive-card {
+.movie-card {
   border: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   border-radius: 12px;
   overflow: hidden;
 }
-
-.moive-poster {
+.movie-poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-.moive-title {
+.movie-title {
   font-size: 16px;
   font-weight: 600;
   margin-top: 8px;
@@ -126,15 +157,12 @@ a:visited {
 }
 
 .movie-card .genre-badge {
-  /* background-color: transparent !important;
-  border: 1px solid #4dabf7 !important;
-  color: #4dabf7 !important; */
   font-size: 12px;
   padding: 4px 10px;
   border-radius: 10px;
 }
 
-.moive-rating {
+.movie-rating {
   margin-top: 6px;
   font-size: 14px;
   color: #4dabf7;
@@ -149,26 +177,29 @@ a:visited {
   border-radius: 12px;
 }
 
-/* 배우 버튼 한 줄 가로 스크롤 */
+/* 배우, 감독 버튼 가로 스크롤 */
 .actor-scroll-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 30px;
 }
+
 .actor-line {
   display: flex;
   gap: 8px;
-  overflow-x: hidden; /* 스크롤바 숨김 */
+  overflow-x: hidden;
   white-space: nowrap;
   width: 100%;
 }
 
 /* 좌우 스크롤 버튼 */
 .actor-scroll-wrap > button {
-  background: #f5f5f5; color: #333;
+  background: #f5f5f5;
+  color: #333;
   border: none;
-  width: 36px; height: 36px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
   cursor: pointer;
   font-size: 18px;
@@ -177,8 +208,7 @@ a:visited {
   justify-content: center;
   transition: 0.2s;
 }
+
 .actor-scroll-wrap > button:active {
   transform: scale(0.95);
 }
-
-
