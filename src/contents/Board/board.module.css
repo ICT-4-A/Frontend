@@ -192,61 +192,63 @@ textarea {
 /* ===============================
    BoardComm 전용 스타일
    =============================== */
-
-/* 댓글 영역 전체 래퍼 */
+/* 댓글 전체 래퍼 */
 .commWrapper {
-  margin-top: 20px;
-  padding: 15px;
+  max-width: 1000px;
+  margin: 0 auto 60px;
+  padding: 20px;
 }
 
-/* 댓글 제목 */
+/* 제목 */
 .commTitle {
-  margin-bottom: 15px;
-  color:#333;
+  font-size: 20px;
   font-weight: 600;
+  margin-bottom: 16px;
 }
 
 /* 댓글 작성 폼 */
 .commForm {
-  margin-bottom: 20px;
+  background: #fafafa;
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 28px;
+  border: 1px solid #eee;
 }
 
-.commInput {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 12px;
-  width: 100%;
-  font-size: 14px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
-}
-
+/* 입력창 */
 .commTextarea {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 8px 12px;
   width: 100%;
+  min-height: 90px;
+  resize: none;
+  padding: 12px;
   font-size: 14px;
-  resize: vertical;
-  min-height: 60px;
-  box-sizing: border-box;
-  margin-bottom: 10px;
+  line-height: 1.5;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
 }
 
+.commTextarea:focus {
+  border-color: #555;
+}
 
-/* 댓글 작성 버튼 */
+/* 버튼 */
 .commButton {
-  background-color: #4a90e2;
+  padding: 8px 18px;
   border: none;
-  padding: 6px 20px;
-  border-radius: 5px;
+  border-radius: 6px;
+  background: #222;
+  color: #fff;
   font-size: 14px;
   cursor: pointer;
-  color: #fff;
+}
+.text-center{
+    text-align: right;
+  margin-top: 10px;
 }
 
 .commButton:hover {
-  background-color: #0069d9;
+  background: #000;
 }
 
 /* 댓글 리스트 */
@@ -256,27 +258,32 @@ textarea {
   margin: 0;
 }
 
+/* 댓글 아이템 */
 .commListItem {
-  border: 1px solid #eee;
-  border-radius: 5px;
-  padding: 10px 12px;
-  margin-bottom: 8px;
-  background-color: #fff;
+  padding: 14px 12px;
+  border-bottom: 1px solid #e0e0e0;
 }
 
+.commListItem:last-child {
+  border-bottom: none;
+}
+
+/* 작성자 + 날짜 */
 .commListItem strong {
-  display: inline-block;
-  margin-right: 10px;
-  color: #000000;
+  font-size: 14px;
+  font-weight: 600;
+  margin-right: 8px;
 }
 
 .commListItem span {
   font-size: 12px;
-  color: #999;
+  color: #888;
 }
 
+/* 댓글 내용 */
 .commListItem p {
-  margin-top: 5px;
+  margin-top: 6px;
   font-size: 14px;
-  color: #413d3d;
+  line-height: 1.6;
+  white-space: pre-wrap;
 }

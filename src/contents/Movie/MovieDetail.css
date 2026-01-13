@@ -1,266 +1,209 @@
-/* 전체 래퍼: 목록/폼과 폭 맞추기 */
+/* 전체 래퍼 */
 .movieDetail-wrapper {
   max-width: 1000px;
-  margin: 20px auto 60px;
-  font-family: "Pretendard", sans-serif;
-  color: #333;
+  margin: 40px auto;
+  padding: 0 16px;
 }
 
-/* 상단 메인 카드: 부트스트랩 card 느낌 */
-.movieDetail-mainCard {
-  background-color: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  padding: 24px 28px 20px;
-  margin-bottom: 24px;
+/* 🔹 상세 카드 */
+.movieDetail-card {
+  background-color: #fff;
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
-/* 작성자 / 별점 줄 */
+/* 상단 영역 */
 .movieDetail-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 18px;
+  gap: 28px;
 }
 
-.movieDetail-user {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.movieDetail-user-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #f1f3f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  color: #495057;
-}
-
-.movieDetail-user-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.movieDetail-user-name {
-  font-weight: 600;
-  font-size: 15px;
-}
-
-/* “선호 장르” 같은 태그 */
-.movieDetail-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background-color: #f1f1f1;
-}
-
-/* 별점 영역 */
-.movieDetail-rating {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.movieDetail-star {
-  color: #ffc107;
-  font-size: 18px;
-}
-
-.movieDetail-score {
-  font-weight: 600;
-  font-size: 14px;
-}
-
-/* 포스터 + 정보 영역: Bootstrap의 row 비슷하게 flex 사용 */
-.movieDetail-body {
-  display: flex;
-  gap: 24px;
-}
-
-/* 포스터 박스: MovieMain 카드와 비율 맞춤 */
-.movieDetail-poster img {
-  width: 180px;
-  height: 260px;
+/* 포스터 */
+.movieDetail-poster {
+  width: 320px;
+  height: auto;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
 }
 
-/* 오른쪽 텍스트 영역 */
+/* 정보 */
 .movieDetail-info {
   flex: 1;
-}
-
-.movieDetail-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 4px;
-}
-
-.movieDetail-sub {
   display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 13px;
-  color: #6c757d;
-  margin-bottom: 8px;
+  flex-direction: column;
 }
 
-/* 장르 배지: Bootstrap badge 느낌 */
-.movieDetail-genreTag {
-  border: none;
-  padding: 2px 10px;
-  border-radius: 999px;
-  background-color: #e7f1ff;
-  color: #0d6efd;
-  font-size: 11px;
+/* 제목 */
+.movieDetail-info h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
-/* 감독 / 배우 정보 */
-.movieDetail-meta {
-  font-size: 13px;
-  color: #495057;
+/* 장르 */
+.movieDetail-genre {
+  width: fit-content;
+  font-size: 14px;
+  background-color: #f1f3f5;
+  padding: 6px 14px;
+  border-radius: 20px;
   margin-bottom: 12px;
 }
 
-.movieDetail-meta > div + div {
-  margin-top: 2px;
+/* 작성자 */
+.movieDetail-writer {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 10px;
+  margin-left: 10px;
 }
 
-/* 리뷰 제목 + 본문 */
-.movieDetail-reviewTitle {
-  font-weight: 600;
-  margin-bottom: 6px;
+/* 별점 */
+.movieDetail-rate {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffb400;
+  margin-bottom: 18px;
+  margin-left: 10px;
 }
 
-.movieDetail-reviewText {
-  font-size: 13px;
+/* 🔹 한줄평 */
+.movieDetail-simpleReview {
+  margin-top: 24px;
+  padding: 18px;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+.movieDetail-simpleReview h4 {
+  font-size: 16px;
+  font-weight: bolder;
+  margin-bottom: 8px;
+}
+
+.movieDetail-simpleReview p {
+  font-size: 15px;
   line-height: 1.6;
-  color: #343a40;
 }
 
-/* 좋아요 / 댓글 / 조회수 버튼: Bootstrap outline 버튼 느낌 */
-.movieDetail-actions {
-  display: flex;
-  gap: 10px;
+/* 🔹 전체 리뷰 */
+.movieDetail-review {
+  margin-top: 20px;
+  padding: 22px;
+  background-color: #fafafa;
+  border-radius: 10px;
+}
+
+.movieDetail-review h4 {
+  font-size: 16px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+
+.movieDetail-review p {
+  font-size: 15px;
+  line-height: 1.7;
+  white-space: pre-line;
+}
+
+
+/* 댓글 전체 영역 */
+.movieComm-wrapper {
+  max-width: 1100px;
+  margin: 0 auto 80px;
+  padding: 20px;
+}
+
+/* 제목 */
+.movieComm-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* 댓글 입력 폼 */
+.movieComm-form {
+  background: #fafafa;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+}
+
+.movieComm-textarea {
+  width: 100%;
+  min-height: 90px;
+  resize: none;
+  padding: 12px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  outline: none;
+}
+
+.movieComm-textarea:focus {
+  border-color: #666;
+}
+
+/* 버튼 */
+.movieComm-btnWrap {
+  text-align: right;
   margin-top: 10px;
 }
 
-.action-btn {
-  border: 1px solid #dee2e6;
-  background-color: #ffffff;
-  border-radius: 6px;
-  padding: 4px 10px;
-  font-size: 12px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-}
-
-/* 수정 / 삭제 링크 */
-.movieDetail-editRow {
-  display: flex;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
-  font-size: 12px;
-}
-
-.link-btn {
+.movieComm-submitBtn {
+  padding: 8px 18px;
   border: none;
-  background: none;
-  color: #6c757d;
-  cursor: pointer;
-}
-
-.link-btn.danger {
-  color: #dc3545;
-}
-
-/* ===== 댓글 리스트 ===== */
-.movieDetail-comments {
-  margin-top: 24px;
-}
-
-.comment-card {
-  padding: 16px 6px;
-  border-bottom: 1px solid #f1f3f5;
-}
-
-.comment-user {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 6px;
-}
-
-.avatar-sm {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background-color: #f1f3f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-}
-
-.comment-user-info {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-}
-
-.comment-name {
-  font-weight: 600;
-}
-
-.comment-tag {
-  font-size: 11px;
-  padding: 1px 8px;
-  border-radius: 999px;
-  background-color: #f1f1f1;
-}
-
-.comment-text {
-  font-size: 13px;
-  color: #343a40;
-}
-
-/* ===== 댓글 입력 영역 ===== */
-.movieDetail-commentForm {
-  margin-top: 16px;
-  padding-top: 8px;
-  border-top: 1px solid #f1f3f5;
-  display: flex;
-  gap: 8px;
-}
-
-/* MovieForm의 textarea 스타일과 느낌 통일 */
-.comment-input {
-  flex: 1;
-  min-height: 80px;
-  padding: 10px;
-  border: 1px solid #dcdcdc;
   border-radius: 6px;
-  font-size: 13px;
-  resize: none;
-}
-
-.comment-submit {
-  width: 80px;
-  height: 40px;
-  border-radius: 8px;
-  border: none;
-  background-color: #3aa3e9; /* MovieForm upload 버튼 색과 동일 */
-  color: white;
+  background: #222;
+  color: #fff;
   font-size: 14px;
   cursor: pointer;
 }
+
+.movieComm-submitBtn:hover {
+  background: #000;
+}
+
+/* 댓글 리스트 */
+.movieComm-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* 댓글 아이템 */
+.movieComm-item {
+  padding: 16px 14px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.movieComm-item:last-child {
+  border-bottom: none;
+}
+
+/* 작성자 + 날짜 */
+.movieComm-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.movieComm-writer {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.movieComm-date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* 댓글 내용 */
+.movieComm-content {
+  font-size: 14px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+

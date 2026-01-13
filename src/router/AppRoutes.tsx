@@ -40,6 +40,7 @@ import GalleryForm from "../contents/Gallery/GalleryForm";
 import RequireAuth from "../components/RequireAuth";
 
 
+
 const AppRoutes: React.FC = () => {
   const routeList = [
     { path: "/", element: <MovieLog /> },
@@ -47,10 +48,10 @@ const AppRoutes: React.FC = () => {
     { path: "/moviesearch", element: <MovieSearch /> },
     { path: "/movieform/:num", element: <MovieForm /> },
 
-    { path: "/movielog/detail", element: <MovieDetail /> },
-    { path: "/movielog/detail2", element: <MovieDetail2 /> },
-    { path: "/movielog/detail3", element: <MovieDetail3 /> },
-    { path: "/movielog/detail4", element: <MovieDetail4 /> },
+    { path: "/movie/detail/:num", element: <MovieDetail /> },
+    // { path: "/movielog/detail2", element: <MovieDetail2 /> },
+    // { path: "/movielog/detail3", element: <MovieDetail3 /> },
+    // { path: "/movielog/detail4", element: <MovieDetail4 /> },
 
     { path: "/Diary", element: <Diary /> },
 

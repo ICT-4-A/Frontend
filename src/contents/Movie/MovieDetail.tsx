@@ -1,115 +1,95 @@
-// src/components/MovieDetail/MovieDetail.tsx
-import React from "react";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom';
 import "./MovieDetail.css";
+import MovieComm from './MovieComm';
+
+interface MovieDetailVO{
+    num: number;
+    title: string;
+    poster: string;
+    genre: string;
+
+    writer_num: number;
+    writer_name: string;
+    toge_writer_name: string;
+
+    simple_review: string;
+    review: string;
+    rate: number;
+    hit: number;
+    created_at: string;
+    
+}
+
+
 
 const MovieDetail: React.FC = () => {
+  const {num} = useParams<{num: string}>();
+  console.log(`num => ${num}`);
+  const [movie, setMovie] = useState<MovieDetailVO | null>(null);
+  const [loading, setLoaing] = useState(true);
+
+
+  useEffect(() => {
+    const detailServer = async () => {
+      try{
+      const url = `${process.env.REACT_APP_BACK_END_URL}/movie/detail?num=${num}`;
+      const resp = await axios.get(url);
+
+      console.log("detail response: ", resp.data);
+      console.log(resp.data);
+      setMovie(resp.data);
+    }catch(err){
+      console.error("Movie detail load error", err);
+    }finally{
+      setLoaing(false);
+    }
+  };
+  detailServer();
+  },[num]);
+
+  if (loading) return <div>로딩중</div>
+  if (!movie) return <div>데이터가 없습니다.</div>
   return (
-    <div className="movieDetail-wrapper">
-      {/* 상단 메인 리뷰 카드 */}
-      <section className="movieDetail-mainCard">
-        {/* 작성자 / 별점 줄 */}
-        <div className="movieDetail-header">
-          <div className="movieDetail-user">
-            <div className="movieDetail-user-avatar">A</div>
-            <div className="movieDetail-user-info">
-              <div className="movieDetail-user-name">사용자1</div>
-              <span className="movieDetail-tag">애니메이션</span>
-            </div>
-            <div className="movieDetail-user-avatar">B</div>
-            <div className="movieDetail-user-info">
-              <div className="movieDetail-user-name">사용자2</div>
-              <span className="movieDetail-tag">로멘스</span>
-            </div>
-          </div>
+    <div className='movieDetail-wrapper'>
+      {/* 상단 영역 */}
+     <section className='movieDetail-header'>
+  <img
+    src={movie.poster}
+    alt={movie.title}
+    className='movieDetail-poster'
+  />
 
-          <div className="movieDetail-rating">
-            <span className="movieDetail-star">★</span>
-            <span className="movieDetail-score">5.0</span>
-          </div>
-        </div>
+  <div className='movieDetail-info'>
+    <h2>{movie.title}</h2>
 
-        {/* 카드 본문 */}
-        <div className="movieDetail-body">
-          <div className="movieDetail-poster">
-            <img src="/images/poster2.jpg" alt="위키드: 포 굿" />
-          </div>
+    <div className='movieDetail-genre'>{movie.genre}</div>
 
-          <div className="movieDetail-info">
-            <h2 className="movieDetail-title">위키드: 포 굿</h2>
-            <div className="movieDetail-sub">
-              <span>2025. 11</span>
-              <button className="movieDetail-genreTag">판타지</button>
-            </div>
-            <div className="movieDetail-meta">
-              <div>감독: 존 추</div>
-              <div>배우: 신시아 에리보, 아리아나 그란데</div>
-            </div>
+    <div className='movieDetail-writer'>
+      <span>작성자: {movie.writer_name}</span>
+      {movie.toge_writer_name && (
+        <span> / 공동 작성자: {movie.toge_writer_name}</span>
+      )}
+    </div>
 
-            <div className="movieDetail-reviewTitle">
-              최고의 명작! 시간 가는 줄 모르고 봤어요
-            </div>
-            <p className="movieDetail-reviewText">
-              개인적으로 위키드 캐릭터들의 매력은 잊고 살다가 히스토리에서
-              나온다고 생각해서 아리아나 그란데의 어딘지 모르게 어설픈 글리크
-              연기가 꽤나 매력적으로 느껴졌다...
-            </p>
+    <div className='movieDetail-rate'>★ {movie.rate}</div>
 
-            {/* 좋아요/댓글/조회수 영역 */}
-            <div className="movieDetail-actions">
-              <button className="action-btn">
-                👍 <span>4</span>
-              </button>
-              <button className="action-btn">
-                💬 <span>3</span>
-              </button>
-            </div>
-          </div>
-        </div>
+    <div className='movieDetail-simpleReview'>
+      <h4>한줄평</h4>
+      <p>{movie.simple_review}</p>
+    </div>
 
-        {/* 수정/삭제 */}
-        <div className="movieDetail-editRow">
-          <button className="link-btn">수정</button>
-          <button className="link-btn danger">삭제</button>
-        </div>
-      </section>
-
-      {/* 댓글 리스트 */}
-      <section className="movieDetail-comments">
-        {/* 댓글 1 */}
-        <div className="comment-card">
-          <div className="comment-user">
-            <div className="avatar-sm">B</div>
-            <div className="comment-user-info">
-              <span className="comment-name">테스트 2</span>
-              <span className="comment-tag">선호 장르1</span>
-            </div>
-          </div>
-          <p className="comment-text">
-            와 이런 사연이 있는 줄은 또 몰랐네요 ㅎㅎ 의도된 오마주였다니...
-            좋은 정보 감사합니다!
-          </p>
-        </div>
-
-        {/* 댓글 2 */}
-        <div className="comment-card">
-          <div className="comment-user">
-            <div className="avatar-sm">C</div>
-            <div className="comment-user-info">
-              <span className="comment-name">테스트 3</span>
-              <span className="comment-tag">선호 장르1</span>
-            </div>
-          </div>
-          <p className="comment-text">저도 영화 너무 재밌게 봤어요!</p>
-        </div>
-      </section>
-
-      {/* 댓글 입력 영역 */}
-      <section className="movieDetail-commentForm">
-        <textarea className="comment-input" placeholder="댓글을 남겨보세요" />
-        <button className="comment-submit">등록</button>
-      </section>
+    <div className='movieDetail-review'>
+      <h4>리뷰</h4>
+      <p>{movie.review}</p>
+    </div>
+  </div>
+</section>
+        <hr />
+        <MovieComm comment_num={num}/>
     </div>
   );
 };
 
-export default MovieDetail;
+export default MovieDetail
