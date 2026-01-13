@@ -127,6 +127,14 @@ useEffect(()=> {
                         {log.writer_name}
                       </div>
                     </div>
+                    <div className="movieDetail-user-avatar">
+                      {log.toge_writer_name}
+                    </div>
+                    <div className="movieDetail-user-info">
+                      <div className="movieDetail-user-name">
+                        {log.toge_writer_name}
+                      </div>
+                    </div>
                     {log.toge_writer_name && (
                       <>
                       <div className="movieDetail-user-avatar">
