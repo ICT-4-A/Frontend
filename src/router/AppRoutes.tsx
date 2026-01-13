@@ -10,6 +10,8 @@ import MovieDetail2 from "../contents/Movie/MovieDetail2";
 import MovieDetail3 from "../contents/Movie/MovieDetail3";
 import MovieDetail4 from "../contents/Movie/MovieDetail4";
 
+
+
 import Board from "../contents/Board/Board";
 import BoardDetail1 from "../contents/Board/Detail1";
 import BoardDetail2 from "../contents/Board/Detail2";
