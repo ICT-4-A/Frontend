@@ -6,11 +6,6 @@ import MovieLog from "../contents/Movie/MovieMain";
 
 import MovieForm from "../contents/Movie/MovieForm";
 import MovieDetail from "../contents/Movie/MovieDetail";
-import MovieDetail2 from "../contents/Movie/MovieDetail2";
-import MovieDetail3 from "../contents/Movie/MovieDetail3";
-import MovieDetail4 from "../contents/Movie/MovieDetail4";
-
-
 
 import Board from "../contents/Board/Board";
 import BoardDetail1 from "../contents/Board/Detail1";

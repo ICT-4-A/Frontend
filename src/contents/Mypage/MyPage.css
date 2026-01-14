@@ -103,19 +103,27 @@
 
 /* Bootstrap table과 조합 */
 .mypage-table {
+  margin-top: 20px;
   width: 100%;
   border-top: 1px solid #dee2e6;
+  table-layout: fixed;
 }
 
 .mypage-table thead th {
   border-bottom: 1px solid #dee2e6;
   font-size: 14px;
   color: #6c757d;
+  text-align: center;
 }
-
 .mypage-table tbody td {
   border-top: 1px solid #f1f3f5;
   font-size: 14px;
+  text-align: center;
+}
+
+/* 제목 컬럼만 왼쪽 정렬 */
+.mypage-table tbody td:nth-child(2) {
+  text-align: left;
 }
 
 /* 각 행의 영화 정보 레이아웃 */
@@ -165,6 +173,7 @@
 .mypage-movie-desc {
   font-size: 13px;
   color: #495057;
+  text-align: left;
 }
 
 .mypage-title {
@@ -339,4 +348,23 @@
 .friend-btn.reject {
   background-color: #f1f3f5;
   color: #495057;
+}
+
+/* 테이블 헤더 기본 */
+.mypage-table th {
+  white-space: nowrap;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.mypage-table td {
+  vertical-align: middle;
+}
+
+.mypage-table .td-center {
+  text-align: center !important;
+}
+/* 친구 목록 테이블 - 닉네임 컬럼 가운데 정렬 */
+.mypage-table tbody td:nth-child(2) {
+  text-align: center !important;
 }

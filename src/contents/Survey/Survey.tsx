@@ -79,7 +79,7 @@ const Survey: React.FC = () => {
   return (
     <div className="survey-container">
       <div className="survey-header">
-        <h3>영화 취향 설문</h3>
+        <h3 className="page-name">영화 취향 설문</h3>
       </div>
 
       <div className="table-wrapper">
@@ -111,7 +111,7 @@ const Survey: React.FC = () => {
                 <tr key={s.num} className={isHot ? "hot-row" : ""}>
                   <th>
                     {isHot ? (
-                      <span className="hot-badge">HOT</span>
+                      <span className="hot-text">HOT</span>
                     ) : (
                       no
                     )}
