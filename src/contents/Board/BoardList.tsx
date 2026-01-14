@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import style from './board.module.css';
+import './BoardList.css';
+//import "./Board.css";
+
 
 interface BoardVO {
     num: number;
@@ -71,25 +73,42 @@ const BoardList: React.FC = () => {
         fetchBoardList(1);
     };
 
+    // 작성일을 'YYYY.MM.DD' 형식으로 변환
+    const formatDate = (dateString: string) => {
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${year}.${month}.${day}`;
+    };
+
     return (
-        <div>
-            <div className={style.header}>
-                <h2>게시판</h2>
-                <div className={style.searchBox}>
+        <div className="bl-container">
+            <div className="bl-header">
+                <h3 className="bl-pageName">게시판</h3>
+                <div className="bl-searchBox">
                     <select onChange={(e) => setSearchType(e.target.value)}>
                         <option value="1">작성자</option>
                         <option value="2">제목</option>
                         <option value="3">내용</option>
                     </select>
                     <input type="text" onChange={(e) => setSearchValue(e.target.value)} />
-                    <button className={style.searchButton} onClick={searchFunction}>검색</button>
+                    <button className="bl-searchButton" onClick={searchFunction}>검색</button>
                 </div>
             </div>
 
-            <table className={style.boardTable}>
+            <table className="bl-boardTable">
+                <colgroup>
+                    <col style={{ width: "12%" }} />   {/* No */}
+                    <col style={{ width: "44%" }} />  {/* 제목 */}
+                    <col style={{ width: "15%" }} />  {/* 작성자 */}
+                    <col style={{ width: "10%" }} />  {/* 조회수 */}
+                    <col style={{ width: "13%" }} />  {/* 작성일 */}
+                </colgroup>
+            
                 <thead>
                     <tr>
-                        <th>번호</th>
+                        <th>No</th>
                         <th>제목</th>
                         <th>작성자</th>
                         <th>조회수</th>
@@ -98,57 +117,75 @@ const BoardList: React.FC = () => {
                 </thead>
                 <tbody>
                     {boardList.map((item, index) => (
-                        <tr key={item.num} className={index < 3 ? style.hotPost : ''}>
-                            <td className={index < 3 ? style.hotPostRow : ''}>
-                                {index < 3 ? "HOT" : item.num}</td>
+                        <tr key={item.num} className={index < 3 ? "bl-hotPost" : ""}>
+                            <td className={index < 3 ? "bl-hotPostRow" : ""}>
+                                {index < 3 ? "HOT" : item.num}
+                            </td>
                             <td>
-                                <Link to={`/board/detail/${item.num}`} className={style.titleLink}>
+                                <Link to={`/board/detail/${item.num}`} className="bl-titleLink">
                                     {item.title}
                                 </Link>
                             </td>
                             <td>{item.nickname}</td>
                             <td>{item.hit}</td>
-                            <td>{item.bdate}</td>
+                            <td>{formatDate(item.bdate)}</td>
                         </tr>
                     ))}
                 </tbody>
-                <tfoot>
-                    <tr>
-                        <td colSpan={5} style={{ textAlign: "center" }}>
-                            <nav>
-                                <ul className="pagination justify-content-center">
-                                    {startPage > 1 && (
-                                        <li className="page-item">
-                                            <button className="page-link" onClick={() => pageChange(startPage - 1)}>
-                                                이전
-                                            </button>
-                                        </li>
-                                    )}
-
-                                    {Array.from({ length: endPage - startPage + 1 }, (xx, i) => i + startPage).map((page) => (
-                                        <li key={page} className={`page-item ${page === currentPage ? 'active' : ''}`}>
-                                            <button className="page-link" onClick={() => pageChange(page)}>
-                                                {page}
-                                            </button>
-                                        </li>
-                                    ))}
-
-                                    {endPage < totalPages && (
-                                        <li className="page-item">
-                                            <button className="page-link" onClick={() => pageChange(endPage + 1)}>
-                                                다음
-                                            </button>
-                                        </li>
-                                    )}
-                                </ul>
-                            </nav>
-                            <Link to="/board/form" className={style.button}>글쓰기</Link>
-                        </td>
-                    </tr>
-                </tfoot>
             </table>
+            
+            {/* 글쓰기 버튼 */}
+            <div className="bl-writeWrapper">
+            <Link to="/board/form" className="bl-button">
+                글쓰기
+            </Link>
+            </div>
+
+            {/* 페이지네이션 */}
+            <nav className="bl-paginationBox">
+            <ul className="pagination justify-content-center">
+                {startPage > 1 && (
+                <li className="page-item">
+                    <button
+                    className="page-link"
+                    onClick={() => pageChange(startPage - 1)}
+                    >
+                    이전
+                    </button>
+                </li>
+                )}
+
+                {Array.from(
+                { length: endPage - startPage + 1 },
+                (_, i) => i + startPage
+                ).map((page) => (
+                <li
+                    key={page}
+                    className={`page-item ${page === currentPage ? "active" : ""}`}
+                >
+                    <button
+                    className="page-link"
+                    onClick={() => pageChange(page)}
+                    >
+                    {page}
+                    </button>
+                </li>
+                ))}
+
+                {endPage < totalPages && (
+                <li className="page-item">
+                    <button
+                    className="page-link"
+                    onClick={() => pageChange(endPage + 1)}
+                    >
+                    다음
+                    </button>
+                </li>
+                )}
+            </ul>
+            </nav>
+
         </div>
     );
 };
-
 export default BoardList;
