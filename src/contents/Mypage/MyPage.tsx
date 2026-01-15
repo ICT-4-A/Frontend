@@ -2,12 +2,15 @@
 import React, { useState } from "react";
 import "./MyPage.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-type MenuKey = "profile" | "friends" | "movies" | "posts" | "inquiry" | "stats";
+
+type MenuKey = "profile" | "friends" | "movies" | "boards" | "gallery" | "inquiry" | "stats";
 
 const MyPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("movies");
 
+  
   return (
     <div className="mypage-wrapper">
       {/* 왼쪽 사이드바 */}
@@ -50,11 +53,19 @@ const MyPage: React.FC = () => {
           </button>
 
           <button
-            className={`menu-item ${selectedMenu === "posts" ? "active" : ""}`}
-            onClick={() => setSelectedMenu("posts")}
+            className={`menu-item ${selectedMenu === "boards" ? "active" : ""}`}
+            onClick={() => setSelectedMenu("boards")}
           >
             <span className="menu-icon">📝</span>
             <span>작성한 게시글</span>
+          </button>
+
+          <button
+            className={`menu-item ${selectedMenu === "gallery" ? "active" : ""}`}
+            onClick={() => setSelectedMenu("gallery")}
+          >
+            <span className="menu-icon">🖼️</span>
+            <span>작성한 갤러리</span>
           </button>
 
           <button
@@ -82,7 +93,8 @@ const MyPage: React.FC = () => {
         {selectedMenu === "profile" && <ProfileSection />}
         {selectedMenu === "friends" && <FriendsSection />}
         {selectedMenu === "movies" && <MovieListSection />}
-        {selectedMenu === "posts" && <PostListSection />}
+        {selectedMenu === "boards" && <BoardListSection />}
+        {selectedMenu === "gallery" && <GalleryListSection />}
         {selectedMenu === "inquiry" && <InquirySection />}
         {selectedMenu === "stats" && <StatsSection />}
       </section>
@@ -96,7 +108,7 @@ export default MyPage;
 
 const ProfileSection: React.FC = () => (
   <>
-    <h2 className="mypage-title">마이페이지</h2>
+    <h2 className="mypage-title">회원정보 수정</h2>
 
     <div className="profile-card">
       <p className="profile-desc">회원정보를 수정할 수 있는 페이지입니다.</p>
@@ -179,7 +191,7 @@ const FriendsSection: React.FC = () => {
 
   return (
     <>
-      <h2 className="mypage-title">마이페이지</h2>
+      <h2 className="mypage-title">친구 목록</h2>
 
       {/* 친구 요청 박스 */}
       <div className="friends-card">
@@ -190,14 +202,15 @@ const FriendsSection: React.FC = () => {
 
         <div className="friends-table-wrapper small">
           <table className="table mypage-table align-middle">
-            <thead>
-              <tr>
-                <th style={{ width: "60px" }}>No</th>
-                <th>닉네임</th>
-                <th style={{ width: "140px" }}>선호 장르</th>
-                <th style={{ width: "140px" }}>관리</th>
-              </tr>
-            </thead>
+          <thead>
+            <tr>
+              <th style={{ width: "50px" }}>No</th>
+              <th className="td-center">닉네임</th>
+              <th style={{ width: "140px" }}>선호 장르</th>
+              <th style={{ width: "140px" }}>관리</th>
+            </tr>
+          </thead>
+          
             <tbody>
               {requestFriends.map((f, idx) => (
                 <tr key={f.id}>
@@ -226,17 +239,17 @@ const FriendsSection: React.FC = () => {
           <table className="table mypage-table align-middle">
             <thead>
               <tr>
-                <th style={{ width: "60px" }}>No</th>
-                <th>닉네임</th>
-                <th style={{ width: "140px" }}>선호 장르</th>
+                <th className="th-no">No</th>
+                <th className="th-title">닉네임</th>
+                <th className="th-status">선호 장르</th>
               </tr>
             </thead>
             <tbody>
               {myFriends.map((f, idx) => (
                 <tr key={f.id}>
-                  <td>{myFriends.length - idx}</td>
-                  <td>{f.nickname}</td>
-                  <td>{f.favorite}</td>
+                  <td className="th-no">{myFriends.length - idx}</td>
+                  <td className="th-title">{f.nickname}</td>
+                  <td className="th-status">{f.favorite}</td>
                 </tr>
               ))}
             </tbody>
@@ -247,17 +260,168 @@ const FriendsSection: React.FC = () => {
   );
 };
 
-const MovieListSection: React.FC = () => (
-  <>
-    <h2 className="mypage-title">마이페이지</h2>
+// ========== 작성한 영화 기록 ==========
+interface MovieLogVO {
+  num: number;
+  title: string;
+  poster: string;
+  genre: string;
+  simple_review: string;
+  created_at: string;
+}
 
+const MovieListSection: React.FC = () => {
+  const [movieLogs, setMovieLogs] = React.useState<MovieLogVO[]>([]);
+
+  React.useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`)
+      .then((res) => {
+        setMovieLogs(res.data.data);
+      })
+      .catch((err) =>
+        console.error("MyPage movie list load error", err)
+      );
+  }, []);
+
+  return (
+    <>
+      <h2 className="mypage-title">작성한 영화 기록</h2>
+      <table className="table mypage-table align-middle">
+        <colgroup>
+          <col style={{ width: "50px" }} /> {/* No */}
+          <col />   {/* 영화 */}
+          <col />   {/* 한줄평 */}
+        </colgroup>
+
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>영화</th>
+            <th>한줄평</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {movieLogs.map((log, idx) => (
+            <tr key={log.num}>
+              <td>{movieLogs.length - idx}</td>
+              <td>
+                <div className="mypage-movie-row">
+                  <img
+                    src={log.poster}
+                    className="mypage-poster"
+                    alt={log.title}/>
+
+                  <div className="mypage-movie-info">
+                    <div className="mypage-movie-title">
+                      <Link to={`/movie/detail/${log.num}`}>
+                        {log.title}
+                      </Link>
+                      <button className="badge-btn">
+                        {log.genre}
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </td>
+              <td className="mypage-movie-desc">
+                {log.simple_review}
+              </td>
+            </tr>
+          ))}
+          {movieLogs.length === 0 && (
+            <tr>
+              <td colSpan={2} className="text-center text-muted">
+                작성된 영화 기록이 없습니다.
+              </td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+    </>
+  );
+};
+
+// ========== 작성한 게시글 ==========
+interface BoardVO {
+    num: number;
+    title: string;
+    nickname: string;
+    content: string;
+    hit: number;
+    reip: string;
+    bdate: string;
+}
+
+const BoardListSection: React.FC = () => {
+  const [boardList, setBoardList] = React.useState<BoardVO[]>([]);
+
+  React.useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACK_END_URL}/board/list`)
+      .then((res) => {
+        setBoardList(res.data.data);
+      })
+      .catch((err) => {
+        console.error("MyPage board list load error", err);
+      });
+  }, []);
+
+  return(
+  <>
+    <h2 className="mypage-title">작성한 게시글</h2>
     <table className="table mypage-table align-middle">
+      <colgroup>
+        <col style={{ width: "70px" }} />
+        <col />
+        <col style={{ width: "200px" }} />
+      </colgroup>
+
       <thead>
         <tr>
-          <th style={{ width: "60px" }}>No</th>
-          <th>영화</th>
+          <th>No</th>
+          <th>제목</th>
+          <th>날짜</th>
         </tr>
       </thead>
+
+      <tbody>
+          {boardList.map((board, idx) => (
+            <tr key={board.num}>
+              <td>{boardList.length - idx}</td>
+              <td>
+                <Link to={`/board/detail/${board.num}`}>
+                  {board.title}
+                </Link>
+              </td>
+              <td>{board.bdate}</td>
+            </tr>
+          ))}
+        </tbody>
+    </table>
+  </>
+);
+};
+
+// ========== 작성한 갤러리 ==========
+const GalleryListSection: React.FC = () => (
+  <>
+    <h2 className="mypage-title">작성한 갤러리</h2>
+    <table className="table mypage-table align-middle">
+      <colgroup>
+        <col style={{ width: "30px" }} /> {/* No */}
+        <col />  {/* 게시글 */}
+      </colgroup>
+
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>게시글</th>
+        </tr>
+      </thead>
+      
       <tbody>
         <tr>
           <td>3</td>
@@ -269,108 +433,23 @@ const MovieListSection: React.FC = () => (
                 alt="위키드"
               />
               <div className="mypage-movie-info">
-                <div className="mypage-movie-title">
-                  <Link to="/movielog/detail"> 위키드: 포 굿 </Link>
-                  <span className="year">2025</span>
-                  <button className="badge-btn">판타지</button>
-                </div>
-                <div className="mypage-movie-desc">
-                  시즌1보다 아쉽지만 그래도 재밌었어요
-                </div>
+                시즌1보다 아쉽지만 그래도 재밌었어요
               </div>
             </div>
           </td>
         </tr>
 
-        <tr>
-          <td>2</td>
-          <td>
-            <div className="mypage-movie-row">
-              <img
-                src="/images/poster3.jpg"
-                className="mypage-poster"
-                alt="주토피아 2"
-              />
-              <div className="mypage-movie-info">
-                <div className="mypage-movie-title">
-                  주토피아 2 <span className="year">2025</span>
-                  <button className="badge-btn">애니메이션</button>
-                </div>
-                <div className="mypage-movie-desc">
-                  남녀노소를 불문하고 즐길 수 있는 영화
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
 
-        <tr>
-          <td>1</td>
-          <td>
-            <div className="mypage-movie-row">
-              <img
-                src="/images/poster1.jpg"
-                className="mypage-poster"
-                alt="겨울왕국 2"
-              />
-              <div className="mypage-movie-info">
-                <div className="mypage-movie-title">
-                  겨울왕국 2 <span className="year">2025</span>
-                  <button className="badge-btn">애니메이션</button>
-                </div>
-                <div className="mypage-movie-desc">
-                  노래도 좋고, 너무 재밌게 봤다
-                </div>
-              </div>
-            </div>
-          </td>
-        </tr>
       </tbody>
     </table>
   </>
 );
 
-const PostListSection: React.FC = () => (
-  <>
-    <h2 className="mypage-title">마이페이지</h2>
-
-    <table className="table mypage-table align-middle">
-      <thead>
-        <tr>
-          <th style={{ width: "60px" }}>No</th>
-          <th>제목</th>
-          <th style={{ width: "140px" }}>날짜</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>3</td>
-          <td>
-            <Link to="/board/detail1">
-              주말에 보기 좋은 영화 추천 부탁드려요
-            </Link>
-          </td>
-          <td>2025-11-29</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>인생 영화 하나만 추천해주세요</td>
-          <td>2025-11-23</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>주말에 가볍게 볼 영화 찾습니다, 추천 좀!</td>
-          <td>2025-11-19</td>
-        </tr>
-      </tbody>
-    </table>
-  </>
-);
-
+// ========== 관리자 문의 ==========
 const InquirySection: React.FC = () => (
   <>
     <div className="mypage-main-header">
-      <h2 className="mypage-title">마이페이지</h2>
+      <h2 className="mypage-title">관리자 문의</h2>
 
       {/* 글쓰기 버튼 */}
       <Link to="/mypage/toadminform">
@@ -379,14 +458,22 @@ const InquirySection: React.FC = () => (
     </div>
 
     <table className="table mypage-table align-middle">
+      <colgroup>
+        <col style={{ width: "50px" }} /> {/* No */}
+        <col style={{ width: "150px" }} />  {/* 제목 */}
+        <col />  {/* 상태 */}
+        <col />  {/* 등록일 */}
+      </colgroup>
+
       <thead>
         <tr>
-          <th style={{ width: "60px" }}>No</th>
-          <th>제목</th>
-          <th style={{ width: "100px" }}>상태</th>
-          <th style={{ width: "140px" }}>등록일</th>
+          <th className="th-no">No</th>
+          <th className="th-title">제목</th>
+          <th className="th-status">상태</th>
+          <th className="th-date">등록일</th>
         </tr>
       </thead>
+
       <tbody>
         <tr>
           <td>3</td>
@@ -417,9 +504,10 @@ const InquirySection: React.FC = () => (
   </>
 );
 
+// ========== 장르 통계 ==========
 const StatsSection: React.FC = () => (
   <>
-    <h2 className="mypage-title">마이페이지</h2>
+    <h2 className="mypage-title">장르 통계</h2>
 
     <div className="stats-card">
       <div className="stats-chart">
