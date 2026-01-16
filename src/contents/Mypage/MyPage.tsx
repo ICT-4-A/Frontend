@@ -171,7 +171,6 @@ const ProfileSection: React.FC = () => (
 );
 
 
-
 // ========== 친구 목록 ==========
 interface MemberVO {
   member_num: number;
@@ -192,11 +191,20 @@ interface FriendRequestVO {
 const FriendsSection: React.FC = () => {
   const [requestFriends, setRequestFriends] = useState<FriendRequestVO[]>([]);
   const [myFriends, setMyFriends] = useState<MemberVO[]>([]);
+  const [allMembersExceptMe, setAllMembersExceptMe] = useState<MemberVO[]>([]);
 
   React.useEffect(() => {
+  axios
+    .get(`${process.env.REACT_APP_BACK_END_URL}/api/friends/members`, { withCredentials: true }) // 세션 쿠키 포함
+    .then(res => setAllMembersExceptMe(res.data))
+    .catch(err => console.error("Members load error", err));
+
     axios
       .get(`${process.env.REACT_APP_BACK_END_URL}/api/friends/incoming`, { withCredentials: true })
-      .then((res) => setRequestFriends(res.data))
+      .then((res) => {
+        console.log("친구 요청 데이터:", res.data);  
+        setRequestFriends(res.data);
+      })
       .catch((err) => console.error("Friend requests load error", err));
 
     axios
@@ -210,12 +218,95 @@ const FriendsSection: React.FC = () => {
       .catch((err) => console.error("Friends load error", err));
   }, []);
 
+  // 친구 추가 
+  const sendFriendRequest = (receiverId:string) => {
+  axios.post(
+  `${process.env.REACT_APP_BACK_END_URL}/api/friends/request`,
+      {receiver_id: receiverId },
+      {withCredentials:true }
+    )
+    .then(() => {
+      alert("친구 요청을 보냈습니다");
+      // 목록에서 제거
+      setAllMembersExceptMe(prev =>
+            prev.filter(m => m.nickname !== receiverId)
+          );
+        })
+        .catch(err =>console.error("Friend request error", err));
+      };
+
+  // 친구 요청 수락/거절
+  const respondRequest = (id: number, action: "accept" | "reject") => {
+    axios.post(
+      `${process.env.REACT_APP_BACK_END_URL}/api/friends/respond`,
+      { id, action },
+      { withCredentials: true }
+    )
+    .then(() => {
+        // alert 창으로 알림
+        if (action === "accept") {
+          alert("친구 요청을 수락했습니다.");
+        } else {
+          alert("친구 요청을 거절했습니다.");
+        }
+
+      // 성공 시 목록에서 제거
+      setRequestFriends(prev => prev.filter(r => r.id !== id));
+
+      // 수락할 경우
+      if (action === "accept") {
+        axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/api/friends/myfriends`,
+          { withCredentials: true }
+        ).then(res => setMyFriends(res.data));
+      }
+    })
+    .catch(err => console.error("Respond error", err));
+  };
+
+
   return (
     <>
       <h2 className="mypage-title">친구 목록</h2>
-
+      {/* 친구 추가 */}
       <div className="friends-card">
         <h3 className="friends-title">친구 신청</h3>
+        <p className="friends-desc">아직 친구가 아닌 유저를 찾아 친구 신청할 수 있습니다.</p>
+
+        <div className="friends-table-wrapper small">
+          <table className="table mypage-table align-middle">
+            <thead>
+              <tr>
+                <th style={{ width: "50px" }}>No</th>
+                <th className="td-center">닉네임</th>
+                <th style={{ width: "140px" }}>선호 장르</th>
+                <th style={{ width: "140px" }}>관리</th>
+              </tr>
+            </thead>
+            <tbody>
+                    {allMembersExceptMe.map((f, idx) => (
+                      <tr key={f.member_num}>
+                        <td>{allMembersExceptMe.length - idx}</td>
+                        <td>{f.nickname}</td>
+                        <td>{f.member_genre}</td>
+                        <td>
+                          <button 
+                            className="friend-btn"
+                            onClick={() => sendFriendRequest(f.nickname)}
+                          >친구 신청
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      {/* 친구 수락 */}
+      <div className="friends-card">
+        <h3 className="friends-title">친구 수락</h3>
         <p className="friends-desc">
           나에게 온 친구 신청을 확인하고 수락 또는 거절할 수 있습니다.
         </p>
@@ -233,11 +324,21 @@ const FriendsSection: React.FC = () => {
               {requestFriends.map((f, idx) => (
                 <tr key={f.id}>
                   <td>{requestFriends.length - idx}</td>
-                  <td>{f.nickname}</td>
+                  <td>{f.requester_id}</td>
                   <td>{f.member_genre}</td>
                   <td>
-                    <button className="friend-btn accept">수락</button>
-                    <button className="friend-btn reject">거절</button>
+                    <button
+                      className="friend-btn accept"
+                      onClick={() => respondRequest(f.id, "accept")}>
+                      수락
+                    </button>
+
+                    <button
+                      className="friend-btn reject"
+                      onClick={() => respondRequest(f.id, "reject")}>
+                      거절
+                    </button>
+
                   </td>
                 </tr>
               ))}
@@ -246,6 +347,8 @@ const FriendsSection: React.FC = () => {
         </div>
       </div>
 
+
+      {/* 친구 목록 */}
       <div className="friends-card">
         <h3 className="friends-title">친구 목록</h3>
         <p className="friends-desc">
@@ -275,8 +378,6 @@ const FriendsSection: React.FC = () => {
     </>
   );
 };
-
-
 
 
 
@@ -389,6 +490,7 @@ const BoardListSection: React.FC = () => {
     <h2 className="mypage-title">작성한 게시글</h2>
     <table className="table mypage-table align-middle">
       <colgroup><col style={{ width: "70px" }}/><col /><col style={{ width: "200px" }}/></colgroup>
+
       <thead>
         <tr>
           <th>No</th>
