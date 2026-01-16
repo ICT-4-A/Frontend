@@ -40,13 +40,9 @@ const AppRoutes: React.FC = () => {
   const routeList = [
     { path: "/", element: <MovieLog /> },
     { path: "/movielog", element: <MovieLog /> },
-    { path: "/moviesearch", element: <MovieSearch /> },
-    { path: "/movieform/:num", element: <MovieForm /> },
-
-    { path: "/movie/detail/:num", element: <MovieDetail /> },
-    // { path: "/movielog/detail2", element: <MovieDetail2 /> },
-    // { path: "/movielog/detail3", element: <MovieDetail3 /> },
-    // { path: "/movielog/detail4", element: <MovieDetail4 /> },
+    { path: "/moviesearch", element: <RequireAuth><MovieSearch /></RequireAuth> },
+    { path: "/movieform/:num", element: <RequireAuth><MovieForm /></RequireAuth> },
+    { path: "/movie/detail/:num", element: <RequireAuth><MovieDetail /></RequireAuth> },
 
     { path: "/Diary", element: <Diary /> },
 
@@ -56,23 +52,14 @@ const AppRoutes: React.FC = () => {
 
     { path: "/MovieInfo", element: <MovieInfo /> },
 
-    // { path: "/board", element: <Board /> },
-    // { path: "/board/detail1", element: <BoardDetail1 /> },
-    // { path: "/board/detail2", element: <BoardDetail2 /> },
-    // { path: "/board/write", element: <BoardForm /> },
+
     { path: '/board/list', element: <BoardList/>},
-    { path: '/board/form', element: <BoardForm/>},
+    { path: '/board/form', element: <RequireAuth><BoardForm/></RequireAuth>},
     { path: '/board/detail/:num', element: <RequireAuth><BoardDetail/></RequireAuth>},
     
-    { path: "/board", element: <Board /> },
-    { path: "/board/detail1", element: <BoardDetail1 /> },
-    { path: "/board/detail2", element: <BoardDetail2 /> },
-    { path: "/board/write", element: <BoardForm /> },
    
-    { path: "/gallery/detail", element: <GalleryDetail /> },
-    { path: "/gallery/form", element: <GalleryForm /> },
     { path: '/gallery', element: <Gallery /> },
-    { path: '/gallery/write', element: <GalleryForm /> },
+    { path: '/gallery/write', element: <RequireAuth><GalleryForm /></RequireAuth> },
     { path: '/gallery/gdetail/:num', element: <RequireAuth><GalleryDetail /></RequireAuth> },
 
 
