@@ -28,9 +28,10 @@ interface MovieLogVO{
 const MovieMain: React.FC = () => {
   const [movieLogs, setMovieLogs] = useState<MovieLogVO[]>([]);
 useEffect(()=> {
-  axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`)
+  axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`,{ withCredentials: true})
   .then((res) => {
     setMovieLogs(res.data.data);
+    
   })
   .catch((err) => console.error("MovinLog load error", err));
 },[]);
