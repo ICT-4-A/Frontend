@@ -1,0 +1,180 @@
+.bl-container {
+    width: 60%;    
+    margin: 40px auto; 
+    font-family: "Pretendard", sans-serif;
+    color: #333;
+}
+
+.bl-header {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.bl-searchBox {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bl-searchBox input {
+    height: 35px;        
+    padding: 2px 20px;   
+    flex: 0 0 170px;     
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+}
+
+.bl-searchBox input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 5px rgba(74, 144, 226, 0.3);
+}
+
+.bl-searchBox select {
+    padding: 6px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+    width: 90px;
+}
+
+.bl-searchButton {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    background-color: #4a90e2;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.bl-searchButton:hover {
+    background-color: #357ab8;
+}
+
+/* 테이블 */
+.bl-boardTable {
+    width: 100%;     
+    background-color: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: fixed; 
+    margin-top: 20px;
+}
+
+.bl-boardTable thead th {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e5e5e5;
+    font-weight: 600;
+    padding: 12px 0;
+    color: #6c757d;
+    text-align: center;
+}
+
+.bl-boardTable tbody td,
+.bl-boardTable tbody th {
+    padding: 12px 0;
+    border-top: 1px solid #f1f3f5;
+    text-align: center;
+}
+
+.bl-boardTable a {
+    color: #000;
+    text-decoration: none;
+}
+
+.bl-boardTable a:hover {
+    text-decoration: underline;
+}
+
+.bl-titleLink {
+    color: #333;
+    text-decoration: none;
+}
+
+.bl-titleLink:hover {
+    text-decoration: underline;
+}
+
+/* 글쓰기 버튼 */
+.bl-button {
+  padding: 8px 15px;
+  font-weight: 500;
+  background-color: #4a90e2;
+  color: white !important;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+/* HOT 게시글 */
+.bl-hotPost > th,
+.bl-hotPost > td {
+  background-color: #e7f3ff;
+}
+
+.bl-hotPostRow {
+  color: #1b73f7;
+  font-weight: bold;
+}
+
+.bl-boardTable td:nth-child(2) {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 글쓰기 버튼 */
+.bl-writeWrapper {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+/* 페이지네이션 */
+.bl-paginationBox {
+  margin-top: 20px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  list-style: none;
+  padding: 0;
+}
+
+.bl-pageBtn {
+  min-width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.bl-pageBtn:hover {
+  background-color: #f1f3f5;
+}
+
+.bl-pageBtn.active {
+  background-color: #4a90e2;
+  color: white;
+  border-color: #4a90e2;
+  font-weight: 600;
+}

@@ -4,7 +4,7 @@ import "./MovieMain.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-interface MovieLogVO{
+interface MovieLogVO {
   num: number;
   title: string;
   poster: string;
@@ -23,17 +23,54 @@ interface MovieLogVO{
   created_at: string;
 }
 
+interface MovieVO {
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
+
+
+
 
 
 const MovieMain: React.FC = () => {
+
+  const [movies, setMovies] = useState<MovieVO[]>([]);
+  const [originMovies, setOriginMovies] = useState<MovieVO[]>([]);
+  const [loading, setLoading] = useState(true);
   const [movieLogs, setMovieLogs] = useState<MovieLogVO[]>([]);
-useEffect(()=> {
-  axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`)
-  .then((res) => {
-    setMovieLogs(res.data.data);
-  })
-  .catch((err) => console.error("MovinLog load error", err));
-},[]);
+
+
+  useEffect(() => {
+    axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`, { withCredentials: true })
+      .then((res) => {
+        setMovieLogs(res.data.data);
+
+      })
+      .catch((err) => console.error("MovinLog load error", err));
+  }, []);
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movielist`
+        );
+        const list = res.data.movie || [];
+        setMovies(list);
+        setOriginMovies(list);
+      } catch (e) {
+        console.error("영화 로딩 실패", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
 
   return (
     <div className="movieLog-wrapper">
@@ -51,24 +88,26 @@ useEffect(()=> {
           id="carouselExampleInterval"
           className="carousel slide"
           data-bs-ride="carousel"
-          data-bs-interval="4000" //이미지 슬라이드 속도
+          data-bs-interval="3000" //이미지 슬라이드 속도
+          data-bs-wrap="true"  // 끝까지 가면 처음으로 다시 오기
         >
           <div className="carousel-inner">
-            <div className="carousel-item active">
-              <img src="/images/poster5.jpg" alt="포스터1" />
-            </div>
-
-            <div className="carousel-item">
-              <img src="/images/poster7.jpg" alt="포스터2" />
-            </div>
-
-            <div className="carousel-item">
-              <img src="/images/poster3.jpg" alt="포스터3" />
-            </div>
-
-            <div className="carousel-item">
-              <img src="/images/poster4.jpg" alt="포스터4" />
-            </div>
+            {loading ? (
+              <div className="carousel-item active">
+                <div className="d-block w-100 text-center p-5">로딩중...</div>
+              </div>
+            ) : (
+              movies.map((movie, index) => (
+                <div key={movie.num} className={`carousel-item ${index === 0 ? 'active' : ''}`}>
+                  <img
+                    src={movie.poster}
+                    alt={movie.title}
+                    className="d-block w-100"  // Bootstrap 전체 너비 채우기
+                    style={{ height: '100%', objectFit: 'cover' }}  // 고정 높이, 비율 유지
+                  />
+                </div>
+              ))
+            )}
           </div>
 
           {/* 좌우 슬라이드 버튼 */}
@@ -137,14 +176,14 @@ useEffect(()=> {
                     </div>
                     {log.toge_writer_name && (
                       <>
-                      <div className="movieDetail-user-avatar">
-                        {log.toge_writer_name?.charAt(0)}
-                      </div>
-                      <div className="movieDetail-user-info">
-                        <div className="movieDetail-user-name">
-                          {log.toge_writer_name}
+                        <div className="movieDetail-user-avatar">
+                          {log.toge_writer_name?.charAt(0)}
                         </div>
-                      </div>
+                        <div className="movieDetail-user-info">
+                          <div className="movieDetail-user-name">
+                            {log.toge_writer_name}
+                          </div>
+                        </div>
                       </>
                     )}
                   </div>
@@ -160,7 +199,7 @@ useEffect(()=> {
               </div>
             </div>
           </div>
-        ))} 
+        ))}
       </section>
 
       <footer className="movieLog-footer">

@@ -128,6 +128,7 @@ const GalleryForm: React.FC = () => {
                         </div>
                     )
                 }
+                
                 <button type="submit" className={styles.button}>등록</button>
             </form>
         </div>

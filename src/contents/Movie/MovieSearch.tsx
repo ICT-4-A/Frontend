@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MovieSearch.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -19,6 +19,8 @@ const MovieSearch: React.FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const [movieList, setMovieList] = useState<MovieVO[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<MovieVO | null>(null);
+
+
 
   const searchFunction = async () => {
     if (!searchValue.trim()) {
@@ -51,6 +53,8 @@ const MovieSearch: React.FC = () => {
     } 
     navigate(`/movieform/${selectedMovie?.num}`,{state: {movie: selectedMovie}})
   };
+
+
 
   return (
     <div className="movie-search-container">

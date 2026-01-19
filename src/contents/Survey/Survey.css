@@ -11,6 +11,10 @@
   align-items: center;
 }
 
+.page-name {
+  margin-bottom: 20px;
+}
+
 .survey-table thead th:nth-child(2),
 .survey-table tbody td:nth-child(2) {
   width: 60%;
@@ -62,18 +66,28 @@
   text-align: center;
 }
 
-/* HOT 게시글 */
-.survey-table tbody tr.hot-row {
-  --bs-table-bg: #f5faff;
-  --bs-table-accent-bg: #f5faff;
+/* HOT 텍스트 */
+.survey-table tbody tr.hot-row th {
+  color: #1b73f7;
+  font-weight: bold;
 }
+.survey-table tbody tr.hot-row th {
+  background-color: #e7f3ff !important;
+}
+/* 테이블 기본 행 높이 고정 */
+.survey-table th,
+.survey-table td {
+  height: 48px;
+  vertical-align: middle;
+  padding: 0;
+}
+/* HOT 배지 높이 보정 */
 .hot-badge {
-  border: 1px solid #007bff;
-  color: #007bff;
+  display: inline-block;
   padding: 2px 6px;
-  border-radius: 20px;
   font-size: 12px;
-  font-weight: 600;
+  line-height: 1;
+  vertical-align: middle;
 }
 
 /* 링크 */
@@ -94,7 +108,7 @@
 .write-btn {
   padding: 8px 15px;
   font-weight: 500;
-  background-color: #007bff;
+  background-color: #4a90e2;
   color: white !important;
   border-radius: 6px;
   border: none;
@@ -103,4 +117,42 @@
   display: inline-block;
 }
 
-/* 페이지네이션 */
+/* 데이터 없을 때 */
+.empty-row td {
+  padding: 60px 0;
+  background-color: #ffffff;
+}
+.empty-message {
+  color: #adb5bd;
+  font-size: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/*     페이지네이션    */
+/* 선택된 페이지 */
+.pagination .page-item.active .page-link {
+  background-color: #e2e2e2;  
+  border-color: #e2e2e2;
+  color: #2c2c2c;
+}
+/* 기본 페이지 번호 색상 */
+.pagination .page-link {
+  color: #2c2c2c;
+}
+/* hover */
+.pagination .page-link:hover {
+  background-color: #e7f3ff;
+  color: #2c2c2c;
+}
+/* 비활성화 버튼 */
+.pagination .page-item.disabled .page-link {
+  color: #adb5bd;
+  background-color: transparent;
+}
+/* 페이지네이션 클릭 테두리 제거 */
+.pagination .page-link:focus,
+.pagination .page-link:active {
+  outline: none;
+  box-shadow: none;
+}

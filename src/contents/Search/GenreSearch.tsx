@@ -1,6 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 import "./Search.css";
+
+interface MovieVO {
+  num: number;
+  title: string;
+  director: string;
+  actor: string;
+  genre: string;
+  poster: string;
+  release_date: string;
+}
+
+const GENRES = [
+  { label: "액션", values: ["액션"] },
+  { label: "코미디", values: ["코미디"] },
+  { label: "로맨스", values: ["로맨스"] },
+  { label: "공포/스릴러", values: ["공포", "스릴러"] },
+  { label: "SF/판타지", values: ["SF", "판타지"] },
+  { label: "애니메이션", values: ["애니메이션"] },
+];
 
 const GenreSearch: React.FC = () => {
   const navigate = useNavigate();
@@ -8,16 +28,114 @@ const GenreSearch: React.FC = () => {
 
   const isGenre = location.pathname === "/Search";
   const isDirector = location.pathname === "/Search/Director";
-  const isActor =
-    location.pathname === "/Search/Actor" || location.pathname === "/actor";
+  const isActor = location.pathname === "/Search/Actor";
+
+  const [movies, setMovies] = useState<MovieVO[]>([]);
+  const [originMovies, setOriginMovies] = useState<MovieVO[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const [searchType, setSearchType] = useState("2"); // 초기 드롭다운: 장르
+  const [searchValue, setSearchValue] = useState("");
+  const [selectedGenre, setSelectedGenre] = useState("액션");
+
+  // 페이지네이션
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const cardsPerPage = 9; // 페이지네이션 숫자 블록
+  const pagePerBlock = 5; // 한 페이지당 카드 수
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movielist`
+        );
+        const list = res.data.movie || [];
+        setMovies(list);
+        setOriginMovies(list);
+        setTotalPages(Math.ceil(list.length / cardsPerPage)); // 총 페이지 계산
+      } catch (e) {
+        console.error("영화 로딩 실패", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMovies();
+  }, []);
+
+  // 검색 
+  const handleSearch = () => {
+    let filtered = originMovies.filter((movie) => {
+      switch (searchType) {
+        case "1":  // 제목
+          return movie.title.toLowerCase().includes(searchValue.toLowerCase());
+        case "2":  // 장르
+          return movie.genre.toLowerCase().includes(searchValue.toLowerCase());
+        case "3":  // 감독
+          return movie.director.toLowerCase().includes(searchValue.toLowerCase());
+        case "4":  // 배우
+          return movie.actor.toLowerCase().includes(searchValue.toLowerCase());
+        default:
+          return true;
+      }
+    });
+
+    if (filtered.length === 0) {
+      alert("검색 결과가 없습니다.");
+    }
+
+    setMovies(filtered);
+    setCurrentPage(1);
+    setTotalPages(Math.ceil(filtered.length / cardsPerPage));
+  };
+
+  // 장르 버튼 필터 
+  const genreFilteredMovies = movies.filter((movie) => {
+    const genreConfig = GENRES.find((g) => g.label === selectedGenre);
+    if (!genreConfig) return false;
+    return genreConfig.values.some((v) => movie.genre?.includes(v));
+  });
+
+  // 페이지네이션 처리 
+  const startIndex = (currentPage - 1) * cardsPerPage;
+  const currentMovies = genreFilteredMovies.slice(
+    startIndex,
+    startIndex + cardsPerPage
+  );
+
+  const block = Math.ceil(currentPage / pagePerBlock);
+  const startPage = (block - 1) * pagePerBlock + 1;
+  const endPage = Math.min(block * pagePerBlock, totalPages);
 
   return (
-    <div className="genre-container">
+    <div className="filter-container">
       {/* 검색창 */}
       <div className="filter-header-right">
         <div className="search-box">
-          <img src="/icons/search.png" className="search-icon" alt="search" />
-          <input className="form-control" placeholder="Search..." />
+          <select
+            value={searchType}
+            onChange={(e) => setSearchType(e.target.value)}
+          >
+            <option value="1">제목</option>
+            <option value="2">장르</option>
+            <option value="3">감독</option>
+            <option value="4">배우</option>
+          </select>
+
+          <div className="search-input-wrap">
+            <input
+              className="form-control"
+              placeholder="Search..."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+            />
+          </div>
+
+          <div className="search-btn-wrap">
+            <button className="btn-search" onClick={handleSearch}>
+              검색
+            </button>
+          </div>
         </div>
       </div>
 
@@ -43,152 +161,103 @@ const GenreSearch: React.FC = () => {
         </button>
       </div>
 
-      {/* 장르 필터 버튼 */}
+      {/* 장르 버튼 */}
       <div className="genre-buttons">
-        <button className="genre-btn active">액션</button>
-        <button className="genre-btn">코미디</button>
-        <button className="genre-btn">로맨스</button>
-        <button className="genre-btn">공포/스릴러</button>
-        <button className="genre-btn">SF/판타지</button>
-        <button className="genre-btn">애니메이션</button>
+        {GENRES.map((genre) => (
+          <button
+            key={genre.label}
+            className={`genre-btn ${
+              selectedGenre === genre.label ? "active" : ""
+            }`}
+            onClick={() => {
+              setSelectedGenre(genre.label);
+              setCurrentPage(1);
+            }}
+          >
+            {genre.label}
+          </button>
+        ))}
       </div>
 
-      {/* 하단 카드 그리드 영역 */}
+      {/* 영화 카드 */}
       <section className="movie-grid">
         <div className="row g-4">
-          {/* 카드 1 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster4.jpg"
-                className="card-img-top movie-poster"
-                alt="어벤져스 엔드게임"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">
-                  <a href="/MovieInfo">어벤져스 엔드게임 2019<br/></a>
-                </h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 5.0</div>
+          {loading ? (
+            <div className="col-12 text-center">로딩중...</div>
+          ) : currentMovies.length > 0 ? (
+            currentMovies.map((movie) => (
+              <div key={movie.num} className="col-md-4">
+                <div className="card movie-card h-100">
+                  <img
+                    src={movie.poster}
+                    className="card-img-top movie-poster"
+                    alt={movie.title}
+                    onError={(e) => {
+                      e.currentTarget.src = "/images/no-poster.png";
+                    }}
+                  />
+                  <div className="card-body">
+                    <h5 className="movie-title">
+                      <Link to={`/MovieInfo/${movie.num}`}>
+                        {movie.title} {movie.release_date?.substring(0, 4)}
+                      </Link>
+                    </h5>
+                    <span className="genre-badge">{movie.genre}</span>
+                    <div className="moive-rating">★ 5.0</div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-
-          {/* 카드 2 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster1.jpg"
-                className="card-img-top movie-poster"
-                alt=""
-              />
-              <div className="card-body">
-                <h5 className="movie-title">아바타: 불과 재 <br/>2025</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 4.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 3 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster5.jpg"
-                className="card-img-top movie-poster"
-                alt="스파이더맨 파 프롬 홈"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">스파이더맨 파 프롬 홈 2019</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 5.0</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 4 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster3.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">나우유씨미3 <br/> 2025</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 4.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 5 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster11.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">닥터스트레인지<br/> 대혼돈의 멀티버스 <br/> 2017</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 2.5</div>
-              </div>
-            </div>
-          </div>
-
-          {/* 카드 6 */}
-          <div className="col-md-4">
-            <div className="card movie-card h-100">
-              <img
-                src="/images/poster12.jpg"
-                className="card-img-top movie-poster"
-                alt="나우유씨미3"
-              />
-              <div className="card-body">
-                <h5 className="movie-title">가디언즈오브 갤럭시 <br/> 2018</h5>
-                <button className="badge genre-badge">액션</button>
-                <div className="moive-rating">★ 3.0</div>
-              </div>
-            </div>
-          </div>
-
+            ))
+          ) : (
+            <div className="no-movie">등록된 영화가 없습니다.</div>
+          )}
         </div>
       </section>
 
       {/* 페이지네이션 */}
       <footer className="movieLog-footer">
-        <nav
-          aria-label="Page navigation example"
-          className="movieLog-pagination-box"
-        >
+        <nav className="movieLog-pagination-box">
           <ul className="pagination justify-content-center">
-            <li className="page-item">
-              <a className="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                1
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                2
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                3
-              </a>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-              </a>
-            </li>
+            {startPage > 1 && (
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(startPage - 1)}
+                >
+                  이전
+                </button>
+              </li>
+            )}
+
+            {Array.from(
+              { length: endPage - startPage + 1 },
+              (_, i) => startPage + i
+            ).map((page) => (
+              <li
+                key={page}
+                className={`page-item ${
+                  page === currentPage ? "active" : ""
+                }`}
+              >
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(page)}
+                >
+                  {page}
+                </button>
+              </li>
+            ))}
+
+            {endPage < totalPages && (
+              <li className="page-item">
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(endPage + 1)}
+                >
+                  다음
+                </button>
+              </li>
+            )}
           </ul>
         </nav>
       </footer>
