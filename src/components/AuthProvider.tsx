@@ -4,6 +4,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 interface Member {
     nickname: string;
     email: string;
+    num: number;
 }
 //컨텍스트 타입
 interface AuthContextProps {
@@ -23,11 +24,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         //withCredentials:true server와의 session통신
         try {
             const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/api/login/session`, {
-                  withCredentials: true
+                withCredentials: true
             });
-             
+            console.log("세션 응답:", res.data);
+
             if (res.data?.email) {
-                setMember(res.data); //데이터 저장
+                setMember({
+                    num: res.data.num,  
+                    email: res.data.email,
+                    nickname: res.data.nickname
+                });
             } else {
                 setMember(null);
             }
@@ -38,9 +44,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const login = async (email: string, password: string): Promise<'success' | 'fail' | 'error'> => {
         try {
             const res = await axios.post(`${process.env.REACT_APP_BACK_END_URL}/api/login/dologin`, { email, password }, { withCredentials: true })
-           
+
             if (res.data === 'success') {
-             
+
                 //로그인 성공 했으니 상태정보를 불러오는 메서드를 호출
                 await checkLogin();
                 return 'success';
@@ -58,8 +64,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     //렌더링시 useEffect를 사용해서 초기화
     useEffect(() => { checkLogin(); }, []);
 
-    const updateMemberName = (name: string) => {
-        setMember(prev => (prev ? { ...prev, name } : prev));
+    const updateMemberName = (nickname: string) => {
+        setMember(prev => (prev ? { ...prev, nickname } : prev));
     }
     const updateMemberEmail = (email: string) => {
         setMember(prev => (prev ? { ...prev, email } : prev));

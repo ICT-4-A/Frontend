@@ -1,0 +1,209 @@
+/* 전체 톤 */
+.diary-wrapper {
+  background: #fdfcf7 url('https://www.transparenttextures.com/patterns/asfalt-light.png') repeat;
+  padding: 50px 0;
+  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  color: #3c3a36;
+}
+
+/* 타이틀 */
+.diary-title {
+  text-align: center;
+  margin-bottom: 35px;
+}
+.diary-title h2 {
+  font-weight: 700;
+  font-size: 36px;
+  letter-spacing: 0.2em;
+  color: #2c2b27;
+  margin-bottom: 8px;
+}
+.diary-title p {
+  font-size: 13px;
+  color: #7d7b73;
+  font-style: italic;
+}
+
+/* 책 컨테이너 */
+.book-container {
+  width: 940px;
+  margin: 0 auto;
+  background: #f7f6f3;
+  border-radius: 12px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+  padding: 20px;
+}
+
+/* 표지 */
+.cover-page {
+  background: linear-gradient(135deg, #556b4f, #7e8b6f);
+  color: #f7f5ef;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border-radius: 12px;
+  position: relative;
+}
+.cover-inner h1 {
+  font-size: 42px;
+  letter-spacing: 0.25em;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+.cover-inner .sub {
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  color: #eae8e0;
+}
+.cover-inner .line {
+  width: 50px;
+  height: 2px;
+  background: #eae8e0;
+  margin: 20px auto;
+  border-radius: 1px;
+}
+.cover-inner .owner {
+  font-size: 14px;
+  font-weight: 500;
+  color: #dcd9d1;
+  letter-spacing: 0.05em;
+}
+/* 페이지 배경 */
+.diary-page {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background: url('https://www.transparenttextures.com/patterns/linen.png') repeat;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
+}
+.diary-page:hover {
+  transform: rotateY(-1deg);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+}
+
+/* 상단: 포스터 + 제목/작성자 */
+.top-area {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* 포스터 */
+.poster-area img {
+  width: 210px;
+  height: 280px;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15), 0 0 10px rgba(255,215,0,0.05) inset;  
+}
+
+
+/* 제목/작성자 */
+.meta-area h3 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 10px 0 6px;
+  color: #3c3a36;
+  position: relative;
+}
+.meta-area h3::after {
+  content: '';
+  display: block;
+  width: 160px;
+  height: 1px;
+  background: #4e634a; /* subtle gold */
+  margin-top: 8px;
+  border-radius: 1px;
+}
+.genre-tag {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 3px 8px;
+  font-size: 11px;
+  border-radius: 12px;
+  background: #eee;
+  color: #688b72;
+  margin-bottom: 8px;
+}
+.writer {
+  font-size: 13px;
+  margin-top: 10px;
+  color: #7d7b73;
+  margin-left: 5px;
+  font-weight: bold;
+}
+.together {
+  color: #5f6f55;
+  font-weight: 500;
+  margin-left: 10px;
+}
+.rating {
+  margin-top: 10px;
+  margin-left: 5px;
+  font-size: 15px;
+  color: #f5c518;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+/* 하단 리뷰 영역 */
+.bottom-area {
+  margin-top: 25px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  overflow: hidden;
+  padding-left: 12px;
+  background: rgba(238, 237, 237, 0.65);
+  backdrop-filter: blur(2px);
+  border-radius: 6px;
+  position: relative;
+  padding-top: 10px;
+  overflow: visible;
+}
+.bottom-area::before {
+  content: 'Review';
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  opacity: 0.85;
+  position: absolute;
+  top: -18px;
+  left: 10px;
+  font-size: 12px;
+  color: #8a867c;
+  background: #fdfcf7;
+  padding: 0 6px;
+  background: transparent;
+}
+/* 한줄평 */
+.simple {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 12px;
+  color: #4b4944;
+}
+
+/* 리뷰 */
+.review {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 15px;
+  line-height: 1.85;
+  white-space: pre-line;
+  word-break: break-word;
+  color: #5a5852;
+  padding-right: 6px;
+}
+
+/* 스크롤바 */
+.review::-webkit-scrollbar {
+  width: 6px;
+}
+.review::-webkit-scrollbar-thumb {
+  background: rgba(180, 160, 120, 0.4);
+  border-radius: 3px;
+}
+.review::-webkit-scrollbar-track {
+  background: rgba(250, 248, 240, 0.2);
+}
