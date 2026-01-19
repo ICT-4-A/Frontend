@@ -43,7 +43,7 @@ const Login: React.FC = () => {
   };
   return (
     <div className="login-wrapper">
-      <h1 className="login-title">Login2</h1>
+      <h1 className="login-title">Login</h1>
 
       <form className="login-form">
         {/* 아이디 */}
