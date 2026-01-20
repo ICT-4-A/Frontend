@@ -1,4 +1,3 @@
-// src/components/MovieLog/MovieLog.tsx
 import React, { useEffect, useState } from "react";
 import "./MovieMain.css";
 import { Link } from "react-router-dom";
@@ -33,17 +32,12 @@ interface MovieVO {
   release_date: string;
 }
 
-
-
-
-
 const MovieMain: React.FC = () => {
 
   const [movies, setMovies] = useState<MovieVO[]>([]);
   const [originMovies, setOriginMovies] = useState<MovieVO[]>([]);
   const [loading, setLoading] = useState(true);
   const [movieLogs, setMovieLogs] = useState<MovieLogVO[]>([]);
-
 
   useEffect(() => {
     axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`, { withCredentials: true })
@@ -157,27 +151,23 @@ const MovieMain: React.FC = () => {
                       {log.genre}
                     </div>
                   </div>
+
                   <div className="movieDetail-user">
+                    {/* 작성자 */}
                     <div className="movieDetail-user-avatar">
-                      {log.writer_name}
+                      {log.writer_name.charAt(0)}
                     </div>
                     <div className="movieDetail-user-info">
                       <div className="movieDetail-user-name">
                         {log.writer_name}
                       </div>
                     </div>
-                    <div className="movieDetail-user-avatar">
-                      {log.toge_writer_name}
-                    </div>
-                    <div className="movieDetail-user-info">
-                      <div className="movieDetail-user-name">
-                        {log.toge_writer_name}
-                      </div>
-                    </div>
+
+                    {/* 공동작업자가 있는 경우 */}
                     {log.toge_writer_name && (
                       <>
                         <div className="movieDetail-user-avatar">
-                          {log.toge_writer_name?.charAt(0)}
+                          {log.toge_writer_name.charAt(0)}
                         </div>
                         <div className="movieDetail-user-info">
                           <div className="movieDetail-user-name">
@@ -187,6 +177,8 @@ const MovieMain: React.FC = () => {
                       </>
                     )}
                   </div>
+
+
                   <p className="card-text">
                     {log.simple_review}
                   </p>

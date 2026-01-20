@@ -1,5 +1,5 @@
 // src/components/MyPage/MyPage.tsx
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./MyPage.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -9,7 +9,18 @@ type MenuKey = "profile" | "friends" | "movies" | "boards" | "gallery" | "inquir
 
 const MyPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("movies");
-
+  const [nickname, setNickname] = useState<string>("");
+  const [memberGenre, setMemberGenre] = useState<string | null>(null);
+  
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/me`, { withCredentials: true })
+      .then((res) => {
+        setNickname(res.data.nickname); // 유저 닉네임
+        setMemberGenre(res.data.member_genre);
+      })
+      .catch((err) => console.error("유저 정보 로드 실패", err));
+  }, []); 
   
   return (
     <div className="mypage-wrapper">
@@ -17,9 +28,13 @@ const MyPage: React.FC = () => {
       <aside className="mypage-sidebar">
         <div className="mypage-profile">
           <div className="mypage-avatar">
-            <span>JS</span>
+            <span>{nickname?.charAt(0).toUpperCase()}</span>
           </div>
-          <div className="mypage-name">테스트1</div>
+          <div className="mypage-name">{nickname}</div>
+          {/* 장르 버튼 */}
+          {memberGenre && (
+            <button className="mypage-genre-btn">{memberGenre}</button>
+          )}
         </div>
 
         <nav className="mypage-menu">
@@ -396,7 +411,7 @@ const MovieListSection: React.FC = () => {
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/list`)
+      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/mylist`, { withCredentials: true })
       .then((res) => {
         setMovieLogs(res.data.data);
       })
