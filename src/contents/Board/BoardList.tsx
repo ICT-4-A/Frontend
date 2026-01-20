@@ -158,14 +158,14 @@ const BoardList: React.FC = () => {
         fetchBoardList(1)
     }
 
-    /* 날짜 포맷 */
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString)
-        const y = date.getFullYear()
-        const m = String(date.getMonth() + 1).padStart(2, '0')
-        const d = String(date.getDate()).padStart(2, '0')
-        return `${y}.${m}.${d}`
-    }
+    // /* 날짜 포맷 */
+    // const formatDate = (dateString: string) => {
+    //     const date = new Date(dateString)
+    //     const y = date.getFullYear()
+    //     const m = String(date.getMonth() + 1).padStart(2, '0')
+    //     const d = String(date.getDate()).padStart(2, '0')
+    //     return `${y}.${m}.${d}`
+    // }
 
     // 작성일을 'YYYY.MM.DD' 형식으로 변환
     const formatDate = (dateString: string) => {

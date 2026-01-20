@@ -7,9 +7,9 @@ import MovieLog from "../contents/Movie/MovieMain";
 import MovieForm from "../contents/Movie/MovieForm";
 import MovieDetail from "../contents/Movie/MovieDetail";
 
-import Board from "../contents/Board/Board";
-import BoardDetail1 from "../contents/Board/Detail1";
-import BoardDetail2 from "../contents/Board/Detail2";
+// import Board from "../contents/Board/Board";
+// import BoardDetail1 from "../contents/Board/Detail1";
+// import BoardDetail2 from "../contents/Board/Detail2";
 import BoardForm from "../contents/Board/BoardForm";
 import ToAdminForm from "../contents/Mypage/ToAdminForm";
 import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
