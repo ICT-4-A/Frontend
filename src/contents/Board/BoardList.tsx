@@ -8,7 +8,7 @@ import './BoardList.css';
 interface BoardVO {
     num: number;
     title: string;
-    nickname: string;
+    bnickname: string;
     content: string;
     hit: number;
     reip: string;
@@ -99,11 +99,11 @@ const BoardList: React.FC = () => {
 
             <table className="bl-boardTable">
                 <colgroup>
-                    <col style={{ width: "12%" }} />   {/* No */}
-                    <col style={{ width: "44%" }} />  {/* 제목 */}
-                    <col style={{ width: "15%" }} />  {/* 작성자 */}
-                    <col style={{ width: "10%" }} />  {/* 조회수 */}
-                    <col style={{ width: "13%" }} />  {/* 작성일 */}
+                    <col style={{width:"12%"}} /> 
+                    <col style={{width:"44%"}} /> 
+                    <col style={{width:"15%"}} /> 
+                    <col style={{width:"10%"}} /> 
+                    <col style={{width:"13%"}} /> 
                 </colgroup>
             
                 <thead>
@@ -126,7 +126,7 @@ const BoardList: React.FC = () => {
                                     {item.title}
                                 </Link>
                             </td>
-                            <td>{item.nickname}</td>
+                            <td>{item.bnickname}</td>
                             <td>{item.hit}</td>
                             <td>{formatDate(item.bdate)}</td>
                         </tr>

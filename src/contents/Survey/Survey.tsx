@@ -13,6 +13,7 @@ interface Survey {
   sub: string;
   totalVotes: number;
   contents: SurveyContent[];
+  snickname: string;
 }
 
 const Survey: React.FC = () => {
@@ -29,13 +30,14 @@ const Survey: React.FC = () => {
         const response = await axios.get(
           `${REACT_APP_BACK_END_URL}/api/survey/list`
         );
+        console.log('API 응답 :' , response.data)
         setSurvey(response.data || []);
       } catch (error) {
         console.error("설문조사 리스트 호출 실패", error);
       }
     };
     fetchSurvey();
-  }, [REACT_APP_BACK_END_URL]);
+  }, []);
 
   const safeSurvey = survey || [];
 
@@ -94,6 +96,7 @@ const Survey: React.FC = () => {
           </thead>
           <tbody>
             {displayList.map((s, idx) => {
+              console.log('렌더링 데이터 :', s);
               const isHot = currentPage === 1 && idx < hotCount;
 
               let no = 0;
@@ -119,7 +122,7 @@ const Survey: React.FC = () => {
                   <td>
                     <Link to={`/survey/detail/${s.num}`}>{s.sub}</Link>
                   </td>
-                  <td>로코덕후</td>
+                  <td>{s.sub}</td>
                   <td>{s.totalVotes}</td>
                 </tr>
               );

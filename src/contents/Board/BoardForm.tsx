@@ -7,6 +7,7 @@ import axios from "axios";
 interface BoardVO {
     num?: Number;
     title: string;
+    bnickname?: string;
     content: string;
     hit?: number;
     reip?: string;
