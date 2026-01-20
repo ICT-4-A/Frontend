@@ -4,13 +4,13 @@ import { Link } from 'react-router-dom'
 import './BoardList.css'
 
 interface BoardVO {
-    num: number
-    title: string
-    nickname: string
-    content: string
-    hit: number
-    reip: string
-    bdate: string
+    num: number;
+    title: string;
+    bnickname: string;
+    content: string;
+    hit: number;
+    reip: string;
+    bdate: string;
 }
 
 const HOT_COUNT = 3
@@ -198,6 +198,14 @@ const BoardList: React.FC = () => {
             </div>
 
             <table className="bl-boardTable">
+                <colgroup>
+                    <col style={{width:"12%"}} /> 
+                    <col style={{width:"44%"}} /> 
+                    <col style={{width:"15%"}} /> 
+                    <col style={{width:"10%"}} /> 
+                    <col style={{width:"13%"}} /> 
+                </colgroup>
+            
                 <thead>
                     <tr>
                         <th>No</th>
@@ -208,26 +216,21 @@ const BoardList: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {boardList.map((item, index) => {
-                        const isHot =
-                            currentPage === 1 &&
-                            searchValue === '' &&
-                            index < HOT_COUNT
-
-                        return (
-                            <tr key={item.num} className={isHot ? 'bl-hotPost' : ''}>
-                                <td>{isHot ? 'HOT' : item.num}</td>
-                                <td>
-                                    <Link to={`/board/detail/${item.num}`}>
-                                        {item.title}
-                                    </Link>
-                                </td>
-                                <td>{item.nickname}</td>
-                                <td>{item.hit}</td>
-                                <td>{formatDate(item.bdate)}</td>
-                            </tr>
-                        )
-                    })}
+                    {boardList.map((item, index) => (
+                        <tr key={item.num} className={index < 3 ? "bl-hotPost" : ""}>
+                            <td className={index < 3 ? "bl-hotPostRow" : ""}>
+                                {index < 3 ? "HOT" : item.num}
+                            </td>
+                            <td>
+                                <Link to={`/board/detail/${item.num}`} className="bl-titleLink">
+                                    {item.title}
+                                </Link>
+                            </td>
+                            <td>{item.bnickname}</td>
+                            <td>{item.hit}</td>
+                            <td>{formatDate(item.bdate)}</td>
+                        </tr>
+                    ))}
                 </tbody>
             </table>
             {/* 글쓰기 버튼 */}

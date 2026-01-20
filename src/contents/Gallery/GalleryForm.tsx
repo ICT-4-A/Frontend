@@ -12,7 +12,7 @@ interface FormData {
     reip?: string;
     hit?: number;
     gdate?: string;
-    
+
     images: File[];
 }
 
@@ -20,7 +20,7 @@ interface FormData {
 
 
 const GalleryForm: React.FC = () => {
-   
+
     const [formData, setFormData] = useState<FormData>({
         num: 0,
         title: '',
@@ -28,7 +28,7 @@ const GalleryForm: React.FC = () => {
         contents: '',
         images: []
     });
-    
+
     const [preview, setPreview] = useState<string[]>([]);
 
     const naviate = useNavigate();
@@ -71,15 +71,20 @@ const GalleryForm: React.FC = () => {
         e.preventDefault();
         alert('이미지가 등록되었습니다!');
         const myFormdata = new FormData();
-        myFormdata.append('writer',formData.writer);
-        myFormdata.append('title',formData.title);
-        myFormdata.append('contents',formData.contents);
-        formData.images.forEach((file,index) => {
-            myFormdata.append('images',file)
+
+        myFormdata.append('title', formData.title);
+        myFormdata.append('contents', formData.contents);
+        myFormdata.append('writer', formData.writer);
+        formData.images.forEach((file, index) => {
+            myFormdata.append('images', file)
         });
         try {
             console.log(`FormData => ${myFormdata}`);
-            const response = await fetch(`${process.env.REACT_APP_BACK_END_URL}/gallery/add`,{method:'POST', body:myFormdata})
+            const response = await fetch(`${process.env.REACT_APP_BACK_END_URL}/gallery/add`,
+                {
+                    method: 'POST',
+                    body: myFormdata
+                })
             naviate('/gallery');
         } catch (error) {
             console.log('전송 오류 :', error)
@@ -128,7 +133,7 @@ const GalleryForm: React.FC = () => {
                         </div>
                     )
                 }
-                
+
                 <button type="submit" className={styles.button}>등록</button>
             </form>
         </div>

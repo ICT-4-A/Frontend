@@ -32,7 +32,13 @@ const SurveyForm: React.FC = () => {
     try {
       await axios.post(
         `${REACT_APP_BACK_END_URL}/api/survey/addsurvey`,
-        payload
+        payload,
+         {
+          withCredentials: true,  // ← 세션 쿠키 전송 (핵심!)
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
       alert("설문 작성 완료!");
       navigate("/survey");
