@@ -477,28 +477,32 @@ const MovieListSection: React.FC = () => {
 
 // ========== 작성한 게시글 ==========
 interface BoardVO {
-    num: number;
-    title: string;
-    nickname: string;
-    content: string;
-    hit: number;
-    reip: string;
-    bdate: string;
+  num: number;
+  title: string;
+  bnickname: string;
+  content: string;
+  hit: number;
+  reip: string;
+  bdate: string;
 }
+
 
 const BoardListSection: React.FC = () => {
   const [boardList, setBoardList] = React.useState<BoardVO[]>([]);
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACK_END_URL}/board/list`)
+      .get(`${process.env.REACT_APP_BACK_END_URL}/board/mylist`, {
+        withCredentials: true, 
+      })
       .then((res) => {
-        setBoardList(res.data.data);
+        setBoardList(res.data); 
       })
       .catch((err) => {
         console.error("MyPage board list load error", err);
       });
   }, []);
+
 
   return(
   <>
@@ -515,7 +519,14 @@ const BoardListSection: React.FC = () => {
       </thead>
 
       <tbody>
-          {boardList.map((board, idx) => (
+        {boardList.length === 0 ? (
+          <tr>
+            <td colSpan={3} style={{ textAlign: "center", padding: "20px" }}>
+              작성한 게시글이 없습니다.
+            </td>
+          </tr>
+        ) : (
+          boardList.map((board, idx) => (
             <tr key={board.num}>
               <td>{boardList.length - idx}</td>
               <td>
@@ -525,8 +536,11 @@ const BoardListSection: React.FC = () => {
               </td>
               <td>{board.bdate}</td>
             </tr>
-          ))}
-        </tbody>
+          ))
+        )}
+      </tbody>
+
+
     </table>
   </>
 );
