@@ -178,6 +178,7 @@ const DirectorSearch: React.FC = () => {
                     src={movie.poster}
                     className="card-img-top movie-poster"
                     alt={movie.title}
+                    onClick={() => navigate(`/MovieInfo/${movie.num}`)} 
                     onError={(e) => {
                       e.currentTarget.src = "/images/no-poster.png";
                     }}

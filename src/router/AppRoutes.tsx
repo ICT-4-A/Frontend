@@ -50,7 +50,7 @@ const AppRoutes: React.FC = () => {
     { path: "/Search/Director", element: <DirectorSearch /> },
     { path: "/Search/Actor", element: <ActorSearch /> },
 
-    { path: "/MovieInfo", element: <MovieInfo /> },
+    { path: "/MovieInfo/:movieId", element: <MovieInfo /> },
 
 
     { path: '/board/list', element: <BoardList/>},

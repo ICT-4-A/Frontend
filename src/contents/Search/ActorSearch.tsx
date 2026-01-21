@@ -16,13 +16,11 @@ interface MovieVO {
 const ActorSearch: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const actorRef = useRef<HTMLDivElement>(null);
 
   const isGenre = location.pathname === "/Search";
   const isDirector = location.pathname === "/Search/Director";
-  const isActor =
-    location.pathname === "/Search/Actor" || location.pathname === "/actor";
-
-  const actorRef = useRef<HTMLDivElement>(null);
+  const isActor = location.pathname === "/Search/Actor" || location.pathname === "/actor";
 
   const [movies, setMovies] = useState<MovieVO[]>([]);
   const [originMovies, setOriginMovies] = useState<MovieVO[]>([]);
@@ -38,13 +36,12 @@ const ActorSearch: React.FC = () => {
   const pagePerBlock = 5;
   const cardsPerPage = 9;
 
+  // 영화 목록 불러오기
   useEffect(() => {
     const fetchMovies = async () => {
       setLoading(true);
       try {
-        const res = await axios.get(
-          `${process.env.REACT_APP_BACK_END_URL}/movie/movielist`
-        );
+        const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/movie/movielist`);
         const movieList: MovieVO[] = res.data.movie || [];
         setMovies(movieList);
         setOriginMovies(movieList);
@@ -103,10 +100,7 @@ const ActorSearch: React.FC = () => {
 
   // 현재 페이지 영화
   const startIndex = (currentPage - 1) * cardsPerPage;
-  const currentMovies = filteredMovies.slice(
-    startIndex,
-    startIndex + cardsPerPage
-  );
+  const currentMovies = filteredMovies.slice(startIndex, startIndex + cardsPerPage);
 
   // 페이지네이션 블록
   const block = Math.ceil(currentPage / pagePerBlock);
@@ -181,9 +175,7 @@ const ActorSearch: React.FC = () => {
           {actors.map((actor) => (
             <button
               key={actor}
-              className={`genre-btn ${
-                selectedActor === actor ? "active" : ""
-              }`}
+              className={`genre-btn ${selectedActor === actor ? "active" : ""}`}
               onClick={() => {
                 setSelectedActor(actor);
                 setCurrentPage(1);
@@ -216,6 +208,7 @@ const ActorSearch: React.FC = () => {
                     src={movie.poster}
                     className="card-img-top movie-poster"
                     alt={movie.title}
+                    onClick={() => navigate(`/MovieInfo/${movie.num}`)} 
                     onError={(e) => {
                       e.currentTarget.src = "/images/no-poster.png";
                     }}
@@ -253,31 +246,22 @@ const ActorSearch: React.FC = () => {
               </li>
             )}
 
-            {Array.from(
-              { length: endPage - startPage + 1 },
-              (_, i) => startPage + i
-            ).map((page) => (
-              <li
-                key={page}
-                className={`page-item ${
-                  page === currentPage ? "active" : ""
-                }`}
-              >
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(page)}
+            {Array.from({ length: endPage - startPage + 1 }, (_, i) => startPage + i).map(
+              (page) => (
+                <li
+                  key={page}
+                  className={`page-item ${page === currentPage ? "active" : ""}`}
                 >
-                  {page}
-                </button>
-              </li>
-            ))}
+                  <button className="page-link" onClick={() => setCurrentPage(page)}>
+                    {page}
+                  </button>
+                </li>
+              )
+            )}
 
             {endPage < totalPages && (
               <li className="page-item">
-                <button
-                  className="page-link"
-                  onClick={() => setCurrentPage(endPage + 1)}
-                >
+                <button className="page-link" onClick={() => setCurrentPage(endPage + 1)}>
                   다음
                 </button>
               </li>
