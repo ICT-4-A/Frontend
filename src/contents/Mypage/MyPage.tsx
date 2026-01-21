@@ -477,28 +477,32 @@ const MovieListSection: React.FC = () => {
 
 // ========== 작성한 게시글 ==========
 interface BoardVO {
-    num: number;
-    title: string;
-    nickname: string;
-    content: string;
-    hit: number;
-    reip: string;
-    bdate: string;
+  num: number;
+  title: string;
+  bnickname: string;
+  content: string;
+  hit: number;
+  reip: string;
+  bdate: string;
 }
+
 
 const BoardListSection: React.FC = () => {
   const [boardList, setBoardList] = React.useState<BoardVO[]>([]);
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACK_END_URL}/board/list`)
+      .get(`${process.env.REACT_APP_BACK_END_URL}/board/mylist`, {
+        withCredentials: true, 
+      })
       .then((res) => {
-        setBoardList(res.data.data);
+        setBoardList(res.data); 
       })
       .catch((err) => {
         console.error("MyPage board list load error", err);
       });
   }, []);
+
 
   return(
   <>
@@ -515,7 +519,14 @@ const BoardListSection: React.FC = () => {
       </thead>
 
       <tbody>
-          {boardList.map((board, idx) => (
+        {boardList.length === 0 ? (
+          <tr>
+            <td colSpan={3} style={{ textAlign: "center", padding: "20px" }}>
+              작성한 게시글이 없습니다.
+            </td>
+          </tr>
+        ) : (
+          boardList.map((board, idx) => (
             <tr key={board.num}>
               <td>{boardList.length - idx}</td>
               <td>
@@ -525,8 +536,11 @@ const BoardListSection: React.FC = () => {
               </td>
               <td>{board.bdate}</td>
             </tr>
-          ))}
-        </tbody>
+          ))
+        )}
+      </tbody>
+
+
     </table>
   </>
 );
@@ -565,8 +579,6 @@ const GalleryListSection: React.FC = () => (
             </div>
           </td>
         </tr>
-
-
       </tbody>
     </table>
   </>
@@ -632,52 +644,62 @@ const InquirySection: React.FC = () => (
 );
 
 // ========== 장르 통계 ==========
-const StatsSection: React.FC = () => (
-  <>
-    <h2 className="mypage-title">장르 통계</h2>
+type GenreStats = {
+  [key: string]: number;
+};
 
-    <div className="stats-card">
-      <div className="stats-chart">
-        <div className="stats-bar">
-          <div
-            className="stats-bar-inner bg-primary"
-            style={{ height: "55px" }}
-          />
-          <span className="stats-label">액션</span>
-        </div>
-        <div className="stats-bar">
-          <div
-            className="stats-bar-inner bg-success"
-            style={{ height: "30px" }}
-          />
-          <span className="stats-label">코미디</span>
-        </div>
-        <div className="stats-bar">
-          <div className="stats-bar-inner bg-info" style={{ height: "75px" }} />
-          <span className="stats-label">로맨스</span>
-        </div>
-        <div className="stats-bar">
-          <div
-            className="stats-bar-inner bg-warning"
-            style={{ height: "45px" }}
-          />
-          <span className="stats-label">공포/스릴러</span>
-        </div>
-        <div className="stats-bar">
-          <div
-            className="stats-bar-inner bg-danger"
-            style={{ height: "90px" }}
-          />
-          <span className="stats-label">SF/판타지</span>
-        </div>
-        <div className="stats-bar">
-          <div
-            className="stats-bar-inner bg-secondary"
-            style={{ height: "50px" }}
-          />
-          <span className="stats-label">애니메이션</span>
+const genreClassMap: { [key: string]: string } = {
+  "액션": "action",
+  "코미디": "comedy",
+  "로맨스": "romance",
+  "공포/스릴러": "thriller",
+  "SF/판타지": "sf",
+  "애니메이션": "animation",
+};
+
+const StatsSection: React.FC = () => {
+  const [genreStats, setGenreStats] = useState<GenreStats>({});
+
+  useEffect(() => {
+    axios
+      .get("http://192.168.0.40/movie/movie/genre-stats", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        setGenreStats(res.data);
+      })
+      .catch((err) => {
+        console.error("장르 통계 조회 실패", err);
+      });
+  }, []);
+
+  // 최대값 기준으로 막대 높이 계산
+  const values = Object.values(genreStats);
+  const maxValue = values.length > 0 ? Math.max(...values) : 0;
+
+  const getHeight = (value: number) => {
+    if (maxValue === 0) return 0;
+    // 최소 높이 8px 보장 (값이 작아도 보이게)
+    return Math.max((value / maxValue) * 180, 8);
+  };
+
+  return (
+    <>
+      <h2 className="mypage-title">영화 장르 통계</h2>
+      <div className="stats-card">
+        <div className="stats-chart">
+          {Object.entries(genreStats).map(([genre, value]) => (
+            <div className="stats-bar" key={genre}>
+              <div
+                className={`stats-bar-inner ${genreClassMap[genre] || ""}`}
+                style={{ height: `${getHeight(value)}px` }}
+                data-value={value}
+              />
+              <span className="stats-label">{genre}</span>
+            </div>
+          ))}
         </div>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};

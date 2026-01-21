@@ -1,139 +1,131 @@
-// src/contents/Movie/MovieInfo.tsx (원하는 경로에 생성)
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 import "./MovieInfo.css";
-import { Link } from "react-router-dom";
+
+interface MovieVO {
+  num: number;
+  title: string;
+  year?: number;
+  genre: string;
+  release_date: string;
+  director: string;
+  actor: string;
+  poster: string;
+  rating?: number;
+}
+
+interface MovieFormVO {
+  num: number;
+  movie_id: number;
+  writer: string;
+  toge_writer: string | null;
+  simple_review: string;
+  review: string;
+  rate: number;
+  hit: number;
+  created_at?: string;
+  updated_at?: string;
+}
 
 const MovieInfo: React.FC = () => {
-  // TODO: 실제로는 useParams 등으로 id 받아서 데이터 조회
-  const movie = {
-    title: "어벤져스 엔드게임",
-    year: 2019,
-    genre: "액션",
-    release: "2025년 11월",
-    director: "어벤져스",
-    actors: "토르, 헐크, 등",
-    poster: "/images/poster4.jpg", // 실제 포스터 경로로 교체
-    rating: 4.5,
-  };
+  const { movieId } = useParams<{ movieId: string }>();
+  const [movie, setMovie] = useState<MovieVO | null>(null);
+  const [reviews, setReviews] = useState<MovieFormVO[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchMovie = async () => {
+      if (!movieId) return;
+
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movieInfo`,
+          { params: { num: movieId }, withCredentials: true }
+        );
+        setMovie(res.data);
+      } catch (e: any) {
+        console.error("영화 상세 조회 실패", e.response?.status, e.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMovie();
+  }, [movieId]);
+
+  // 영화 기록 가져오기
+  useEffect(() => {
+    if (!movieId) return;
+
+    const fetchReviews = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.REACT_APP_BACK_END_URL}/movie/movieFormsByMovie`,
+          { params: { num: movieId }, withCredentials: true }
+        );
+        console.log("리뷰 응답:", res.data.forms);
+        setReviews(res.data.forms || []);
+      } catch (err) {
+        console.error("리뷰 불러오기 실패", err);
+      }
+    };
+
+    fetchReviews();
+  }, [movieId]);
+
+  if (loading) return <div className="movieinfo-wrapper">로딩중...</div>;
+  if (!movie) return <div className="movieinfo-wrapper">영화를 찾을 수 없습니다.</div>;
 
   return (
     <div className="movieinfo-wrapper">
+      {/* 영화 정보 카드 */}
       <div className="movieinfo-card">
-        {/* 상단: 포스터 + 기본 정보 */}
         <div className="movieinfo-top">
           <div className="movieinfo-poster-box">
-            <img
-              src={movie.poster}
-              alt={movie.title}
-              className="movieinfo-poster"
-            />
+            <img src={movie.poster} alt={movie.title} className="movieinfo-poster" />
           </div>
-
           <div className="movieinfo-main">
             <div className="movieinfo-title-row">
               <h2 className="movieinfo-title">{movie.title}</h2>
-              <span className="movieinfo-year">{movie.year}</span>
+              <span className="movieinfo-year">{movie.release_date?.substring(0, 4)}</span>
             </div>
-
-            <button className="badge movieinfo-genre-badge">
-              {movie.genre}
-            </button>
-
+            <button className="badge movieinfo-genre-badge">{movie.genre}</button>
             <div className="movieinfo-meta">
-              <div>개봉: {movie.release}</div>
+              <div>개봉: {movie.release_date?.substring(0, 4)}</div>
               <div>감독: {movie.director}</div>
-              <div>배우: {movie.actors}</div>
-            </div>
-          </div>
-        </div>
-
-        {/* 하단: 별점 + 한줄평 박스 영역
-          <div className="movieinfo-rating-box">
-            <h3 className="movieinfo-subtitle">사용자 별점</h3>
-            <div className="movieinfo-score-line">
-              <span className="movieinfo-stars">★★★★☆</span>
-              <span className="movieinfo-score">{movie.rating} / 5</span>
-            </div>
-
-            <div className="movieinfo-bar-list">
-              <div className="movieinfo-bar-row">
-                <span className="bar-label">5★</span>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: "50%" }} />
-                </div>
-                <span className="bar-percent">50%</span>
-              </div>
-              <div className="movieinfo-bar-row">
-                <span className="bar-label">4★</span>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: "25%" }} />
-                </div>
-                <span className="bar-percent">25%</span>
-              </div>
-              <div className="movieinfo-bar-row">
-                <span className="bar-label">3★</span>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: "24%" }} />
-                </div>
-                <span className="bar-percent">24%</span>
-              </div>
-              <div className="movieinfo-bar-row">
-                <span className="bar-label">2★</span>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: "0%" }} />
-                </div>
-                <span className="bar-percent">0%</span>
-              </div>
-              <div className="movieinfo-bar-row">
-                <span className="bar-label">1★</span>
-                <div className="bar-track">
-                  <div className="bar-fill" style={{ width: "1%" }} />
-                </div>
-                <span className="bar-percent">1%</span>
-              </div>
-            </div>
-          </div>
- */}
-          {/* 우측: 한줄평 카드 리스트 (더미) */}
-          <div className="movieinfo-review-list">
-            <div className="movieinfo-review-card">
-              <div className="review-header">
-                <div className="review-avatar">A</div>
-                <div>
-                  <div className="review-name">
-                    <Link to="/movielog/detail2">사용자 1</Link>
-                  </div>
-                  <div className="review-tag">액션</div>
-                </div>
-
-                <div className="review-avatar">B</div>
-                <div>
-                  <div className="review-name">
-                    <Link to="/movielog/detail2">사용자 2</Link>
-                  </div>
-                  <div className="review-tag">판타지</div>
-                </div>
-              </div>
-              <p className="review-text">
-                뜨거운 안녕의 끝에서 열렬한 환영의 시작으로
-              </p>
-            </div>
-
-            <div className="movieinfo-review-card">
-              <div className="review-header">
-                <div className="review-avatar">👤</div>
-                <div>
-                  <div className="review-name">테스트 2</div>
-                  <div className="review-tag">선호 장르2</div>
-                </div>
-              </div>
-              <p className="review-text">
-                음악, 연출, 배우 연기 모두 완벽했습니다.
-              </p>
+              <div>배우: {movie.actor}</div>
+              <div>평점: ★ {movie.rating }</div>
             </div>
           </div>
         </div>
       </div>
+
+      {/* 영화 기록(한줄평/리뷰) */}
+      <div className="movieinfo-bottom">
+        <h3 className="movieinfo-subtitle">한줄평 / 리뷰</h3>
+        {reviews.length > 0 ? (
+          <div className="movieinfo-review-list">
+            {reviews.map((r) => (
+              <div className="movieinfo-review-card" key={r.num}>
+                <div className="review-header">
+                  <div className="review-avatar">{r.writer.charAt(0)}</div>
+                  <div className="review-name">{r.writer}</div>
+                  <div className="review-rate">★ {r.rate}</div>
+                </div>
+                <p className="review-text">{r.simple_review || r.review}</p>
+                <div className="review-date">
+                  {r.created_at?.substring(0, 10)}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="no-review">등록된 리뷰가 없습니다.</div>
+        )}
+      </div>
+
+    </div>
   );
 };
 
