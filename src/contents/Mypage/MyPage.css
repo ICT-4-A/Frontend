@@ -377,3 +377,101 @@
 .mypage-table tbody td:nth-child(2) {
   text-align: center !important;
 }
+
+
+/* ===== 장르 통계 ===== */
+.stats-card {
+  margin-top: 24px;
+  padding: 24px;
+  border-radius: 16px;
+  border: none;
+  background: #fff;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-3px);
+}
+
+/* 차트 영역 */
+.stats-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  height: 220px;
+  padding: 16px 8px;
+  position: relative;
+  border-left: 1px solid #dee2e6;
+  border-bottom: 1px solid #dee2e6;
+}
+
+/* 통계 막대 */
+.stats-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40px;
+  position: relative;
+}
+
+/* 막대 안쪽 색상 + 그림자 + 애니메이션 */
+.stats-bar-inner {
+  width: 100%;
+  border-radius: 8px 8px 0 0;
+  transition: all 0.6s ease;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  background: linear-gradient(to top, #4dabf7, #1c7ed6);
+}
+
+/* 막대 위 숫자 */
+.stats-bar-inner::after {
+  content: attr(data-value);
+  position: absolute;
+  top: -24px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #495057;
+  text-align: center;
+  width: 100%;
+}
+
+/* 장르 레이블 */
+.stats-label {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* 장르별 막대 색상 */
+.action { background: linear-gradient(to top, #fcd098, #fc940b);}
+.comedy { background: linear-gradient(to top, #63e6be, #4ad162);}
+.romance { background: linear-gradient(to top, #d2a4f8, #9928f5);}
+.thriller { background: linear-gradient(to top, rgb(255, 234, 157), #f5e500);}
+.sf { background: linear-gradient(to top, #ff9898, #f03e3e);}
+.animation { background: linear-gradient(to top, #97d2ff, #339af0);}
+
+/* 반응형 */
+@media (max-width: 768px) {
+  .stats-bar {
+    width: 28px;
+  }
+  .stats-chart {
+    height: 160px;
+  }
+  .stats-bar-inner::after {
+    font-size: 11px;
+  }
+}
+.stats-bar-inner::after {
+  content: attr(data-value);
+}
+
+.stats-bar-inner {
+  position: relative; 
+  min-height: 8px;    
+}
