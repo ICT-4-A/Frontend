@@ -11,6 +11,7 @@ interface MovieVO {
   genre: string;
   poster: string;
   release_date: string;
+  avg_rating?: number;
 }
 
 const ActorSearch: React.FC = () => {
@@ -208,7 +209,7 @@ const ActorSearch: React.FC = () => {
                     src={movie.poster}
                     className="card-img-top movie-poster"
                     alt={movie.title}
-                    onClick={() => navigate(`/MovieInfo/${movie.num}`)} 
+                    onClick={() => navigate(`/MovieInfo/${movie.num}`)}
                     onError={(e) => {
                       e.currentTarget.src = "/images/no-poster.png";
                     }}
@@ -220,7 +221,9 @@ const ActorSearch: React.FC = () => {
                       </Link>
                     </h5>
                     <span className="genre-badge">{movie.genre}</span>
-                    <div className="moive-rating">★ 5.0</div>
+                    <div className="moive-rating">
+                      ★ {movie.avg_rating?.toFixed(2) ?? '-'}
+                    </div>
                   </div>
                 </div>
               </div>

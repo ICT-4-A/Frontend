@@ -48,7 +48,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             to="/"
             style={{ fontSize: "24px", textDecoration: "none", color: "black" }}
           >
-            LOGO ( 사이트 제목 )
+            MovieLog
           </Link>
 
           {/* 오른쪽 */}

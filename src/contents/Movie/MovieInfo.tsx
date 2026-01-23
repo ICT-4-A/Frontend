@@ -12,7 +12,7 @@ interface MovieVO {
   director: string;
   actor: string;
   poster: string;
-  rating?: number;
+  avg_rating?: number;
 }
 
 interface MovieFormVO {
@@ -33,6 +33,8 @@ const MovieInfo: React.FC = () => {
   const [movie, setMovie] = useState<MovieVO | null>(null);
   const [reviews, setReviews] = useState<MovieFormVO[]>([]);
   const [loading, setLoading] = useState(true);
+  const [avgRate, setAvgRate] = useState<number | null>(null);
+
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -44,6 +46,8 @@ const MovieInfo: React.FC = () => {
           { params: { num: movieId }, withCredentials: true }
         );
         setMovie(res.data);
+
+
       } catch (e: any) {
         console.error("영화 상세 조회 실패", e.response?.status, e.message);
       } finally {
@@ -65,9 +69,19 @@ const MovieInfo: React.FC = () => {
           { params: { num: movieId }, withCredentials: true }
         );
         console.log("리뷰 응답:", res.data.forms);
-        setReviews(res.data.forms || []);
+        const fetchedReviews: MovieFormVO[] = res.data.forms || [];
+        setReviews(fetchedReviews);
+
+        // ★ 추가: 평균 평점 계산
+        if (fetchedReviews.length > 0) {
+          const sum = fetchedReviews.reduce((acc, cur) => acc + cur.rate, 0);
+          setAvgRate(parseFloat((sum / fetchedReviews.length).toFixed(1)));
+        } else {
+          setAvgRate(null);
+        }
       } catch (err) {
         console.error("리뷰 불러오기 실패", err);
+        setAvgRate(null);
       }
     };
 
@@ -95,7 +109,9 @@ const MovieInfo: React.FC = () => {
               <div>개봉: {movie.release_date?.substring(0, 4)}</div>
               <div>감독: {movie.director}</div>
               <div>배우: {movie.actor}</div>
-              <div>평점: ★ {movie.rating }</div>
+              <div>
+                평점: ★ {movie.avg_rating?.toFixed(2) ?? avgRate ?? "-"}
+              </div>
             </div>
           </div>
         </div>
