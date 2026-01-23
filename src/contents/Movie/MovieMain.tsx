@@ -69,13 +69,6 @@ const MovieMain: React.FC = () => {
   return (
     <div className="movieLog-wrapper">
       <section className="movieLog-top">
-        {/* 검색 폼 */}
-        <div className="filter-header-right">
-          <div className="search-box">
-            <img src="/icons/search.png" className="search-icon" alt="search" />
-            <input className="form-control" placeholder="Search..." />
-          </div>
-        </div>
 
         {/* 1. 상단 캐러셀 영역 */}
         <div
