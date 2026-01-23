@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import "./MovieInfo.css";
+import { Link } from "react-router-dom";
 
 interface MovieVO {
   num: number;
@@ -121,19 +122,23 @@ const MovieInfo: React.FC = () => {
       <div className="movieinfo-bottom">
         <h3 className="movieinfo-subtitle">한줄평 / 리뷰</h3>
         {reviews.length > 0 ? (
+
           <div className="movieinfo-review-list">
             {reviews.map((r) => (
               <div className="movieinfo-review-card" key={r.num}>
-                <div className="review-header">
-                  <div className="review-avatar">{r.writer.charAt(0)}</div>
-                  <div className="review-name">{r.writer}</div>
-                  <div className="review-rate">★ {r.rate}</div>
-                </div>
-                <p className="review-text">{r.simple_review || r.review}</p>
-                <div className="review-date">
-                  {r.created_at?.substring(0, 10)}
-                </div>
+                <Link to={`/movie/detail/${r.num}`}>
+                  <div className="review-header">
+                    <div className="review-avatar">{r.writer.charAt(0)}</div>
+                    <div className="review-name">{r.writer}</div>
+                    <div className="review-rate">★ {r.rate}</div>
+                  </div>
+                  <p className="review-text">{r.simple_review || r.review}</p>
+                  <div className="review-date">
+                    {r.created_at?.substring(0, 10)}
+                  </div>
+                </Link>
               </div>
+
             ))}
           </div>
         ) : (

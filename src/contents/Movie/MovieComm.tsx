@@ -8,11 +8,12 @@ interface MovieCommProps {
 }
 
 interface MovieCommVO {
-  comment_num: number;
-  movie_form_num: number;
-  content: string;
-  commdate: string;
-  writer: string;
+  num: number;
+  mcode: number;
+  mnickname: string;
+  mcontent: string;
+  mregdate: string;
+  reip: string;
 }
 
 const MovieComm: React.FC<MovieCommProps> = ({ comment_num }) => {
@@ -40,16 +41,18 @@ const MovieComm: React.FC<MovieCommProps> = ({ comment_num }) => {
     if (!content.trim()) return;
 
     const commentData = {
-      movie_form_num: comment_num,
-      writer: member?.nickname,
-      content: content
+      num: comment_num,
+      mnickname: member?.nickname,
+      mcontent: content,
+       mcode: comment_num
     };
 
     try {
       await axios.post(
         `${process.env.REACT_APP_BACK_END_URL}/movie/mcommAdd`,
         commentData,
-        { headers: { 'Content-Type': 'application/json' } }
+        { headers: { 'Content-Type': 'application/json' } ,
+       withCredentials: true}
       );
       setContent("");
       getComments();
@@ -78,12 +81,12 @@ const MovieComm: React.FC<MovieCommProps> = ({ comment_num }) => {
 
       <ul className="movieComm-list">
         {comments.map((vo) => (
-          <li className="movieComm-item" key={vo.comment_num}>
+          <li className="movieComm-item" key={vo.num}>
             <div className="movieComm-header">
-              <strong className="movieComm-writer">{vo.writer}</strong>
-              <span className="movieComm-date">{vo.commdate}</span>
+              <strong className="movieComm-writer">{vo.mnickname}</strong>
+              <span className="movieComm-date">{vo.mregdate}</span>
             </div>
-            <p className="movieComm-content">{vo.content}</p>
+            <p className="movieComm-content">{vo.mcontent}</p>
           </li>
         ))}
       </ul>

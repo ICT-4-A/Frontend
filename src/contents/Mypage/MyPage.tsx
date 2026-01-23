@@ -11,6 +11,7 @@ const MyPage: React.FC = () => {
   const [selectedMenu, setSelectedMenu] = useState<MenuKey>("movies");
   const [nickname, setNickname] = useState<string>("");
   const [memberGenre, setMemberGenre] = useState<string | null>(null);
+  const [loginMemberNum, setLoginMemberNum] = useState<number | null>(null);
   
   useEffect(() => {
     axios
@@ -18,6 +19,7 @@ const MyPage: React.FC = () => {
       .then((res) => {
         setNickname(res.data.nickname); // 유저 닉네임
         setMemberGenre(res.data.member_genre);
+        setLoginMemberNum(res.data.member_num); 
       })
       .catch((err) => console.error("유저 정보 로드 실패", err));
   }, []); 
@@ -84,16 +86,6 @@ const MyPage: React.FC = () => {
           </button>
 
           <button
-            className={`menu-item ${
-              selectedMenu === "inquiry" ? "active" : ""
-            }`}
-            onClick={() => setSelectedMenu("inquiry")}
-          >
-            <span className="menu-icon">💬</span>
-            <span>관리자 문의</span>
-          </button>
-
-          <button
             className={`menu-item ${selectedMenu === "stats" ? "active" : ""}`}
             onClick={() => setSelectedMenu("stats")}
           >
@@ -105,12 +97,17 @@ const MyPage: React.FC = () => {
 
       {/* 오른쪽 메인 영역: 선택된 메뉴에 따라 내용 변경 */}
       <section className="mypage-main">
-        {selectedMenu === "profile" && <ProfileSection />}
+        {selectedMenu === "profile" && loginMemberNum && (
+          <ProfileSection
+            memberNum={loginMemberNum}  
+            currentGenre={memberGenre}
+            onGenreChange={(newGenre) => setMemberGenre(newGenre)}
+          />
+        )}
         {selectedMenu === "friends" && <FriendsSection />}
         {selectedMenu === "movies" && <MovieListSection />}
         {selectedMenu === "boards" && <BoardListSection />}
         {selectedMenu === "gallery" && <GalleryListSection />}
-        {selectedMenu === "inquiry" && <InquirySection />}
         {selectedMenu === "stats" && <StatsSection />}
       </section>
     </div>
@@ -119,72 +116,129 @@ const MyPage: React.FC = () => {
 
 export default MyPage;
 
-/* ====== 아래는 같은 파일 안에 서브 컴포넌트들 ====== */
+/* ============ 서브 컴포넌트 ============ */
+// ========== 회원 정보 수정 ==========
+interface ProfileProps {
+  memberNum: number; 
+  currentGenre: string | null;
+  onGenreChange: (newGenre: string) => void;
+}
 
-const ProfileSection: React.FC = () => (
-  <>
-    <h2 className="mypage-title">회원정보 수정</h2>
+const ProfileSection: React.FC<ProfileProps> = ({ memberNum, currentGenre, onGenreChange }) => {
+  const [newPassword, setNewPassword] = React.useState("");
+  const [newPasswordConfirm, setNewPasswordConfirm] = React.useState("");
+  const [favoriteGenre, setFavoriteGenre] = React.useState("액션");
+  const [originalGenre, setOriginalGenre] = React.useState(favoriteGenre);
 
-    <div className="profile-card">
-      <p className="profile-desc">회원정보를 수정할 수 있는 페이지입니다.</p>
+  React.useEffect(() => {
+    if (currentGenre) {
+      setFavoriteGenre(currentGenre);
+      setOriginalGenre(currentGenre);
+    }
+  }, [currentGenre]);
 
-      <form className="profile-form">
-        {/* 비밀번호 변경 */}
-        <div className="profile-field">
-          <label htmlFor="newPassword" className="profile-label">
-            바꿀 비밀번호
-          </label>
-          <input
-            type="password"
-            id="newPassword"
-            name="newPassword"
-            className="form-control profile-input"
-            placeholder="새 비밀번호를 입력해주세요."
-          />
-        </div>
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    onGenreChange(favoriteGenre);
 
-        {/* 비밀번호 확인 */}
-        <div className="profile-field">
-          <label htmlFor="newPasswordConfirm" className="profile-label">
-            비밀번호 확인
-          </label>
-          <input
-            type="password"
-            id="newPasswordConfirm"
-            name="newPasswordConfirm"
-            className="form-control profile-input"
-            placeholder="새 비밀번호를 한 번 더 입력해주세요."
-          />
-        </div>
+    if (newPassword !== newPasswordConfirm) {
+      alert("비밀번호 불일치");
+      setFavoriteGenre(originalGenre);
+      return;
+    }
 
-        {/* 선호 장르 변경 */}
-        <div className="profile-field">
-          <label htmlFor="favoriteGenreEdit" className="profile-label">
-            선호 영화 장르
-          </label>
-          <select
-            id="favoriteGenreEdit"
-            name="favoriteGenreEdit"
-            className="form-select profile-input"
-            defaultValue="액션"
-          >
-            <option value="액션">액션</option>
-            <option value="코미디">코미디</option>
-            <option value="로맨스">로맨스</option>
-            <option value="공포/스릴러">공포/스릴러</option>
-            <option value="SF/판타지">SF/판타지</option>
-            <option value="애니메이션">애니메이션</option>
-          </select>
-        </div>
+    try {
+      await axios.post(
+        `${process.env.REACT_APP_BACK_END_URL}/api/member/update`,
+        {
+          member_num: memberNum,
+          password: newPassword,
+          member_genre: favoriteGenre,
+        },
+        { withCredentials: true }
+      );
 
-        <button type="submit" className="btn btn-primary profile-save-btn">
-          변경사항 저장
-        </button>
-      </form>
-    </div>
-  </>
-);
+      alert("회원정보 수정 완료");
+      setNewPassword("");
+      setNewPasswordConfirm("");
+      setOriginalGenre(favoriteGenre);
 
+    } catch (err) {
+      console.error(err);
+      alert("회원정보 수정 중 오류가 발생했습니다.");
+      setFavoriteGenre(originalGenre); // 실패 시 UI 롤백
+    }
+  };
+
+  return (
+    <>
+      <h2 className="mypage-title">회원정보 수정</h2>
+
+      <div className="profile-card">
+        <p className="profile-desc">회원정보를 수정할 수 있는 페이지입니다.</p>
+
+        <form className="profile-form" onSubmit={handleSave}>
+          {/* 비밀번호 변경 */}
+          <div className="profile-field">
+            <label htmlFor="newPassword" className="profile-label">
+              변경할 비밀번호
+            </label>
+            <input
+              type="password"
+              id="newPassword"
+              name="newPassword"
+              className="form-control profile-input"
+              placeholder="새 비밀번호를 입력해주세요."
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+            />
+          </div>
+
+          {/* 비밀번호 확인 */}
+          <div className="profile-field">
+            <label htmlFor="newPasswordConfirm" className="profile-label">
+              비밀번호 확인
+            </label>
+            <input
+              type="password"
+              id="newPasswordConfirm"
+              name="newPasswordConfirm"
+              className="form-control profile-input"
+              placeholder="새 비밀번호를 한 번 더 입력해주세요."
+              value={newPasswordConfirm}
+              onChange={(e) => setNewPasswordConfirm(e.target.value)}
+            />
+          </div>
+
+          {/* 선호 장르 변경 */}
+          <div className="profile-field">
+            <label htmlFor="favoriteGenreEdit" className="profile-label">
+              선호 영화 장르
+            </label>
+            <select
+              id="favoriteGenreEdit"
+              name="favoriteGenreEdit"
+              className="form-select profile-input"
+              value={favoriteGenre}
+              onChange={(e) => setFavoriteGenre(e.target.value)}
+            >
+              <option value="액션">액션</option>
+              <option value="코미디">코미디</option>
+              <option value="로맨스">로맨스</option>
+              <option value="공포/스릴러">공포/스릴러</option>
+              <option value="SF/판타지">SF/판타지</option>
+              <option value="애니메이션">애니메이션</option>
+            </select>
+          </div>
+
+          <button type="submit" className="btn btn-primary profile-save-btn">
+            변경사항 저장
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 // ========== 친구 목록 ==========
 interface MemberVO {
@@ -401,7 +455,6 @@ const FriendsSection: React.FC = () => {
 };
 
 
-
 // ========== 작성한 영화 기록 ==========
 interface MovieLogVO {
   num: number;
@@ -590,64 +643,6 @@ const GalleryListSection: React.FC = () => (
   </>
 );
 
-// ========== 관리자 문의 ==========
-const InquirySection: React.FC = () => (
-  <>
-    <div className="mypage-main-header">
-      <h2 className="mypage-title">관리자 문의</h2>
-
-      {/* 글쓰기 버튼 */}
-      <Link to="/mypage/toadminform">
-        <button className="mypage-write-btn">글쓰기</button>
-      </Link>
-    </div>
-
-    <table className="table mypage-table align-middle">
-      <colgroup>
-        <col style={{ width: "50px" }} /> {/* No */}
-        <col style={{ width: "150px" }} />  {/* 제목 */}
-        <col />  {/* 상태 */}
-        <col />  {/* 등록일 */}
-      </colgroup>
-
-      <thead>
-        <tr>
-          <th className="th-no">No</th>
-          <th className="th-title">제목</th>
-          <th className="th-status">상태</th>
-          <th className="th-date">등록일</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        <tr>
-          <td>3</td>
-
-          <td>
-            <Link to="/mypage/toadmindetail">
-              서비스 이용 중 오류가 발생했습니다
-            </Link>
-          </td>
-
-          <td className="text-success">답변 완료</td>
-          <td>2025-11-29</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>계정 또는 로그인 관련 문의</td>
-          <td className="text-danger">답변 대기</td>
-          <td>2025-11-23</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>기타 시스템 사용 관련 문의</td>
-          <td className="text-success">답변 완료</td>
-          <td>2025-11-19</td>
-        </tr>
-      </tbody>
-    </table>
-  </>
-);
 
 // ========== 장르 통계 ==========
 type GenreStats = {
@@ -668,7 +663,7 @@ const StatsSection: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.0.40/movie/movie/genre-stats", {
+      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/genre-stats`, {
         withCredentials: true,
       })
       .then((res) => {
