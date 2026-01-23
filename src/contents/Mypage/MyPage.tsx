@@ -663,7 +663,7 @@ const StatsSection: React.FC = () => {
 
   useEffect(() => {
     axios
-      .get("http://192.168.0.40/movie/movie/genre-stats", {
+      .get(`${process.env.REACT_APP_BACK_END_URL}/movie/genre-stats`, {
         withCredentials: true,
       })
       .then((res) => {

@@ -53,20 +53,18 @@ const AppRoutes: React.FC = () => {
     { path: "/MovieInfo/:movieId", element: <MovieInfo /> },
 
 
-    { path: '/board/list', element: <BoardList/>},
-    { path: '/board/form', element: <RequireAuth><BoardForm/></RequireAuth>},
-    { path: '/board/detail/:num', element: <RequireAuth><BoardDetail/></RequireAuth>},
+    { path: '/board/list', element: <RequireAuth><BoardList/></RequireAuth>},
+    { path: '/board/form', element: <BoardForm/>},
+    { path: '/board/detail/:num', element: <BoardDetail/>},
     
    
-    { path: '/gallery', element: <Gallery /> },
-    { path: '/gallery/write', element: <RequireAuth><GalleryForm /></RequireAuth> },
-    { path: '/gallery/gdetail/:num', element: <RequireAuth><GalleryDetail /></RequireAuth> },
+    { path: '/gallery', element: <RequireAuth><Gallery /></RequireAuth> },
+    { path: '/gallery/write', element: <GalleryForm /> },
+    { path: '/gallery/gdetail/:num', element: <GalleryDetail /> },
 
 
 
     { path: "/mypage", element: <Mypage /> },
-    { path: "/mypage/toadminform", element: <ToAdminForm /> },
-    { path: "/mypage/toadmindetail", element: <ToAdminDetail /> },
 
     { path: "/login", element: <Login /> },
     { path: "/Find", element: <FindID /> },

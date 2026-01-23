@@ -7,7 +7,7 @@ import BoardComm from './BoardComm';
 interface BoardVO {
     num: number;
     title: string;
-    nickname: string;
+    bnickname: string;
     content: string;
     hit: number;
     bdate: string;
@@ -47,7 +47,7 @@ const BoardDetail: React.FC = () => {
                     <tr>
                         <th className="detail-label">작성자</th>
                         <td>
-                            {board?.nickname}
+                            {board?.bnickname}
                         </td>
                     </tr>
                     <tr>

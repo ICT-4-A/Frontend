@@ -144,62 +144,6 @@ const Survey: React.FC = () => {
         </Link>
       </div>
 
-      <div className="table-wrapper">
-        <table className="survey-table table">
-          <thead>
-            <tr>
-              <th>No</th>
-              <th>제목</th>
-              <th>닉네임</th>
-              <th>투표수</th>
-            </tr>
-          </thead>
-          <tbody>
-            {displayList.map((s, idx) => {
-              const isHot = currentPage === 1 && idx < hotCount;
-
-              let no = 0;
-              if (!isHot) {
-                const generalIdx =
-                  currentPage === 1
-                    ? idx - hotCount
-                    : generalPerPageFirst +
-                      (currentPage - 2) * generalPerPageOther +
-                      idx;
-                no = restAll.length - generalIdx;
-              }
-
-              return (
-                <tr key={s.num} className={isHot ? "hot-row" : ""}>
-                  <th>
-                    {isHot ? (
-                      <span className="hot-text">HOT</span>
-                    ) : (
-                      no
-                    )}
-                  </th>
-                  <td>
-                    <Link to={`/survey/detail/${s.num}`}>{s.sub}</Link>
-                  </td>
-                  <td>{s.sub}</td>
-                  <td>{s.totalVotes}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-
-        <div className="write-btn-wrapper">
-          <Link to="/survey/surveyform" className="write-btn">
-            글쓰기
-          </Link>
-        </div>
-
-        <nav className="pagination-box" aria-label="Page navigation">
-          <ul className="pagination justify-content-center">
-            <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-              <button className="page-link" onClick={() => pageChange(currentPage - 1)}>
-                &laquo;
       {/* 페이지네이션 */}
       <nav className="bl-paginationBox">
         <ul className="pagination">
