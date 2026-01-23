@@ -55,7 +55,7 @@ const ActorSearch: React.FC = () => {
     fetchMovies();
   }, []);
 
-  // 검색
+  // 검색 조건에 따라 필터링
   const handleSearch = () => {
     setSelectedActor(null);
 

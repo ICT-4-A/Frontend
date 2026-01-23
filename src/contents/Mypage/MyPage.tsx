@@ -373,9 +373,10 @@ const FriendsSection: React.FC = () => {
           <table className="table mypage-table align-middle">
             <thead>
               <tr>
-                <th className="th-no">No</th>
-                <th className="th-title">닉네임</th>
-                <th className="th-status">선호 장르</th>
+                <th style={{ width: "50px" }}>No</th>
+                <th className="td-center">닉네임</th>
+                <th style={{ width: "140px" }}>선호 장르</th>
+                <th style={{ width: "140px" }}>관리</th>
               </tr>
             </thead>
             <tbody>
@@ -384,6 +385,11 @@ const FriendsSection: React.FC = () => {
                   <td className="th-no">{myFriends.length - idx}</td>
                   <td className="th-title">{f.nickname}</td>
                   <td className="th-status">{f.member_genre}</td>
+                  <td>
+                    <button className="friend-btn delete">
+                      삭제
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>

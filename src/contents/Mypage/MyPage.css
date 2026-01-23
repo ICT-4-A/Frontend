@@ -350,13 +350,18 @@
 }
 
 .friend-btn.accept {
-  background-color: #1c7ed6;
+  background-color: #5ca5e6;
   color: #ffffff;
 }
 
 .friend-btn.reject {
   background-color: #f1f3f5;
   color: #495057;
+}
+
+.friend-btn.delete {
+  background-color: #ee7979;
+  color: #f1f3f5;
 }
 
 /* 테이블 헤더 기본 */

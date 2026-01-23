@@ -62,6 +62,7 @@ const Gallery: React.FC = () => {
       <div style={{ textAlign: 'right', marginBottom: '15px' }}>
         <Link to="/gallery/write" className={styles.button}>이미지 추가</Link>
       </div>
+
       <div className={styles.grid}>
         {gallerylist.map(item => (
           <Link to={`/gallery/gdetail/${item.NUM}`} key={item.NUM} style={{ textDecoration: 'none' }}>
@@ -73,6 +74,7 @@ const Gallery: React.FC = () => {
           </Link>
         ))}
       </div>
+      
     </div>
   );
 };

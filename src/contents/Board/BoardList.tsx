@@ -239,29 +239,25 @@ const BoardList: React.FC = () => {
                     글쓰기
                 </Link>
             </div>
+            
             <nav className="bl-paginationBox">
                 <ul className="pagination">
                     {startPage > 1 && (
                         <li>
                             <button
                                 className="bl-pageBtn"
-                                onClick={() => setCurrentPage(startPage - 1)}
-                            >
+                                onClick={() => setCurrentPage(startPage - 1)}>
                                 이전
                             </button>
                         </li>
                     )}
 
-                    {Array.from(
-                        { length: endPage - startPage + 1 },
-                        (_, i) => i + startPage
+                    {Array.from({ length: endPage - startPage + 1 }, (_, i) => i + startPage
                     ).map(page => (
                         <li key={page}>
                             <button
-                                className={`bl-pageBtn ${page === currentPage ? 'active' : ''
-                                    }`}
-                                onClick={() => setCurrentPage(page)}
-                            >
+                                className={`bl-pageBtn ${page === currentPage ? 'active' : ''}`}
+                                onClick={() => setCurrentPage(page)}>
                                 {page}
                             </button>
                         </li>
@@ -271,8 +267,7 @@ const BoardList: React.FC = () => {
                         <li>
                             <button
                                 className="bl-pageBtn"
-                                onClick={() => setCurrentPage(endPage + 1)}
-                            >
+                                onClick={() => setCurrentPage(endPage + 1)}>
                                 다음
                             </button>
                         </li>
