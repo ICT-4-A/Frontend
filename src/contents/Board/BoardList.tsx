@@ -29,7 +29,7 @@ const BoardList: React.FC = () => {
     const [searchType, setSearchType] = useState('1')
     const [searchValue, setSearchValue] = useState('')
 
-    /* 🔥 전체 게시물 전부 가져오기 (HOT + 1페이지 구성용) */
+    /* 전체 게시물 전부 가져오기 */
     const fetchAllBoards = async () => {
         try {
             let page = 1
@@ -61,10 +61,9 @@ const BoardList: React.FC = () => {
         }
     }
 
-    /* 🔹 페이지별 게시글 구성 */
+    /* 페이지별 게시글 구성 */
     const fetchBoardList = async (page: number) => {
         try {
-            /* 🔍 검색 중이면 서버 페이징 그대로 사용 */
             if (searchValue !== '') {
                 const res = await axios.get(
                     `${process.env.REACT_APP_BACK_END_URL}/board/list`,
@@ -86,7 +85,6 @@ const BoardList: React.FC = () => {
                 return
             }
 
-            /* 🔥 1페이지 (HOT 적용) */
             if (page === 1 && allBoards.length > 0) {
                 const hotList = [...allBoards]
                     .sort((a, b) => b.hit - a.hit)
@@ -110,7 +108,6 @@ const BoardList: React.FC = () => {
                 return
             }
 
-            /* 🔹 2페이지 이상 (HOT 제외한 순수 페이징) */
             const startIdx =
                 (page - 1) * PAGE_SIZE - HOT_COUNT
             const endIdx = startIdx + PAGE_SIZE
@@ -158,16 +155,6 @@ const BoardList: React.FC = () => {
         fetchBoardList(1)
     }
 
-    // /* 날짜 포맷 */
-    // const formatDate = (dateString: string) => {
-    //     const date = new Date(dateString)
-    //     const y = date.getFullYear()
-    //     const m = String(date.getMonth() + 1).padStart(2, '0')
-    //     const d = String(date.getDate()).padStart(2, '0')
-    //     return `${y}.${m}.${d}`
-    // }
-
-    // 작성일을 'YYYY.MM.DD' 형식으로 변환
     const formatDate = (dateString: string) => {
         const date = new Date(dateString);
         const year = date.getFullYear();
