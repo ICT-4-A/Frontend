@@ -12,6 +12,7 @@ interface MovieVO {
   genre: string;
   poster: string;
   release_date: string;
+  avg_rating?: number;
 }
 
 const DirectorSearch: React.FC = () => {
@@ -24,10 +25,10 @@ const DirectorSearch: React.FC = () => {
 
   const directorRef = useRef<HTMLDivElement>(null);
 
-  const [movies, setMovies] = useState<MovieVO[]>([]); 
+  const [movies, setMovies] = useState<MovieVO[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchType, setSearchType] = useState("3"); // 초기 드롭다운: 감독
-  const [searchValue, setSearchValue] = useState(""); 
+  const [searchValue, setSearchValue] = useState("");
   const [selectedDirector, setSelectedDirector] = useState<string | null>(null);
 
   // 페이지네이션
@@ -106,22 +107,22 @@ const DirectorSearch: React.FC = () => {
     <div className="filter-container">
       {/* 검색창 */}
       <div className="filter-header-right">
-        <div className="search-box"> 
-            <select value={searchType} onChange={(e) => setSearchType(e.target.value)}> 
-              <option value="1">제목</option> 
-              <option value="2">장르</option> 
-              <option value="3">감독</option> 
-              <option value="4">배우</option> 
-            </select> 
+        <div className="search-box">
+          <select value={searchType} onChange={(e) => setSearchType(e.target.value)}>
+            <option value="1">제목</option>
+            <option value="2">장르</option>
+            <option value="3">감독</option>
+            <option value="4">배우</option>
+          </select>
 
           <div className="search-input-wrap">
             <input
               className="form-control"
               placeholder="Search..."
               value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}/>
+              onChange={(e) => setSearchValue(e.target.value)} />
           </div>
-            
+
           <div className="search-btn-wrap">
             <button className="btn-search" onClick={handleSearch}>
               검색
@@ -178,7 +179,7 @@ const DirectorSearch: React.FC = () => {
                     src={movie.poster}
                     className="card-img-top movie-poster"
                     alt={movie.title}
-                    onClick={() => navigate(`/MovieInfo/${movie.num}`)} 
+                    onClick={() => navigate(`/MovieInfo/${movie.num}`)}
                     onError={(e) => {
                       e.currentTarget.src = "/images/no-poster.png";
                     }}
@@ -190,7 +191,9 @@ const DirectorSearch: React.FC = () => {
                       </Link>
                     </h5>
                     <span className="genre-badge">{movie.genre}</span>
-                    <div className="moive-rating">★ 5.0</div>
+                    <div className="moive-rating">
+                      ★ {movie.avg_rating?.toFixed(2) ?? '-'} 
+                    </div>
                   </div>
                 </div>
               </div>

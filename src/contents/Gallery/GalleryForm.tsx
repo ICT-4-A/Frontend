@@ -34,10 +34,8 @@ const GalleryForm: React.FC = () => {
     const naviate = useNavigate();
     const galleryChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, files } = e.target;
-        console.log(`AllNames : ${name} : ${value}`)
 
         if (name === 'image' && files) {
-            console.log(`ImageName : ${name} : ${value} | ${files[0]} , ${files[1]}}`)
 
             const fileArray = Array.from(files)
 
@@ -74,16 +72,17 @@ const GalleryForm: React.FC = () => {
 
         myFormdata.append('title', formData.title);
         myFormdata.append('contents', formData.contents);
-        myFormdata.append('writer', formData.writer);
         formData.images.forEach((file, index) => {
             myFormdata.append('images', file)
         });
+        console.log(myFormdata)
         try {
             console.log(`FormData => ${myFormdata}`);
             const response = await fetch(`${process.env.REACT_APP_BACK_END_URL}/gallery/add`,
                 {
                     method: 'POST',
-                    body: myFormdata
+                    body: myFormdata,
+                     credentials: 'include' 
                 })
             naviate('/gallery');
         } catch (error) {
@@ -104,10 +103,6 @@ const GalleryForm: React.FC = () => {
                 <input type='text' id='contents' name='contents' onChange={galleryChange}
                     className="form-control"
                     placeholder="내용"
-                />
-                <input type='text' id='writer' name='writer'
-                    onChange={galleryChange} className="form-control"
-                    placeholder="작성자"
                 />
                 <input
                     className={styles.input}

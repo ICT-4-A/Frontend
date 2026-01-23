@@ -12,7 +12,7 @@ interface galleryItem{
   writer: string;
   reip: string;
   hit: number;
-  gdata: string;
+  gdate: string;
   getimglist: string[] | null;
 }
 
@@ -29,7 +29,7 @@ const GalleryDetail: React.FC = () => {
         return;
       }
       try {
-        const url = `${process.env.REACT_APP_BACK_END_URL}/myictstudy/gallery/gdetail`
+        const url = `${process.env.REACT_APP_BACK_END_URL}/gallery/gdetail`
         const response = await axios.get(url,{
           params:{num: parseInt(num)}
         });
@@ -51,14 +51,14 @@ if(!item) return <p>이미지를 찾을 수 없습니다.</p>
      <div className={styles.container}>
       <h2 className={styles.title}>{item.title}</h2>
       <div className={styles.detail}>
-        <p><strong>작성자:</strong>{styles.writer}</p>
-        <p><strong>내용:</strong>{styles.contents}</p>
-        <p><strong>작성일:</strong>{styles.gdata}</p>
-        <p><strong>조회수:</strong>{styles.hit}</p>
+        <p><strong>작성자:{item.writer}</strong></p>
+        <p><strong>내용:{item.contents}</strong></p>
+        <p><strong>작성일: {item.gdate}</strong></p>
+        <p><strong>조회수:{item.hit}</strong></p>
        <div className={styles.imageBOx}>
         {item.getimglist && item.getimglist.length > 0 ? (
           item.getimglist.map((img, idx) =>(
-            <img key={idx} src={`http://192.168.0.47/myictstudy/imgfile/gallery/${img}`}
+            <img key={idx} src={`${process.env.REACT_APP_BACK_END_URL}/imgfile/gallery/${img}`}
             alt={`img-${idx}`} className={styles.imge}/>
           ))
         ): (

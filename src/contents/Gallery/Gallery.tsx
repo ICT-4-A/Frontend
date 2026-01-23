@@ -67,7 +67,7 @@ const Gallery: React.FC = () => {
         {gallerylist.map(item => (
           <Link to={`/gallery/gdetail/${item.NUM}`} key={item.NUM} style={{ textDecoration: 'none' }}>
             <div className={styles.card}>
-              <div className={styles.cardTitle}>{item.NUM}</div>
+              <div className={styles.cardTitle}>{item.WRITER}</div>
               <img src={imageBasePath + item.IMAGENAME} alt={item.TITLE} />
               <div className={styles.cardTitle}>{item.TITLE}</div>
             </div>

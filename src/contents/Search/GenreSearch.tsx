@@ -11,6 +11,7 @@ interface MovieVO {
   genre: string;
   poster: string;
   release_date: string;
+  avg_rating?: number;
 }
 
 const GENRES = [
@@ -33,6 +34,7 @@ const GenreSearch: React.FC = () => {
   const [movies, setMovies] = useState<MovieVO[]>([]);
   const [originMovies, setOriginMovies] = useState<MovieVO[]>([]);
   const [loading, setLoading] = useState(true);
+
 
   const [searchType, setSearchType] = useState("2"); // 초기 드롭다운: 장르
   const [searchValue, setSearchValue] = useState("");
@@ -62,6 +64,8 @@ const GenreSearch: React.FC = () => {
     };
     fetchMovies();
   }, []);
+
+
 
   // 검색 
   const handleSearch = () => {
@@ -166,9 +170,8 @@ const GenreSearch: React.FC = () => {
         {GENRES.map((genre) => (
           <button
             key={genre.label}
-            className={`genre-btn ${
-              selectedGenre === genre.label ? "active" : ""
-            }`}
+            className={`genre-btn ${selectedGenre === genre.label ? "active" : ""
+              }`}
             onClick={() => {
               setSelectedGenre(genre.label);
               setCurrentPage(1);
@@ -204,7 +207,10 @@ const GenreSearch: React.FC = () => {
                       </Link>
                     </h5>
                     <span className="genre-badge">{movie.genre}</span>
-                    <div className="moive-rating">★ 5.0</div>
+                    <div className="moive-rating">
+                      ★ {movie.avg_rating?.toFixed(2) ?? '-'} 
+                    </div>
+
                   </div>
                 </div>
               </div>
@@ -236,9 +242,8 @@ const GenreSearch: React.FC = () => {
             ).map((page) => (
               <li
                 key={page}
-                className={`page-item ${
-                  page === currentPage ? "active" : ""
-                }`}
+                className={`page-item ${page === currentPage ? "active" : ""
+                  }`}
               >
                 <button
                   className="page-link"

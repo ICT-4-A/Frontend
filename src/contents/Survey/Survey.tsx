@@ -96,7 +96,6 @@ const Survey: React.FC = () => {
           </thead>
           <tbody>
             {displayList.map((s, idx) => {
-              console.log('렌더링 데이터 :', s);
               const isHot = currentPage === 1 && idx < hotCount;
 
               let no = 0;
