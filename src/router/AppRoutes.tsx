@@ -11,8 +11,7 @@ import MovieDetail from "../contents/Movie/MovieDetail";
 // import BoardDetail1 from "../contents/Board/Detail1";
 // import BoardDetail2 from "../contents/Board/Detail2";
 import BoardForm from "../contents/Board/BoardForm";
-import ToAdminForm from "../contents/Mypage/ToAdminForm";
-import ToAdminDetail from "../contents/Mypage/ToAdminDetail";
+
 import Login from "../contents/Login/Login";
 import SignUp from "../contents/SignUp/SignUp";
 import Diary from "../contents/Diary/Diary";

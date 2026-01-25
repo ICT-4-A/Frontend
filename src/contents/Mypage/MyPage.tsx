@@ -12,18 +12,18 @@ const MyPage: React.FC = () => {
   const [nickname, setNickname] = useState<string>("");
   const [memberGenre, setMemberGenre] = useState<string | null>(null);
   const [loginMemberNum, setLoginMemberNum] = useState<number | null>(null);
-  
+
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACK_END_URL}/movie/me`, { withCredentials: true })
       .then((res) => {
         setNickname(res.data.nickname); // 유저 닉네임
         setMemberGenre(res.data.member_genre);
-        setLoginMemberNum(res.data.member_num); 
+        setLoginMemberNum(res.data.member_num);
       })
       .catch((err) => console.error("유저 정보 로드 실패", err));
-  }, []); 
-  
+  }, []);
+
   return (
     <div className="mypage-wrapper">
       {/* 왼쪽 사이드바 */}
@@ -41,9 +41,8 @@ const MyPage: React.FC = () => {
 
         <nav className="mypage-menu">
           <button
-            className={`menu-item ${
-              selectedMenu === "profile" ? "active" : ""
-            }`}
+            className={`menu-item ${selectedMenu === "profile" ? "active" : ""
+              }`}
             onClick={() => setSelectedMenu("profile")}
           >
             <span className="menu-icon">👤</span>
@@ -52,9 +51,8 @@ const MyPage: React.FC = () => {
 
           {/* 친구 목록 탭  */}
           <button
-            className={`menu-item ${
-              selectedMenu === "friends" ? "active" : ""
-            }`}
+            className={`menu-item ${selectedMenu === "friends" ? "active" : ""
+              }`}
             onClick={() => setSelectedMenu("friends")}
           >
             <span className="menu-icon">👥</span>
@@ -99,7 +97,7 @@ const MyPage: React.FC = () => {
       <section className="mypage-main">
         {selectedMenu === "profile" && loginMemberNum && (
           <ProfileSection
-            memberNum={loginMemberNum}  
+            memberNum={loginMemberNum}
             currentGenre={memberGenre}
             onGenreChange={(newGenre) => setMemberGenre(newGenre)}
           />
@@ -119,7 +117,7 @@ export default MyPage;
 /* ============ 서브 컴포넌트 ============ */
 // ========== 회원 정보 수정 ==========
 interface ProfileProps {
-  memberNum: number; 
+  memberNum: number;
   currentGenre: string | null;
   onGenreChange: (newGenre: string) => void;
 }
@@ -248,13 +246,13 @@ interface MemberVO {
 }
 
 interface FriendRequestVO {
-  id: number;             
-  requester_id: string;  
-  receiver_id: string;   
+  id: number;
+  requester_id: string;
+  receiver_id: string;
   status: string;  // pending, accept, reject     
-  request_date: string;   
-  nickname: string;     
-  member_genre: string;  
+  request_date: string;
+  nickname: string;
+  member_genre: string;
 }
 
 const FriendsSection: React.FC = () => {
@@ -263,15 +261,15 @@ const FriendsSection: React.FC = () => {
   const [allMembersExceptMe, setAllMembersExceptMe] = useState<MemberVO[]>([]);
 
   React.useEffect(() => {
-  axios
-    .get(`${process.env.REACT_APP_BACK_END_URL}/api/friends/members`, { withCredentials: true }) // 세션 쿠키 포함
-    .then(res => setAllMembersExceptMe(res.data))
-    .catch(err => console.error("Members load error", err));
+    axios
+      .get(`${process.env.REACT_APP_BACK_END_URL}/api/friends/members`, { withCredentials: true }) // 세션 쿠키 포함
+      .then(res => setAllMembersExceptMe(res.data))
+      .catch(err => console.error("Members load error", err));
 
     axios
       .get(`${process.env.REACT_APP_BACK_END_URL}/api/friends/incoming`, { withCredentials: true })
       .then((res) => {
-        console.log("친구 요청 데이터:", res.data);  
+        console.log("친구 요청 데이터:", res.data);
         setRequestFriends(res.data);
       })
       .catch((err) => console.error("Friend requests load error", err));
@@ -288,21 +286,21 @@ const FriendsSection: React.FC = () => {
   }, []);
 
   // 친구 추가 
-  const sendFriendRequest = (receiverId:string) => {
-  axios.post(
-  `${process.env.REACT_APP_BACK_END_URL}/api/friends/request`,
-      {receiver_id: receiverId },
-      {withCredentials:true }
+  const sendFriendRequest = (receiverId: string) => {
+    axios.post(
+      `${process.env.REACT_APP_BACK_END_URL}/api/friends/request`,
+      { receiver_id: receiverId },
+      { withCredentials: true }
     )
-    .then(() => {
-      alert("친구 요청을 보냈습니다");
-      // 목록에서 제거
-      setAllMembersExceptMe(prev =>
-            prev.filter(m => m.nickname !== receiverId)
-          );
-        })
-        .catch(err =>console.error("Friend request error", err));
-      };
+      .then(() => {
+        alert("친구 요청을 보냈습니다");
+        // 목록에서 제거
+        setAllMembersExceptMe(prev =>
+          prev.filter(m => m.nickname !== receiverId)
+        );
+      })
+      .catch(err => console.error("Friend request error", err));
+  };
 
   // 친구 요청 수락/거절
   const respondRequest = (id: number, action: "accept" | "reject") => {
@@ -311,7 +309,7 @@ const FriendsSection: React.FC = () => {
       { id, action },
       { withCredentials: true }
     )
-    .then(() => {
+      .then(() => {
         // alert 창으로 알림
         if (action === "accept") {
           alert("친구 요청을 수락했습니다.");
@@ -319,18 +317,18 @@ const FriendsSection: React.FC = () => {
           alert("친구 요청을 거절했습니다.");
         }
 
-      // 성공 시 목록에서 제거
-      setRequestFriends(prev => prev.filter(r => r.id !== id));
+        // 성공 시 목록에서 제거
+        setRequestFriends(prev => prev.filter(r => r.id !== id));
 
-      // 수락할 경우
-      if (action === "accept") {
-        axios.get(
-          `${process.env.REACT_APP_BACK_END_URL}/api/friends/myfriends`,
-          { withCredentials: true }
-        ).then(res => setMyFriends(res.data));
-      }
-    })
-    .catch(err => console.error("Respond error", err));
+        // 수락할 경우
+        if (action === "accept") {
+          axios.get(
+            `${process.env.REACT_APP_BACK_END_URL}/api/friends/myfriends`,
+            { withCredentials: true }
+          ).then(res => setMyFriends(res.data));
+        }
+      })
+      .catch(err => console.error("Respond error", err));
   };
 
 
@@ -353,20 +351,20 @@ const FriendsSection: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-                    {allMembersExceptMe.map((f, idx) => (
-                      <tr key={f.member_num}>
-                        <td>{allMembersExceptMe.length - idx}</td>
-                        <td>{f.nickname}</td>
-                        <td>{f.member_genre}</td>
-                        <td>
-                          <button 
-                            className="friend-btn"
-                            onClick={() => sendFriendRequest(f.nickname)}
-                          >친구 신청
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
+              {allMembersExceptMe.map((f, idx) => (
+                <tr key={f.member_num}>
+                  <td>{allMembersExceptMe.length - idx}</td>
+                  <td>{f.nickname}</td>
+                  <td>{f.member_genre}</td>
+                  <td>
+                    <button
+                      className="friend-btn"
+                      onClick={() => sendFriendRequest(f.nickname)}
+                    >친구 신청
+                    </button>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -483,7 +481,7 @@ const MovieListSection: React.FC = () => {
     <>
       <h2 className="mypage-title">작성한 영화 기록</h2>
       <table className="table mypage-table align-middle">
-        <colgroup><col style={{ width: "50px" }}/><col /><col /></colgroup>
+        <colgroup><col style={{ width: "50px" }} /><col /><col /></colgroup>
         <thead>
           <tr>
             <th>No</th>
@@ -501,7 +499,7 @@ const MovieListSection: React.FC = () => {
                   <img
                     src={log.poster}
                     className="mypage-poster"
-                    alt={log.title}/>
+                    alt={log.title} />
 
                   <div className="mypage-movie-info">
                     <div className="mypage-movie-title">
@@ -552,10 +550,10 @@ const BoardListSection: React.FC = () => {
   React.useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_BACK_END_URL}/board/mylist`, {
-        withCredentials: true, 
+        withCredentials: true,
       })
       .then((res) => {
-        setBoardList(res.data); 
+        setBoardList(res.data);
       })
       .catch((err) => {
         console.error("MyPage board list load error", err);
@@ -563,85 +561,116 @@ const BoardListSection: React.FC = () => {
   }, []);
 
 
-  return(
-  <>
-    <h2 className="mypage-title">작성한 게시글</h2>
-    <table className="table mypage-table align-middle">
-      <colgroup><col style={{ width: "70px" }}/><col /><col style={{ width: "200px" }}/></colgroup>
+  return (
+    <>
+      <h2 className="mypage-title">작성한 게시글</h2>
+      <table className="table mypage-table align-middle">
+        <colgroup><col style={{ width: "70px" }} /><col /><col style={{ width: "200px" }} /></colgroup>
 
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>제목</th>
-          <th>날짜</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        {boardList.length === 0 ? (
+        <thead>
           <tr>
-            <td colSpan={3} style={{ textAlign: "center", padding: "20px" }}>
-              작성한 게시글이 없습니다.
-            </td>
+            <th>No</th>
+            <th>제목</th>
+            <th>날짜</th>
           </tr>
-        ) : (
-          boardList.map((board, idx) => (
-            <tr key={board.num}>
-              <td>{boardList.length - idx}</td>
-              <td>
-                <Link to={`/board/detail/${board.num}`}>
-                  {board.title}
-                </Link>
+        </thead>
+
+        <tbody>
+          {boardList.length === 0 ? (
+            <tr>
+              <td colSpan={3} style={{ textAlign: "center", padding: "20px" }}>
+                작성한 게시글이 없습니다.
               </td>
-              <td>{board.bdate}</td>
             </tr>
-          ))
-        )}
-      </tbody>
+          ) : (
+            boardList.map((board, idx) => (
+              <tr key={board.num}>
+                <td>{boardList.length - idx}</td>
+                <td>
+                  <Link to={`/board/detail/${board.num}`}>
+                    {board.title}
+                  </Link>
+                </td>
+                <td>{board.bdate}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
 
 
-    </table>
-  </>
-);
+      </table>
+    </>
+  );
 };
 
 // ========== 작성한 갤러리 ==========
-const GalleryListSection: React.FC = () => (
-  <>
-    <h2 className="mypage-title">작성한 갤러리</h2>
-    <table className="table mypage-table align-middle">
-      <colgroup>
-        <col style={{ width: "30px" }} /> {/* No */}
-        <col />  {/* 게시글 */}
-      </colgroup>
+interface GalleryVO {
+  num: number;
+  title: string;
+  writer: string;
+  gdate: string;
+  getimglist: string[];  // 대표 이미지 1개
+}
 
-      <thead>
-        <tr>
-          <th>No</th>
-          <th>게시글</th>
-        </tr>
-      </thead>
-      
-      <tbody>
-        <tr>
-          <td>3</td>
-          <td>
-            <div className="mypage-movie-row">
-              <img
-                src="/images/poster2.jpg"
-                className="mypage-poster"
-                alt="위키드"
-              />
-              <div className="mypage-movie-info">
-                시즌1보다 아쉽지만 그래도 재밌었어요
-              </div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </>
-);
+
+const GalleryListSection: React.FC = () => {
+  const [galleryList, setGalleryList] = useState<GalleryVO[]>([]);  // 👈 추가
+
+  React.useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACK_END_URL}/gallery/mylist`, {  // 👈 API 호출
+        withCredentials: true
+      })
+      .then((res) => {
+        setGalleryList(res.data);  // 👈 데이터 저장
+      })
+      .catch((err) => {
+        console.error("MyPage gallery list load error", err);
+      });
+  }, []);
+
+  return (
+    <>
+      <h2 className="mypage-title">작성한 갤러리</h2>
+      <table className="table mypage-table align-middle">
+        <colgroup>
+          <col style={{ width: "70px" }} />
+          <col />
+          <col style={{ width: "200px" }} />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>갤러리</th>
+            <th>작성일</th>
+          </tr>
+        </thead>
+        <tbody>
+          {galleryList.length === 0 ? (
+            <tr>
+              <td colSpan={3} style={{ textAlign: "center", padding: "20px" }}>
+                작성한 게시글이 없습니다.
+              </td>
+            </tr>
+          ) : (
+            galleryList.map((gallery, idx) => (
+              <tr key={gallery.num}>
+                <td>{galleryList.length - idx}</td>
+                <td>
+                  <Link to={`/gallery/gdetail/${gallery.num}`}>
+                    {gallery.title}
+                  </Link>
+                </td>
+                <td>{gallery.gdate}</td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
+    </>
+  );
+
+};
 
 
 // ========== 장르 통계 ==========
