@@ -8,7 +8,7 @@ interface MemberForm {
   email: string;
   password: string;
   nickname: string;
-  genre: string[];
+  member_genre: string[];
 }
 
 const SignUp: React.FC = () => {
@@ -26,7 +26,7 @@ const SignUp: React.FC = () => {
     email: '',
     password: '',
     nickname: '',
-    genre: [],
+    member_genre: [],
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,14 +36,15 @@ const SignUp: React.FC = () => {
 
   const handleGenreChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const options = Array.from(e.target.selectedOptions).map(option => option.value);
-    setForm(prev => ({ ...prev, genre: options }));
+    setForm(prev => ({ ...prev, member_genre: options }));
   };
+
 
 
   const nicknameCheck = async () => {
 
     try {
-      const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/member/nicknameCheck?nickname=${form.nickname}`);
+      const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/api/member/nicknameCheck?nickname=${form.nickname}`);
 
       if (res.data === 0) {
         alert('사용 가능한 닉네임입니다.');
@@ -113,27 +114,40 @@ const SignUp: React.FC = () => {
       return;
     }
 
-    if (!form.email || !form.password || !form.nickname || !form.genre) {
+    if (!form.email || !form.password || !form.nickname || !form.member_genre) {
       alert('모든 필드를 입력해주세요.');
       return;
     }
 
     try {
-      const formData = new FormData();
-      await axios.post(`${process.env.REACT_APP_BACK_END_URL}/member/signup`, {
+      const payload = {
         email: form.email,
         password: form.password,
         nickname: form.nickname,
-        genre: form.genre.join(',')
+        member_genre: form.member_genre.join(',')  // 배열 그대로 전송
+      };
 
-      });
-      alert('회원가입 완료')
+      console.log('전송 데이터:', payload);  // 디버그
+
+      await axios.post(
+        `${process.env.REACT_APP_BACK_END_URL}/api/member/signup`,
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+          , withCredentials: true,
+
+        }
+      );
+
+      alert('회원가입 완료!');
       navigate('/');
-    } catch (error) {
-      console.log(error);
-      alert('회원 가입 실패')
+    } catch (error: any) {
+      console.error('상세 에러:', error.response?.data);
+      alert('회원가입 실패: ' + (error.response?.data?.message || '서버 오류'));
     }
-  }
+  };
 
 
   return (
@@ -272,9 +286,9 @@ const SignUp: React.FC = () => {
             <option value="애니메이션">애니메이션</option>
           </select>
           {/* 선택된 장르 표시 */}
-          {form.genre.length > 0 && (
+          {form.member_genre.length > 0 && (
             <div className="selected-genres">
-              선택됨: {form.genre.join(', ')}
+              선택됨: {form.member_genre.join(', ')}
             </div>
           )}
         </div>

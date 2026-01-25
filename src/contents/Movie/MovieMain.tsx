@@ -131,8 +131,8 @@ const MovieMain: React.FC = () => {
         {movieLogs.map((log) => (
           <div key={log.num} className="card movieLog-card">
             <div className="row g-0">
-              <div className="col-md-3">
-                <img src={`${log.poster}`} alt={log.title} className="img-fluid rounded-start poster-img" />
+              <div className="col-md-3 poster-col">
+                <img src={`${log.poster}`} alt={log.title} className="img-fluid rounded-start poster-img main-poster" />
               </div>
               <div className="col-md-9">
                 <div className="card-body">
