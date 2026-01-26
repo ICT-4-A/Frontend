@@ -35,7 +35,6 @@ const MovieForm: React.FC = () => {
   const location = useLocation();
   const state = location.state as { movie: MovieVO } | null;
   const navigate = useNavigate();
-
  
   const [currentUser, setCurrentUser] = useState<{ nickname: string } | null>(null); // 로그인 유저
   const [friends, setFriends] = useState<MemberVO[]>([]); // 친구 목록

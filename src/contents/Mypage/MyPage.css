@@ -168,7 +168,7 @@
   color: #868e96;
 }
 
-/* 장르 배지 (부트스트랩 badge 느낌) */
+/* 장르 배지 */
 .badge-btn {
   border: none;
   padding: 2px 10px;
@@ -191,7 +191,6 @@
   margin: 0;
 }
 
-/* 관리자 문의용 글쓰기 버튼 (Bootstrap 5 느낌) */
 .mypage-write-btn {
   padding: 6px 14px;
   border-radius: 6px;
@@ -318,28 +317,24 @@
   overflow-y: auto;
 }
 
-/* 위: 친구 신청(2~3개 정도 보이는 높이) */
 .friends-table-wrapper.small {
-  max-height: 170px; /* 필요하면 150~190px 사이로 조절 */
+  max-height: 170px; 
 }
-
-/* 아래: 친구 목록(5~6개 정도 보이는 높이) */
 .friends-table-wrapper.large {
-  max-height: 260px; /* 필요하면 240~280px 사이로 조절 */
+  max-height: 260px; 
   margin-top: 8px;
 }
 
-/* 스크롤바 살짝만 보이게 */
+/* 친구 목록 스크롤바 */
 .friends-table-wrapper::-webkit-scrollbar {
   width: 6px;
 }
-
 .friends-table-wrapper::-webkit-scrollbar-thumb {
   background-color: #dee2e6;
   border-radius: 999px;
 }
 
-/* 친구 신청 수락/거절 버튼 */
+/* 친구 관리 버튼 */
 .friend-btn {
   border-radius: 999px;
   padding: 3px 10px;
@@ -420,7 +415,7 @@
   position: relative;
 }
 
-/* 막대 안쪽 색상 + 그림자 + 애니메이션 */
+/* 막대 색상 */
 .stats-bar-inner {
   width: 100%;
   border-radius: 8px 8px 0 0;

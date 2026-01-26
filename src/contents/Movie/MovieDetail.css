@@ -5,7 +5,7 @@
   padding: 0 16px;
 }
 
-/* 🔹 상세 카드 */
+/* 상세 카드 */
 .movieDetail-card {
   background-color: #fff;
   border-radius: 14px;
@@ -69,7 +69,7 @@
   margin-left: 10px;
 }
 
-/* 🔹 한줄평 */
+/* 한줄평 */
 .movieDetail-simpleReview {
   margin-top: 24px;
   padding: 18px;
@@ -88,7 +88,7 @@
   line-height: 1.6;
 }
 
-/* 🔹 전체 리뷰 */
+/* 전체 리뷰 */
 .movieDetail-review {
   margin-top: 20px;
   padding: 22px;
@@ -107,7 +107,6 @@
   line-height: 1.7;
   white-space: pre-line;
 }
-
 
 /* 댓글 전체 영역 */
 .movieComm-wrapper {
@@ -178,7 +177,6 @@
   padding: 16px 14px;
   border-bottom: 1px solid #e0e0e0;
 }
-
 .movieComm-item:last-child {
   border-bottom: none;
 }

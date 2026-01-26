@@ -39,10 +39,7 @@ const SignUp: React.FC = () => {
     setForm(prev => ({ ...prev, member_genre: options }));
   };
 
-
-
   const nicknameCheck = async () => {
-
     try {
       const res = await axios.get(`${process.env.REACT_APP_BACK_END_URL}/api/member/nicknameCheck?nickname=${form.nickname}`);
 
@@ -99,7 +96,6 @@ const SignUp: React.FC = () => {
     }
   }
 
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -126,8 +122,7 @@ const SignUp: React.FC = () => {
         nickname: form.nickname,
         member_genre: form.member_genre.join(',')  // 배열 그대로 전송
       };
-
-      console.log('전송 데이터:', payload);  // 디버그
+      console.log('전송 데이터:', payload);  
 
       await axios.post(
         `${process.env.REACT_APP_BACK_END_URL}/api/member/signup`,
@@ -137,7 +132,6 @@ const SignUp: React.FC = () => {
             'Content-Type': 'application/json'
           }
           , withCredentials: true,
-
         }
       );
 
@@ -153,7 +147,6 @@ const SignUp: React.FC = () => {
   return (
     <div className="signup-wrapper">
       <h1 className="signup-title">Sign Up</h1>
-
       <form className="signup-form" onSubmit={handleSubmit}>
         {/* 닉네임 */}
         <div className="signup-field">
@@ -169,15 +162,12 @@ const SignUp: React.FC = () => {
               placeholder="닉네임을 입력해주세요."
               value={form.nickname}
               onChange={handleChange}
-
-
             />
             <button type="button" className="email-check-btn" onClick={nicknameCheck}>
               중복확인
             </button>
           </div>
         </div>
-
 
         {/* 이메일 + 중복 확인 */}
         <div className="signup-field">
@@ -265,7 +255,7 @@ const SignUp: React.FC = () => {
           </div>
         </div>
 
-        {/* 선호 영화 장르 */}
+        {/* 선호 장르 */}
         <div className="signup-field">
           <label htmlFor="favoriteGenre" className="signup-label">
             선호 영화 장르 ( Ctrl + 클릭 !! )

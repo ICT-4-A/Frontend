@@ -1,4 +1,3 @@
-// src/contents/Auth/Login.tsx
 import React, { useState } from "react";
 import "./Login.css";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
@@ -53,8 +52,7 @@ const Login: React.FC = () => {
   };
 
 
-
-  // 패스워드 리스 함수 qr 생성 및 등록
+  // 패스워드 리스 함수 QR 생성 및 등록
   const startPasswordless = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
@@ -77,16 +75,13 @@ const Login: React.FC = () => {
 
       if (!idCheckRes.ok) throw new Error('ID 체크 실패');
 
-
-
       const idCheckData = await idCheckRes.json();
       console.log('ID 체크 응답:', idCheckData);
 
       const passwordlessToken = idCheckData.PasswordlessToken.trim(); // 전달받아서 날아온 token 값
-
-
-      //QR 생성
-      console.log('📤 QR 생성 요청...', formData.email, passwordlessToken);
+    
+      // QR 생성
+      console.log('QR 생성 요청', formData.email, passwordlessToken);
 
       const qrRes = await fetch(`${process.env.REACT_APP_BACK_END_URL}/api/login/passwordlessCallApi`, {
         method: 'POST',
@@ -98,7 +93,7 @@ const Login: React.FC = () => {
         })
       });
 
-      console.log('📥 QR 상태:', qrRes.status);
+      console.log('QR 상태:', qrRes.status);
       const qrtext = await qrRes.text();
       const qrdata = JSON.parse(qrtext)
       console.log('QR 체크 응답 ', qrdata);
@@ -115,8 +110,6 @@ const Login: React.FC = () => {
     }
 
   };
-
-
 
 
   // ===== Passwordless 로그인 핸들러 (기존 startPasswordless 변형) =====
@@ -216,8 +209,6 @@ const Login: React.FC = () => {
   return (
     <div className="login-wrapper">
       <h1 className="login-title">Login</h1>
-
-      {/* 탭 */}
       <div className="login-tabs">
         <button
           type="button"
@@ -468,8 +459,6 @@ const Login: React.FC = () => {
       </form>
     </div>
   );
-
-
 };
 
 export default Login;

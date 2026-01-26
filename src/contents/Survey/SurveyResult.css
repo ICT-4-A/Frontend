@@ -41,8 +41,8 @@
   margin-bottom: 10px;
 }
 
+/* 1위 항목 강조 */
 .result-item.top {
-  /* 1등 항목 약간 강조 */
   background-color: #eff6ff;
 }
 

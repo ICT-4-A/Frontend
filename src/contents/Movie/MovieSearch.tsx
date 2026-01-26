@@ -20,8 +20,6 @@ const MovieSearch: React.FC = () => {
   const [movieList, setMovieList] = useState<MovieVO[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<MovieVO | null>(null);
 
-
-
   const searchFunction = async () => {
     if (!searchValue.trim()) {
       alert("검색어를 입력해주세요!");
@@ -53,8 +51,7 @@ const MovieSearch: React.FC = () => {
     } 
     navigate(`/movieform/${selectedMovie?.num}`,{state: {movie: selectedMovie}})
   };
-
-
+  
 
   return (
     <div className="movie-search-container">

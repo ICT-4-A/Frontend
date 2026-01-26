@@ -16,7 +16,7 @@ interface BoardCommVO {
 }
 
 const BoardComm: React.FC<BoardCommProps> = ({ num }) => {
-   const { member, logout } = useAuth();
+  const { member, logout } = useAuth();
   const [comments, setComments] = useState<BoardCommVO[]>([]);
   const getComments = async () => {
     try {
@@ -38,8 +38,6 @@ const BoardComm: React.FC<BoardCommProps> = ({ num }) => {
   const [content, setContent] = useState("");
   const commentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-  
 
     const commentData = {
       ucode: num,

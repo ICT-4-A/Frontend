@@ -55,55 +55,52 @@ const BoardForm: React.FC = () => {
             <form onSubmit={myFormSubmit}>
                 <table>
                     <tbody>
-                {/* 제목 입력 */}
-                <tr>
-                    <th>제목</th>
-                    <td>
-                        <input
-                            id="title" name="title" type="text" className={style.title}
-                            placeholder="제목을 입력하세요."
-                            value={formData.title}
-                            onChange={formChange} required maxLength={30} />
-                        {/* 글자 수 카운터 */}
-                        <span className={style.counter}>
-                            {formData.title.length}/50
-                        </span>
-                    </td>
-                    {/* 에러 안내문 (UI만) */}
-                    {errors.title && (
-                        <p className={style.errormsg}>※ 제목을 입력해주세요.</p>)}
-                </tr>
-                {/* 내용 입력 */}
-                <tr>
-                    <th>내용</th>
-                    <td>
-                    <textarea
-                        id="content" name="content" className={style.content}
-                        placeholder="내용을 입력하세요." value={formData.content}
-                        onChange={formChange}/>
-                    {/* 에러 안내문 (UI만) */}
-                    {errors.content && (
-                        <p className={style.errormsg}>※ 내용을 입력해주세요.</p>)}
-                        </td>
-                </tr>
-                </tbody>
-                {/* 버튼 */}
-                 <tfoot>
-                <tr className={style.buttongroup}>
-                    <th colSpan={2}>
-                    <button type="submit" className={style.button1}>등록하기</button>
-                    <button type="button" className={style.button2}
-                        onClick={() => navigate(-1)}>취소</button>
-                        </th>
-                </tr>
-                </tfoot>
+                        {/* 제목 입력 */}
+                        <tr>
+                            <th>제목</th>
+                            <td>
+                                <input
+                                    id="title" name="title" type="text" className={style.title}
+                                    placeholder="제목을 입력하세요."
+                                    value={formData.title}
+                                    onChange={formChange} required maxLength={30} />
+                                {/* 글자 수 카운터 */}
+                                <span className={style.counter}>
+                                    {formData.title.length}/50
+                                </span>
+                            </td>
+                            {/* 에러 안내문 (UI만) */}
+                            {errors.title && (
+                                <p className={style.errormsg}>※ 제목을 입력해주세요.</p>)}
+                        </tr>
+                        {/* 내용 입력 */}
+                        <tr>
+                            <th>내용</th>
+                            <td>
+                            <textarea
+                                id="content" name="content" className={style.content}
+                                placeholder="내용을 입력하세요." value={formData.content}
+                                onChange={formChange}/>
+                            {/* 에러 안내문 (UI만) */}
+                            {errors.content && (
+                                <p className={style.errormsg}>※ 내용을 입력해주세요.</p>)}
+                                </td>
+                        </tr>
+                    </tbody>
+
+                    {/* 버튼 */}
+                    <tfoot>
+                        <tr className={style.buttongroup}>
+                            <th colSpan={2}>
+                                <button type="submit" className={style.button1}>등록하기</button>
+                                <button type="button" className={style.button2} onClick={() => navigate(-1)}>취소</button>
+                            </th>
+                        </tr>
+                    </tfoot>
                 </table>
             </form>
         </div>
-
-
     );
 };
-
 
 export default BoardForm;

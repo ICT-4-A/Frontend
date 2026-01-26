@@ -33,8 +33,6 @@ import GalleryDetail from "../contents/Gallery/GalleryDetail";
 import GalleryForm from "../contents/Gallery/GalleryForm";
 import RequireAuth from "../components/RequireAuth";
 
-
-
 const AppRoutes: React.FC = () => {
   const routeList = [
     { path: "/", element: <MovieLog /> },
@@ -42,6 +40,7 @@ const AppRoutes: React.FC = () => {
     { path: "/moviesearch", element: <RequireAuth><MovieSearch /></RequireAuth> },
     { path: "/movieform/:num", element: <RequireAuth><MovieForm /></RequireAuth> },
     { path: "/movie/detail/:num", element: <RequireAuth><MovieDetail /></RequireAuth> },
+    { path: "/MovieInfo/:movieId", element: <MovieInfo /> },
 
     { path: "/Diary", element: <Diary /> },
 
@@ -49,19 +48,13 @@ const AppRoutes: React.FC = () => {
     { path: "/Search/Director", element: <DirectorSearch /> },
     { path: "/Search/Actor", element: <ActorSearch /> },
 
-    { path: "/MovieInfo/:movieId", element: <MovieInfo /> },
-
-
     { path: '/board/list', element: <RequireAuth><BoardList/></RequireAuth>},
     { path: '/board/form', element: <BoardForm/>},
     { path: '/board/detail/:num', element: <BoardDetail/>},
     
-   
     { path: '/gallery', element: <RequireAuth><Gallery /></RequireAuth> },
     { path: '/gallery/write', element: <GalleryForm /> },
     { path: '/gallery/gdetail/:num', element: <GalleryDetail /> },
-
-
 
     { path: "/mypage", element: <Mypage /> },
 

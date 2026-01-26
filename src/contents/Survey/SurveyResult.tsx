@@ -44,7 +44,6 @@ const SurveyResult: React.FC = () => {
   return (
     <div className="survey-wrap">
       <h2 className="survey-title">{surveyDetail.sub}</h2>
-
       <div className="survey-box">
         <ul className="survey-result-list">
           {surveyDetail.contents.map((item, idx) => {

@@ -47,7 +47,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
             if (res.data === 'success') {
 
-                //로그인 성공 했으니 상태정보를 불러오는 메서드를 호출
+                //로그인 성공 후, 상태정보를 불러오는 메서드를 호출
                 await checkLogin();
                 return 'success';
             } else {

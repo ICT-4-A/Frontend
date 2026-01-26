@@ -34,7 +34,7 @@ const SurveyForm: React.FC = () => {
         `${REACT_APP_BACK_END_URL}/api/survey/addsurvey`,
         payload,
          {
-          withCredentials: true,  // ← 세션 쿠키 전송 (핵심!)
+          withCredentials: true,  // 세션 쿠키 전송 
           headers: {
             'Content-Type': 'application/json'
           }
