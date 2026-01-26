@@ -3,7 +3,6 @@ import styles from './gallery.module.css';
 import { useNavigate } from 'react-router-dom';
 import { resolve } from 'path';
 
-
 interface FormData {
     num: number;
     title: string;
@@ -12,12 +11,8 @@ interface FormData {
     reip?: string;
     hit?: number;
     gdate?: string;
-
     images: File[];
 }
-
-
-
 
 const GalleryForm: React.FC = () => {
 
@@ -43,8 +38,6 @@ const GalleryForm: React.FC = () => {
                 const reader = new FileReader();
                 reader.readAsDataURL(file);
 
-
-
                 return new Promise<string>((resolve) => {
                     reader.onload = () => {
                         resolve(reader.result as string)
@@ -60,9 +53,6 @@ const GalleryForm: React.FC = () => {
         } else {
             setFormData({ ...formData, [name]: value })
         }
-
-
-
     }
 
     const gallerySubmit = async (e: React.FormEvent) => {
@@ -89,6 +79,7 @@ const GalleryForm: React.FC = () => {
             console.log('전송 오류 :', error)
         }
     }
+
     return (
         <div className={styles.container}>
             <h2 className={styles.title}>이미지 등록</h2>
@@ -97,20 +88,22 @@ const GalleryForm: React.FC = () => {
                     className={styles.input} name='title'
                     type="text"
                     placeholder="제목 입력"
-
                     onChange={galleryChange}
                 />
-                <input type='text' id='contents' name='contents' onChange={galleryChange}
-                    className="form-control"
-                    placeholder="내용"
+                <input 
+                    className="form-control" 
+                    name='contents' id='contents'
+                    type='text' 
+                    placeholder="내용"           
+                    onChange={galleryChange}
                 />
                 <input
                     className={styles.input}
                     type="file" name='image' multiple
                     placeholder="이미지 URL 입력"
-
                     onChange={galleryChange}
                 />
+                
                 {/* 이미지 미리보기 */}
                 {
                     preview.length > 0 && (

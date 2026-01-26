@@ -14,7 +14,7 @@
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease-in-out;
 }
-/* 리뷰 카드: 한 줄에 두 개 */
+/* 리뷰 카드: 한 줄에 두 개씩 */
 .movieinfo-review-card {
   width: calc(50% - 8px);
   border-radius: 12px;
@@ -30,7 +30,7 @@
   transform: translateY(-4px);
 }
 
-/* 상단: 포스터 + 정보 */
+/* 상단: 포스터 + 영화 정보 */
 .movieinfo-top {
   display: flex;
   gap: 36px;
@@ -182,7 +182,7 @@
   margin: 0;
 }
 
-/* ==== 별점 막대 (옵션) ==== */
+/* ==== 별점 막대 ==== */
 .movieinfo-bar-list {
   margin-top: 6px;
 }

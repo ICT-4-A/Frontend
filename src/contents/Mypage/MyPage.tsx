@@ -1,4 +1,3 @@
-// src/components/MyPage/MyPage.tsx
 import React, { useEffect, useState } from "react";
 import "./MyPage.css";
 import { Link } from "react-router-dom";
@@ -18,7 +17,7 @@ const MyPage: React.FC = () => {
       .get(`${process.env.REACT_APP_BACK_END_URL}/movie/me`, { withCredentials: true })
       .then((res) => {
         setNickname(res.data.nickname); // 유저 닉네임
-        setMemberGenre(res.data.member_genre);
+        setMemberGenre(res.data.member_genre); // 선호 장르
         setLoginMemberNum(res.data.member_num);
       })
       .catch((err) => console.error("유저 정보 로드 실패", err));
@@ -114,7 +113,7 @@ const MyPage: React.FC = () => {
 
 export default MyPage;
 
-/* ============ 서브 컴포넌트 ============ */
+/* ============= 서브 컴포넌트 ============= */
 // ========== 회원 정보 수정 ==========
 interface ProfileProps {
   memberNum: number;
@@ -532,6 +531,7 @@ const MovieListSection: React.FC = () => {
   );
 };
 
+
 // ========== 작성한 게시글 ==========
 interface BoardVO {
   num: number;
@@ -542,7 +542,6 @@ interface BoardVO {
   reip: string;
   bdate: string;
 }
-
 
 const BoardListSection: React.FC = () => {
   const [boardList, setBoardList] = React.useState<BoardVO[]>([]);
@@ -596,8 +595,6 @@ const BoardListSection: React.FC = () => {
             ))
           )}
         </tbody>
-
-
       </table>
     </>
   );
@@ -612,17 +609,16 @@ interface GalleryVO {
   getimglist: string[];  // 대표 이미지 1개
 }
 
-
 const GalleryListSection: React.FC = () => {
-  const [galleryList, setGalleryList] = useState<GalleryVO[]>([]);  // 👈 추가
+  const [galleryList, setGalleryList] = useState<GalleryVO[]>([]); 
 
   React.useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BACK_END_URL}/gallery/mylist`, {  // 👈 API 호출
+      .get(`${process.env.REACT_APP_BACK_END_URL}/gallery/mylist`, {  
         withCredentials: true
       })
       .then((res) => {
-        setGalleryList(res.data);  // 👈 데이터 저장
+        setGalleryList(res.data); 
       })
       .catch((err) => {
         console.error("MyPage gallery list load error", err);
@@ -669,7 +665,6 @@ const GalleryListSection: React.FC = () => {
       </table>
     </>
   );
-
 };
 
 
@@ -706,10 +701,8 @@ const StatsSection: React.FC = () => {
   // 최대값 기준으로 막대 높이 계산
   const values = Object.values(genreStats);
   const maxValue = values.length > 0 ? Math.max(...values) : 0;
-
   const getHeight = (value: number) => {
     if (maxValue === 0) return 0;
-    // 최소 높이 8px 보장 (값이 작아도 보이게)
     return Math.max((value / maxValue) * 180, 8);
   };
 

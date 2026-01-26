@@ -50,7 +50,7 @@
   resize: vertical;
 }
 
-/* 별점 완벽 UI */
+/* 별점 UI */
 .movieform-stars-input {
   display: flex;
   align-items: center;
@@ -74,7 +74,9 @@
   cursor: default;
 }
 
-.star.full { color: #ffd700; }
+.star.full { 
+  color: #ffd700; 
+}
 .star.half { 
   color: #ffd700; 
   position: relative;
@@ -125,7 +127,6 @@
     justify-content: center;
   }
 }
-
 
 /* 버튼 */
 .movieform-footer {

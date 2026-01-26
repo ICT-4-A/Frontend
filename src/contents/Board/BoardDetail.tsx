@@ -66,7 +66,6 @@ const BoardDetail: React.FC = () => {
                 <tfoot>
                     <tr>
                         <td colSpan={2} style={{textAlign:'center'}}>
-                            {/* <button className='button1'>삭제</button>&nbsp; */}
                             <Link className='button2' to="/board/list">목록</Link>
                         </td>
                     </tr>

@@ -65,8 +65,6 @@ const GenreSearch: React.FC = () => {
     fetchMovies();
   }, []);
 
-
-
   // 검색 
   const handleSearch = () => {
     let filtered = originMovies.filter((movie) => {

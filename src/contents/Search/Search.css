@@ -22,11 +22,11 @@
 } 
 .search-input-wrap {
   width: 360px;  
-  flex: 0 0 170px; /* input 박스 가로 길이 */  
+  flex: 0 0 170px; 
 }
 .search-input-wrap .form-control {
-  height: 35px;        /* input 박스 세로 길이 */
-  padding: 2px 20px;   /* input 박스 안 글자 여백 조절 */
+  height: 35px;      
+  padding: 2px 20px;   
 }
 .search-box input:focus { 
   border-color: #4a90e2; 
